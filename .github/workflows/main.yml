@@ -44,7 +44,7 @@ jobs:
         uses: actions/dependency-review-action@v4
 
       - name: Lint pushed commit messages
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
         run: pnpm exec commitlint --from ${{ github.event.before }} --to ${{ github.sha }} --verbose
 
       - name: Lint PR commit messages
