@@ -10,7 +10,6 @@ const config = {
     "stylelint-high-performance-animation",
     "stylelint-no-indistinguishable-colors",
     "stylelint-gamut",
-    "stylelint-selector-bem-pattern",
     "stylelint-media-use-custom-media",
     "stylelint-use-nesting",
     "stylelint-plugin-use-baseline",
@@ -31,7 +30,6 @@ const config = {
     "scss/max-nesting-depth": 3,
 
     // Selector and class naming
-    "plugin/selector-bem-pattern": { preset: "suit" },
     "selector-max-id": 0,
     "selector-max-specificity": "0,3,2",
 
@@ -69,12 +67,6 @@ const config = {
       rules: {
         // More permissive rules for CSS modules
         "selector-class-pattern": null,
-        "plugin/selector-bem-pattern": {
-          preset: "suit",
-          presetOptions: {
-            namespace: false,
-          },
-        },
       },
     },
   ],

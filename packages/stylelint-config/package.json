@@ -27,26 +27,25 @@
   },
   "dependencies": {
     "stylelint-config-recess-order": "^7.2.0",
-    "stylelint-config-standard-scss": "^16.0.0",
-    "stylelint-declaration-block-no-ignored-properties": "^2.8.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^3.0.0",
     "stylelint-declaration-strict-value": "^1.10.11",
     "stylelint-gamut": "^2.0.0",
-    "stylelint-high-performance-animation": "^1.11.0",
+    "stylelint-high-performance-animation": "^2.0.0",
     "stylelint-media-use-custom-media": "^4.0.0",
     "stylelint-no-indistinguishable-colors": "^2.3.1",
     "stylelint-no-unresolved-module": "^2.4.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
     "stylelint-order": "^7.0.0",
     "stylelint-plugin-use-baseline": "^1.0.3",
-    "stylelint-selector-bem-pattern": "^4.0.1",
     "stylelint-use-nesting": "^6.0.0"
   },
   "peerDependencies": {
-    "stylelint": ">=16.19.1"
+    "stylelint": ">=17.0.0"
   },
   "devDependencies": {
-    "stylelint": "^16.23.1",
-    "stylelint-find-new-rules": "^5.0.0"
+    "stylelint": "^17.4.0",
+    "stylelint-find-new-rules": "^6.0.0"
   },
   "scripts": {
     "format:check": "prettier --check ."
