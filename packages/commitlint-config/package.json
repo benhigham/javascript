@@ -26,11 +26,11 @@
     "url": "https://github.com/benhigham/javascript/issues"
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^20.4.3",
-    "@commitlint/format": "^20.4.3"
+    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/format": "^20.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "catalog:",
-    "@commitlint/types": "^20.4.3"
+    "@commitlint/types": "^20.5.0"
   }
 }
