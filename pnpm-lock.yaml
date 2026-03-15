@@ -188,8 +188,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(stylelint@16.26.1(typescript@5.9.3))
       stylelint-high-performance-animation:
-        specifier: ^1.11.0
-        version: 1.11.0(stylelint@16.26.1(typescript@5.9.3))
+        specifier: ^2.0.0
+        version: 2.0.0(stylelint@16.26.1(typescript@5.9.3))
       stylelint-media-use-custom-media:
         specifier: ^4.0.0
         version: 4.1.0(stylelint@16.26.1(typescript@5.9.3))
@@ -3313,10 +3313,10 @@ packages:
     peerDependencies:
       stylelint: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  stylelint-high-performance-animation@1.11.0:
-    resolution: {integrity: sha512-bo+VfSH5RmjVmu61BZeN4cBK+PGHpG5jfvaUsw0db+1sAqKuEGjzmxEbf271/Jq3HJHj8wyi/rCg1IcxxnIiiQ==}
+  stylelint-high-performance-animation@2.0.0:
+    resolution: {integrity: sha512-wzxxfxJFyL7UKc91427EHmi6gNRXB0cBdsyCfIuXZFRb6Xv1qw8elNbF61e/tJRoRcavAGsZICivVsHCD3Mhug==}
     peerDependencies:
-      stylelint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      stylelint: ^17.0.0
 
   stylelint-media-use-custom-media@4.1.0:
     resolution: {integrity: sha512-KmrROVhMXd217NM+9PciFp9wu4pNQNx9lpPCqYMBLOVJREi3MbziYJRMP9X5FlaCLfQmbk6so5KdGEzG+4Oe5Q==}
@@ -7168,7 +7168,7 @@ snapshots:
       colorjs.io: 0.4.5
       stylelint: 16.26.1(typescript@5.9.3)
 
-  stylelint-high-performance-animation@1.11.0(stylelint@16.26.1(typescript@5.9.3)):
+  stylelint-high-performance-animation@2.0.0(stylelint@16.26.1(typescript@5.9.3)):
     dependencies:
       postcss-value-parser: 4.2.0
       stylelint: 16.26.1(typescript@5.9.3)
