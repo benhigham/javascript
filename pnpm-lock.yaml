@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@benhigham/commitlint-config':
-      specifier: ^1.0.0
-      version: 1.0.0
     '@changesets/changelog-github':
       specifier: ^0.6.0
       version: 0.6.0
@@ -33,8 +30,8 @@ importers:
   .:
     devDependencies:
       '@benhigham/commitlint-config':
-        specifier: 'catalog:'
-        version: 1.0.0(@commitlint/cli@20.4.4(@types/node@25.5.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3))
+        specifier: workspace:*
+        version: link:packages/commitlint-config
       '@changesets/changelog-github':
         specifier: 'catalog:'
         version: 0.6.0
@@ -303,12 +300,6 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
-
-  '@benhigham/commitlint-config@1.0.0':
-    resolution: {integrity: sha512-e6MvrTVvARSGSWweR9yMjp04sNC8409v3LeUTosMsw7Or2TdD4a9yz+wf1Ob/imQqp7BcrAPgJVNjOo4Ijvu2A==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      '@commitlint/cli': '>=20.0.0'
 
   '@cacheable/memory@2.0.8':
     resolution: {integrity: sha512-FvEb29x5wVwu/Kf93IWwsOOEuhHh6dYCJF3vcKLzXc0KXIW181AOzv6ceT4ZpBHDvAfG60eqb+ekmrnLHIy+jw==}
@@ -3861,12 +3852,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-
-  '@benhigham/commitlint-config@1.0.0(@commitlint/cli@20.4.4(@types/node@25.5.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3))':
-    dependencies:
-      '@commitlint/cli': 20.4.4(@types/node@25.5.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)
-      '@commitlint/config-conventional': 20.4.4
-      '@commitlint/format': 20.4.4
 
   '@cacheable/memory@2.0.8':
     dependencies:

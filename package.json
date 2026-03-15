@@ -18,7 +18,7 @@
     "version": "changeset version"
   },
   "devDependencies": {
-    "@benhigham/commitlint-config": "catalog:",
+    "@benhigham/commitlint-config": "workspace:*",
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
     "@commitlint/cli": "catalog:",
