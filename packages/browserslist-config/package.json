@@ -1,0 +1,37 @@
+{
+  "name": "@benhigham/browserslist-config",
+  "version": "0.1.1",
+  "description": "Shareable Browserslist configuration",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./node": "./src/node.js"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "browserslist",
+    "config"
+  ],
+  "author": "Benjamin Higham",
+  "license": "MIT",
+  "homepage": "https://github.com/benhigham/javascript/tree/main/packages/browserslist-config#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhigham/javascript.git",
+    "directory": "packages/browserslist-config"
+  },
+  "bugs": {
+    "url": "https://github.com/benhigham/javascript/issues"
+  },
+  "devDependencies": {
+    "browserslist": "^4.25.3"
+  },
+  "scripts": {
+    "format:check": "prettier --check ."
+  }
+}

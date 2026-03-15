@@ -1,0 +1,14 @@
+name: Auto-merge Dependabot PRs
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: github.actor == 'dependabot[bot]'
+    # Pinned from benhigham/.github main branch, 2026-03-04
+    uses: benhigham/.github/.github/workflows/auto-merge-dependabot.yml@62c1f964ae0240e9610912c9ee9f427f3a5383aa

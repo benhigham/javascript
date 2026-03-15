@@ -1,0 +1,40 @@
+{
+  "name": "@benhigham/tsconfig",
+  "version": "0.1.1",
+  "description": "Shareable TypeScript configurations",
+  "type": "module",
+  "exports": {
+    ".": "./src/base.json",
+    "./astro.json": "./src/astro.json",
+    "./browser.json": "./src/browser.json",
+    "./next.json": "./src/next.json",
+    "./react-app.json": "./src/react-app.json",
+    "./react-library.json": "./src/react-library.json",
+    "./vite.json": "./src/vite.json"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "tsconfig",
+    "typescript",
+    "config"
+  ],
+  "author": "Benjamin Higham",
+  "license": "MIT",
+  "homepage": "https://github.com/benhigham/javascript/tree/main/packages/tsconfig#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhigham/javascript.git",
+    "directory": "packages/tsconfig"
+  },
+  "bugs": {
+    "url": "https://github.com/benhigham/javascript/issues"
+  },
+  "scripts": {
+    "format:check": "prettier --check ."
+  }
+}

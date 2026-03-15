@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ["Main"]
+    branches: [main]
+    types:
+      - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  attestations: write
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success'
+    name: Release
+    uses: benhigham/.github/.github/workflows/release-changesets.yml@main

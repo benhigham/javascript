@@ -1,0 +1,36 @@
+{
+  "name": "@benhigham/commitlint-config",
+  "version": "1.0.0",
+  "description": "Shareable commitlint configuration",
+  "type": "module",
+  "exports": "./src/index.js",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "commitlint",
+    "config"
+  ],
+  "author": "Benjamin Higham",
+  "license": "MIT",
+  "homepage": "https://github.com/benhigham/javascript/tree/main/packages/commitlint-config#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhigham/javascript.git",
+    "directory": "packages/commitlint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/benhigham/javascript/issues"
+  },
+  "dependencies": {
+    "@commitlint/config-conventional": "^20.4.3",
+    "@commitlint/format": "^20.4.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "catalog:",
+    "@commitlint/types": "^20.4.3"
+  }
+}

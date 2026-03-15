@@ -1,0 +1,34 @@
+{
+  "name": "@benhigham/prettier-config",
+  "version": "0.1.1",
+  "description": "Shareable Prettier configuration",
+  "type": "module",
+  "exports": "./src/index.js",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "prettier",
+    "config"
+  ],
+  "author": "Benjamin Higham",
+  "license": "MIT",
+  "homepage": "https://github.com/benhigham/javascript/tree/main/packages/prettier-config#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhigham/javascript.git",
+    "directory": "packages/prettier-config"
+  },
+  "bugs": {
+    "url": "https://github.com/benhigham/javascript/issues"
+  },
+  "peerDependencies": {
+    "prettier": ">=3"
+  },
+  "scripts": {
+    "format:check": "prettier --check ."
+  }
+}
