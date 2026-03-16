@@ -1,0 +1,47 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "assignees": ["benhigham"],
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "timezone": "UTC",
+  "schedule": ["* 15-17 * * 2"],
+  "semanticCommits": "enabled",
+  "semanticCommitType": "build",
+  "major": {
+    "automerge": false
+  },
+  "packageRules": [
+    {
+      "matchFileNames": ["packages/eslint-config/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "eslint-config dependencies"
+    },
+    {
+      "matchFileNames": ["packages/stylelint-config/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "stylelint-config dependencies"
+    },
+    {
+      "matchFileNames": ["packages/commitlint-config/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "commitlint-config dependencies"
+    },
+    {
+      "matchFileNames": ["packages/browserslist-config/**"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "browserslist-config dependencies"
+    },
+    {
+      "matchFileNames": ["pnpm-workspace.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "root tooling"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions",
+      "semanticCommitType": "ci"
+    }
+  ]
+}
