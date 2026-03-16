@@ -45,7 +45,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-xo": "^0.50.0",
     "eslint-config-xo-react": "^0.29.0",
-    "eslint-config-xo-typescript": "^9.0.0",
+    "eslint-config-xo-typescript": "^10.0.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-better-tailwindcss": "^4.3.1",
     "eslint-plugin-compat": "^7.0.1",
