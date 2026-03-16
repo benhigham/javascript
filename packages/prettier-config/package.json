@@ -28,7 +28,13 @@
   "peerDependencies": {
     "prettier": ">=3"
   },
+  "devDependencies": {
+    "@benhigham/eslint-config": "workspace:*",
+    "eslint": "catalog:"
+  },
   "scripts": {
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }

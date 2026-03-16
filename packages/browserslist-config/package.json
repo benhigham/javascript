@@ -29,9 +29,13 @@
     "url": "https://github.com/benhigham/javascript/issues"
   },
   "devDependencies": {
-    "browserslist": "^4.25.3"
+    "@benhigham/eslint-config": "workspace:*",
+    "browserslist": "catalog:",
+    "eslint": "catalog:"
   },
   "scripts": {
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }
