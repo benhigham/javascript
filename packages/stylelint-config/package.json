@@ -44,10 +44,14 @@
     "stylelint": ">=17.0.0"
   },
   "devDependencies": {
-    "stylelint": "^17.4.0",
+    "@benhigham/eslint-config": "workspace:*",
+    "eslint": "catalog:",
+    "stylelint": "catalog:",
     "stylelint-find-new-rules": "^6.0.0"
   },
   "scripts": {
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }

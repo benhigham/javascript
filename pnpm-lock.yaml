@@ -15,12 +15,24 @@ catalogs:
     '@commitlint/cli':
       specifier: ^20.5.0
       version: 20.5.0
+    '@commitlint/types':
+      specifier: ^20.5.0
+      version: 20.5.0
+    browserslist:
+      specifier: ^4.25.3
+      version: 4.28.1
+    eslint:
+      specifier: ^10.0.0
+      version: 10.0.3
     lefthook:
       specifier: ^2.1.4
       version: 2.1.4
     prettier:
       specifier: ^3.8.1
       version: 3.8.1
+    stylelint:
+      specifier: ^17.4.0
+      version: 17.4.0
     turbo:
       specifier: ^2.8.17
       version: 2.8.17
@@ -56,9 +68,15 @@ importers:
 
   packages/browserslist-config:
     devDependencies:
+      '@benhigham/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       browserslist:
-        specifier: ^4.25.3
+        specifier: 'catalog:'
         version: 4.28.1
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.3(jiti@2.6.1)
 
   packages/commitlint-config:
     dependencies:
@@ -69,12 +87,21 @@ importers:
         specifier: ^20.5.0
         version: 20.5.0
     devDependencies:
+      '@benhigham/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@commitlint/cli':
         specifier: 'catalog:'
         version: 20.5.0(@types/node@25.5.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)
       '@commitlint/types':
-        specifier: ^20.5.0
+        specifier: 'catalog:'
         version: 20.5.0
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.3(jiti@2.6.1)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.8.1
 
   packages/eslint-config:
     dependencies:
@@ -169,6 +196,13 @@ importers:
       prettier:
         specifier: '>=3'
         version: 3.8.1
+    devDependencies:
+      '@benhigham/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.3(jiti@2.6.1)
 
   packages/stylelint-config:
     dependencies:
@@ -212,14 +246,27 @@ importers:
         specifier: ^6.0.0
         version: 6.0.2(stylelint@17.4.0(typescript@5.9.3))
     devDependencies:
+      '@benhigham/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.3(jiti@2.6.1)
       stylelint:
-        specifier: ^17.4.0
+        specifier: 'catalog:'
         version: 17.4.0(typescript@5.9.3)
       stylelint-find-new-rules:
         specifier: ^6.0.0
         version: 6.0.0(stylelint@17.4.0(typescript@5.9.3))
 
-  packages/tsconfig: {}
+  packages/tsconfig:
+    devDependencies:
+      '@benhigham/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.3(jiti@2.6.1)
 
 packages:
 

@@ -17,9 +17,11 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
+    env:
+      TURBO_LOG_ORDER: grouped
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -29,7 +31,7 @@ jobs:
           run_install: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24.x
           cache: pnpm
@@ -38,6 +40,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         timeout-minutes: 5
+
+      - name: Restore Turborepo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/turbo.json', '**/pnpm-lock.yaml') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
       - name: Review dependencies
         if: github.event_name == 'pull_request'
@@ -53,3 +63,6 @@ jobs:
 
       - name: Check formatting
         run: pnpm run format:check
+
+      - name: Lint
+        run: pnpm run lint

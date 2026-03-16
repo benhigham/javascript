@@ -2,7 +2,6 @@
 
 /**
  * My personal Prettier configuration.
- *
  * @see https://github.com/benhigham/javascript
  * @type {Config}
  */

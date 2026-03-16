@@ -16,9 +16,8 @@ const mobileConfig = [
 
 /**
  * A shared Browserslist configuration.
- *
  * @type {Config | string[]}
- * */
+ */
 const config = [
   "defaults and fully supports es6-module",
   ...desktopConfig,
