@@ -17,6 +17,11 @@
     "release": "changeset publish",
     "version": "changeset version"
   },
+  "pnpm": {
+    "overrides": {
+      "lodash@<4.17.23": "4.17.23"
+    }
+  },
   "devDependencies": {
     "@benhigham/commitlint-config": "workspace:*",
     "@changesets/changelog-github": "catalog:",
