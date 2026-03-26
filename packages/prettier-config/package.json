@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/prettier-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shareable Prettier configuration",
   "type": "module",
   "exports": "./src/index.js",
