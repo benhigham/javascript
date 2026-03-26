@@ -1,17 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "assignees": ["benhigham"],
-  "automerge": true,
-  "automergeType": "pr",
-  "platformAutomerge": false,
+  "automerge": false,
   "timezone": "UTC",
   "schedule": ["* 15-17 * * 2"],
   "semanticCommits": "enabled",
   "semanticCommitType": "build",
-  "major": {
-    "automerge": false
-  },
   "packageRules": [
     {
       "matchFileNames": ["packages/eslint-config/**"],

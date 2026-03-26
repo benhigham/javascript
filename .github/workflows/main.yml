@@ -21,17 +21,17 @@ jobs:
       TURBO_LOG_ORDER: grouped
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
         with:
           run_install: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: 24.x
           cache: pnpm
@@ -42,7 +42,7 @@ jobs:
         timeout-minutes: 5
 
       - name: Restore Turborepo cache
-        uses: actions/cache@v5
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ hashFiles('**/turbo.json', '**/pnpm-lock.yaml') }}
@@ -51,15 +51,31 @@ jobs:
 
       - name: Review dependencies
         if: github.event_name == 'pull_request'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4.9.0
 
       - name: Lint pushed commit messages
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
-        run: pnpm exec commitlint --from ${{ github.event.before }} --to ${{ github.sha }} --verbose
+        env:
+          COMMIT_FROM: ${{ github.event.before }}
+          COMMIT_TO: ${{ github.sha }}
+        run: |
+          if [ -z "$COMMIT_FROM" ] || [ -z "$COMMIT_TO" ]; then
+            echo "::error::COMMIT_FROM or COMMIT_TO is empty. Cannot lint commits."
+            exit 1
+          fi
+          pnpm exec commitlint --from "$COMMIT_FROM" --to "$COMMIT_TO" --verbose
 
       - name: Lint PR commit messages
         if: github.event_name == 'pull_request'
-        run: pnpm exec commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+        env:
+          COMMIT_FROM: ${{ github.event.pull_request.base.sha }}
+          COMMIT_TO: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ -z "$COMMIT_FROM" ] || [ -z "$COMMIT_TO" ]; then
+            echo "::error::COMMIT_FROM or COMMIT_TO is empty. Cannot lint commits."
+            exit 1
+          fi
+          pnpm exec commitlint --from "$COMMIT_FROM" --to "$COMMIT_TO" --verbose
 
       - name: Check formatting
         run: pnpm run format:check
