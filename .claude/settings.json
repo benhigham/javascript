@@ -9,7 +9,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "FILE=$(jq -r '.tool_input.file_path') && pnpm exec prettier --no-error-on-unmatched-pattern --write \"$FILE\" && pnpm exec eslint --no-error-on-unmatched-pattern --fix \"$FILE\""
+            "command": "jq -r '.tool_response.filePath // .tool_input.file_path' | { read -r f; if [ -z \"$f\" ] || [ \"$f\" = 'null' ]; then echo 'Hook error: could not resolve file path from tool response' >&2; exit 1; fi; [ -f \"$f\" ] || { echo \"Hook: file not found, skipping: $f\" >&2; exit 0; }; case \"$f\" in *.ts|*.tsx|*.js|*.jsx|*.mjs|*.cjs|*.json|*.css|*.scss|*.md|*.html|*.yaml|*.yml) pnpm exec prettier --write \"$f\" --log-level error 2>&1 || exit 1 ;; esac; case \"$f\" in *.ts|*.tsx|*.js|*.jsx|*.mjs|*.cjs) PKG=$(echo \"$f\" | sed -n 's|.*/packages/\\([^/]*\\)/.*|\\1|p'); if [ -n \"$PKG\" ]; then pnpm --filter \"@benhigham/$PKG\" exec eslint --no-warn-ignored --fix \"$f\" 2>&1 || exit 1; fi ;; esac; }",
+            "statusMessage": "Formatting & linting"
           }
         ]
       }

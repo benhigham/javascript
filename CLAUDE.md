@@ -28,6 +28,7 @@ Each package has `lint`, `lint:fix`, and `format:check` scripts. There are no te
 - **Turborepo** orchestrates `lint`, `lint:fix`, and `format:check` tasks
 - **Changesets** for versioning and npm publishing (public access, GitHub changelog)
 - **Lefthook** git hooks: pre-commit (Prettier on staged files), commit-msg (commitlint), post-merge (auto `pnpm install`)
+- **mise** manages development tool versions (`.mise.toml`)
 - **Renovate** for automated dependency updates
 
 ## Commit Convention
@@ -56,10 +57,10 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 
 - **prettier-config** — Single quotes, trailing commas everywhere
 - **stylelint-config** — Extends standard-scss + recess-order; 10 plugins for browser compat, performance, strict values, nesting
-- **commitlint-config** — Extends config-conventional with a custom formatter
+- **commitlint-config** — Extends config-conventional
 - **tsconfig** — 7 variants: base (NodeNext/strict), browser, react-app, react-library, next, astro, vite
 - **browserslist-config** — Default (ES modules + last 2 major versions) and Node (maintained versions)
 
 ## CI
 
-The **Main** workflow runs on push to `main` and on PRs: commitlint on commit range, format check, lint. The **Release** workflow triggers after Main succeeds on `main` and uses a reusable Changesets release workflow.
+The **Main** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint. The **Release** workflow triggers after Main succeeds on `main` and uses a reusable Changesets release workflow.
