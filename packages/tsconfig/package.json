@@ -41,7 +41,8 @@
   },
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",
-    "eslint": "catalog:"
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   },
   "scripts": {
     "format:check": "prettier --check .",

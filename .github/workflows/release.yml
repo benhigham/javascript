@@ -2,6 +2,7 @@ name: Release
 
 on:
   workflow_run:
+    # Must match the 'name' field in ci.yml exactly
     workflows: ['CI']
     branches: [main]
     types:

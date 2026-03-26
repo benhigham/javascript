@@ -27,6 +27,7 @@
     "config",
     "enforce",
     "eslint",
+    "eslint-config",
     "eslintconfig",
     "hint",
     "jscs",
@@ -42,7 +43,8 @@
     "tslint",
     "typescript",
     "validate",
-    "verify"
+    "verify",
+    "xo"
   ],
   "author": "Benjamin Higham",
   "license": "MIT",
