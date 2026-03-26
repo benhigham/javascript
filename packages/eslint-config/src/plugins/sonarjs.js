@@ -1,6 +1,6 @@
-import eslintPluginSonarjs from "eslint-plugin-sonarjs";
+import eslintPluginSonarjs from 'eslint-plugin-sonarjs';
 
-import { DEFAULT_FILES } from "../constants.js";
+import { DEFAULT_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -12,7 +12,7 @@ const config = {
   },
   rules: {
     ...eslintPluginSonarjs.configs.recommended.rules,
-    "sonarjs/unused-import": "off", // We use `no-unused-vars` instead.
+    'sonarjs/unused-import': 'off', // We use `no-unused-vars` instead.
   },
 };
 

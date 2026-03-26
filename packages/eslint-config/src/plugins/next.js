@@ -1,6 +1,6 @@
-import eslintPluginNext from "@next/eslint-plugin-next";
+import eslintPluginNext from '@next/eslint-plugin-next';
 
-import { DEFAULT_FILES } from "../constants.js";
+import { DEFAULT_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -8,11 +8,11 @@ import { DEFAULT_FILES } from "../constants.js";
 const config = {
   files: [...DEFAULT_FILES],
   plugins: {
-    "@next/next": eslintPluginNext,
+    '@next/next': eslintPluginNext,
   },
   rules: {
     ...eslintPluginNext.configs.recommended.rules,
-    ...eslintPluginNext.configs["core-web-vitals"].rules,
+    ...eslintPluginNext.configs['core-web-vitals'].rules,
   },
 };
 

@@ -2,7 +2,7 @@
 pre-commit:
   commands:
     format:
-      glob: "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,json,css,scss,md,yml,yaml,html,vue,graphql,gql}"
+      glob: '*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,json,css,scss,md,yml,yaml,html,vue,graphql,gql}'
       run: pnpm exec prettier --no-error-on-unmatched-pattern --write {staged_files}
       stage_fixed: true
 
@@ -14,12 +14,12 @@ commit-msg:
 
 # Install dependencies after merge
 post-merge:
-  files: "git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD"
+  files: 'git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD'
   only:
-    - ref: "main"
+    - ref: 'main'
   skip:
     - rebase
   commands:
     install:
-      glob: "{package.json,pnpm-lock.yaml}"
+      glob: '{package.json,pnpm-lock.yaml}'
       run: pnpm install

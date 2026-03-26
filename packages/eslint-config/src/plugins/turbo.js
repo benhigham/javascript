@@ -1,4 +1,4 @@
-import eslintPluginTurbo from "eslint-plugin-turbo";
+import eslintPluginTurbo from 'eslint-plugin-turbo';
 
 /** @import { Linter } from 'eslint' */
 
@@ -9,10 +9,10 @@ const config = {
     turbo: eslintPluginTurbo,
   },
   settings: {
-    ...eslintPluginTurbo.configs["flat/recommended"].settings,
+    ...eslintPluginTurbo.configs['flat/recommended'].settings,
   },
   rules: {
-    "turbo/no-undeclared-env-vars": "error",
+    'turbo/no-undeclared-env-vars': 'error',
   },
 };
 

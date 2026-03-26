@@ -47,6 +47,9 @@ importers:
       '@benhigham/commitlint-config':
         specifier: workspace:*
         version: link:packages/commitlint-config
+      '@benhigham/prettier-config':
+        specifier: workspace:*
+        version: link:packages/prettier-config
       '@changesets/changelog-github':
         specifier: 'catalog:'
         version: 0.6.0
@@ -260,6 +263,10 @@ importers:
         version: 6.0.0(stylelint@17.5.0(typescript@5.9.3))
 
   packages/tsconfig:
+    dependencies:
+      typescript:
+        specifier: '>=5.5'
+        version: 5.9.3
     devDependencies:
       '@benhigham/eslint-config':
         specifier: workspace:*

@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/tsconfig",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Shareable TypeScript configurations",
   "type": "module",
   "exports": {
@@ -21,7 +21,9 @@
   "keywords": [
     "tsconfig",
     "typescript",
-    "config"
+    "ts",
+    "config",
+    "configuration"
   ],
   "author": "Benjamin Higham",
   "license": "MIT",
@@ -33,6 +35,9 @@
   },
   "bugs": {
     "url": "https://github.com/benhigham/javascript/issues"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.5"
   },
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",

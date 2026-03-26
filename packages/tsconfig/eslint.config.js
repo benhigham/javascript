@@ -1,11 +1,11 @@
-import config from "@benhigham/eslint-config";
+import config from '@benhigham/eslint-config';
 
 const tsconfigConfig = [
   ...config,
   {
-    files: ["src/**/*.json"],
+    files: ['src/**/*.json'],
     rules: {
-      "no-secrets/no-secrets": "off",
+      'no-secrets/no-secrets': 'off',
     },
   },
 ];

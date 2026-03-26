@@ -31,6 +31,8 @@ Each package has `lint`, `lint:fix`, and `format:check` scripts. There are no te
 - **mise** manages development tool versions (`.mise.toml`)
 - **Renovate** for automated dependency updates
 
+The monorepo dogfoods its own configs: `@benhigham/prettier-config` (via `prettier.config.js`) and `@benhigham/commitlint-config` (via `commitlint.config.js`), both referenced as `workspace:*` devDependencies.
+
 ## Commit Convention
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) enforced by commitlint (extends `@commitlint/config-conventional`). Body lines max 100 characters.
@@ -56,11 +58,11 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 ### Other Packages
 
 - **prettier-config** — Single quotes, trailing commas everywhere
-- **stylelint-config** — Extends standard-scss + recess-order; 10 plugins for browser compat, performance, strict values, nesting
-- **commitlint-config** — Extends config-conventional
+- **stylelint-config** — Extends standard-scss + recess-order; plugins for browser compat, performance, strict values, nesting
+- **commitlint-config** — Extends config-conventional; enforces 100-char body line length
 - **tsconfig** — 7 variants: base (NodeNext/strict), browser, react-app, react-library, next, astro, vite
 - **browserslist-config** — Default (ES modules + last 2 major versions) and Node (maintained versions)
 
 ## CI
 
-The **Main** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint. The **Release** workflow triggers after Main succeeds on `main` and uses a reusable Changesets release workflow.
+The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.

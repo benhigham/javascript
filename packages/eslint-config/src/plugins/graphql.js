@@ -1,6 +1,6 @@
-import eslintPluginGraphql from "@graphql-eslint/eslint-plugin";
+import eslintPluginGraphql from '@graphql-eslint/eslint-plugin';
 
-import { DEFAULT_FILES, GQL_FILES } from "../constants.js";
+import { DEFAULT_FILES, GQL_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -11,7 +11,7 @@ const baseConfig = {
     parser: eslintPluginGraphql.parser,
   },
   plugins: {
-    "@graphql-eslint": eslintPluginGraphql,
+    '@graphql-eslint': eslintPluginGraphql,
   },
 };
 
@@ -25,7 +25,7 @@ export const operationsConfig = [
   {
     files: [...GQL_FILES],
     rules: {
-      ...eslintPluginGraphql.configs["flat/operations-recommended"].rules,
+      ...eslintPluginGraphql.configs['flat/operations-recommended'].rules,
     },
   },
 ];
@@ -36,7 +36,7 @@ export const schemaConfig = [
   {
     files: [...GQL_FILES],
     rules: {
-      ...eslintPluginGraphql.configs["flat/schema-recommended"].rules,
+      ...eslintPluginGraphql.configs['flat/schema-recommended'].rules,
     },
   },
 ];

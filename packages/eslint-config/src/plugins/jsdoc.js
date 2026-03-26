@@ -1,6 +1,6 @@
-import eslintPluginJsdoc from "eslint-plugin-jsdoc";
+import eslintPluginJsdoc from 'eslint-plugin-jsdoc';
 
-import { JS_FILES, TS_FILES } from "../constants.js";
+import { JS_FILES, TS_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -16,7 +16,7 @@ export const jsConfig = {
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs["flat/recommended-typescript-flavor-error"]
+    ...eslintPluginJsdoc.configs['flat/recommended-typescript-flavor-error']
       .rules,
   },
 };
@@ -26,6 +26,6 @@ export const tsConfig = {
   files: [...TS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs["flat/recommended-typescript-error"].rules,
+    ...eslintPluginJsdoc.configs['flat/recommended-typescript-error'].rules,
   },
 };

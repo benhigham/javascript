@@ -1,1 +1,1 @@
-export { default } from "@benhigham/commitlint-config";
+export { default } from '@benhigham/commitlint-config';

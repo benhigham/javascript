@@ -1,5 +1,5 @@
 ---
-"@benhigham/eslint-config": major
+'@benhigham/eslint-config': major
 ---
 
 Upgrade to ESLint 10. Minimum required ESLint version is now `>=10.0.0`.

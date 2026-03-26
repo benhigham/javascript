@@ -1,5 +1,5 @@
 ---
-"@benhigham/eslint-config": minor
+'@benhigham/eslint-config': minor
 ---
 
 Upgrade eslint-plugin-unicorn from v61 to v63

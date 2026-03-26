@@ -1,6 +1,6 @@
-import eslintPluginNoSecrets from "eslint-plugin-no-secrets";
+import eslintPluginNoSecrets from 'eslint-plugin-no-secrets';
 
-import { DEFAULT_FILES, JSON_FILES } from "../constants.js";
+import { DEFAULT_FILES, JSON_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -8,10 +8,10 @@ import { DEFAULT_FILES, JSON_FILES } from "../constants.js";
 const config = {
   files: [...DEFAULT_FILES, ...JSON_FILES],
   plugins: {
-    "no-secrets": eslintPluginNoSecrets,
+    'no-secrets': eslintPluginNoSecrets,
   },
   rules: {
-    "no-secrets/no-secrets": "error",
+    'no-secrets/no-secrets': 'error',
   },
 };
 

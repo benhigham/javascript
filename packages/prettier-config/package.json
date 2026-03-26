@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/prettier-config",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Shareable Prettier configuration",
   "type": "module",
   "exports": "./src/index.js",
@@ -12,7 +12,17 @@
   },
   "keywords": [
     "prettier",
-    "config"
+    "format",
+    "formatter",
+    "code",
+    "config",
+    "editorconfig",
+    "enforce",
+    "quality",
+    "standard",
+    "strict",
+    "style",
+    "styleguide"
   ],
   "author": "Benjamin Higham",
   "license": "MIT",

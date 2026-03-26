@@ -1,5 +1,5 @@
 ---
-"@benhigham/stylelint-config": major
+'@benhigham/stylelint-config': major
 ---
 
 Upgrade to Stylelint 17
