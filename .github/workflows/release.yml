@@ -21,4 +21,4 @@ jobs:
   release:
     if: github.event.workflow_run.conclusion == 'success'
     name: Release
-    uses: benhigham/.github/.github/workflows/release-changesets.yml@7bc8cef99349404fd87f3a027cc35a71cf0f0aec # main
+    uses: benhigham/.github/.github/workflows/release-changesets.yml@7bc8cef99349404fd87f3a027cc35a71cf0f0aec # main (pinned 2026-03-26)
