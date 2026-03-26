@@ -1,6 +1,6 @@
-import eslintPluginNoUseExtendNative from "eslint-plugin-no-use-extend-native";
+import eslintPluginNoUseExtendNative from 'eslint-plugin-no-use-extend-native';
 
-import { DEFAULT_FILES } from "../constants.js";
+import { DEFAULT_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -8,10 +8,10 @@ import { DEFAULT_FILES } from "../constants.js";
 const config = {
   files: [...DEFAULT_FILES],
   plugins: {
-    "no-use-extend-native": eslintPluginNoUseExtendNative,
+    'no-use-extend-native': eslintPluginNoUseExtendNative,
   },
   rules: {
-    "no-use-extend-native/no-use-extend-native": "error",
+    'no-use-extend-native/no-use-extend-native': 'error',
   },
 };
 

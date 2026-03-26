@@ -1,6 +1,6 @@
-import eslintPluginTestingLibrary from "eslint-plugin-testing-library";
+import eslintPluginTestingLibrary from 'eslint-plugin-testing-library';
 
-import { TEST_FILES } from "../constants.js";
+import { TEST_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -8,7 +8,7 @@ import { TEST_FILES } from "../constants.js";
 const baseConfig = {
   files: [...TEST_FILES],
   plugins: {
-    "testing-library": eslintPluginTestingLibrary,
+    'testing-library': eslintPluginTestingLibrary,
   },
 };
 
@@ -16,7 +16,7 @@ const baseConfig = {
 export const domConfig = {
   ...baseConfig,
   rules: {
-    ...eslintPluginTestingLibrary.configs["flat/dom"].rules,
+    ...eslintPluginTestingLibrary.configs['flat/dom'].rules,
   },
 };
 
@@ -24,6 +24,6 @@ export const domConfig = {
 export const reactConfig = {
   ...baseConfig,
   rules: {
-    ...eslintPluginTestingLibrary.configs["flat/react"].rules,
+    ...eslintPluginTestingLibrary.configs['flat/react'].rules,
   },
 };

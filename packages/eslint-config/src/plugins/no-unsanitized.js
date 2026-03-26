@@ -1,6 +1,6 @@
-import eslintPluginNoUnsanitized from "eslint-plugin-no-unsanitized";
+import eslintPluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 
-import { DEFAULT_FILES } from "../constants.js";
+import { DEFAULT_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 

@@ -1,5 +1,5 @@
-import nextConfig from "./plugins/next.js";
-import reactConfig from "./react.js";
+import nextConfig from './plugins/next.js';
+import reactConfig from './react.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -9,7 +9,7 @@ import reactConfig from "./react.js";
  */
 const config = [
   {
-    ignores: [".next", ".vercel"],
+    ignores: ['.next', '.vercel'],
   },
   ...reactConfig,
   nextConfig,

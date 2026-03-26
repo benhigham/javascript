@@ -32,7 +32,7 @@ Create a changeset for the current changes in this monorepo.
 
    ```markdown
    ---
-   "@benhigham/package-name": patch
+   '@benhigham/package-name': patch
    ---
 
    Description of what changed

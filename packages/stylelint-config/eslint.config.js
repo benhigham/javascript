@@ -1,1 +1,1 @@
-export { default } from "@benhigham/eslint-config";
+export { default } from '@benhigham/eslint-config';

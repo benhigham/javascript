@@ -1,6 +1,6 @@
-import eslintPluginVitest from "@vitest/eslint-plugin";
+import eslintPluginVitest from '@vitest/eslint-plugin';
 
-import { TEST_FILES } from "../constants.js";
+import { TEST_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 

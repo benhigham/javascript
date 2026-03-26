@@ -1,4 +1,4 @@
-name: Main
+name: CI
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 24.x
           cache: pnpm
-          cache-dependency-path: "**/pnpm-lock.yaml"
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

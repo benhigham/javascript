@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/browserslist-config",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Shareable Browserslist configuration",
   "type": "module",
   "exports": {
@@ -15,7 +15,19 @@
   },
   "keywords": [
     "browserslist",
-    "config"
+    "browserslist-config",
+    "browsers",
+    "compatibility",
+    "browser-support",
+    "frontend",
+    "targets",
+    "cross-browser",
+    "postcss",
+    "autoprefixer",
+    "babel",
+    "web",
+    "caniuse",
+    "preset"
   ],
   "author": "Benjamin Higham",
   "license": "MIT",

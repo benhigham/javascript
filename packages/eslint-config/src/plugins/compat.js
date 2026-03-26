@@ -1,6 +1,6 @@
-import eslintPluginCompat from "eslint-plugin-compat";
+import eslintPluginCompat from 'eslint-plugin-compat';
 
-import { DEFAULT_FILES } from "../constants.js";
+import { DEFAULT_FILES } from '../constants.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -14,7 +14,7 @@ const config = {
     lintAllEsApis: true,
   },
   rules: {
-    "compat/compat": "error",
+    'compat/compat': 'error',
   },
 };
 

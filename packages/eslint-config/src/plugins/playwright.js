@@ -1,4 +1,4 @@
-import eslintPluginPlaywright from "eslint-plugin-playwright";
+import eslintPluginPlaywright from 'eslint-plugin-playwright';
 
 /** @import { Linter } from 'eslint' */
 
@@ -9,7 +9,7 @@ const config = {
     playwright: eslintPluginPlaywright,
   },
   rules: {
-    ...eslintPluginPlaywright.configs["flat/recommended"].rules,
+    ...eslintPluginPlaywright.configs['flat/recommended'].rules,
   },
 };
 

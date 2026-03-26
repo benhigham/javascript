@@ -2,7 +2,8 @@ name: Release
 
 on:
   workflow_run:
-    workflows: ["Main"]
+    # Must match the 'name' field in ci.yml exactly
+    workflows: ['CI']
     branches: [main]
     types:
       - completed

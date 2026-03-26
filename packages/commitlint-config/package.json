@@ -12,7 +12,31 @@
   },
   "keywords": [
     "commitlint",
-    "config"
+    "changelog",
+    "check",
+    "checker",
+    "code",
+    "commit",
+    "config",
+    "consistency",
+    "convention",
+    "conventional-commits",
+    "enforce",
+    "format",
+    "git",
+    "lint",
+    "linter",
+    "message",
+    "quality",
+    "rules",
+    "semantic",
+    "standard",
+    "strict",
+    "style",
+    "styleguide",
+    "validate",
+    "verify",
+    "workflow"
   ],
   "author": "Benjamin Higham",
   "license": "MIT",
@@ -28,6 +52,9 @@
   "dependencies": {
     "@commitlint/config-conventional": "^20.5.0",
     "@commitlint/format": "^20.5.0"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": ">=20.0.0"
   },
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",
