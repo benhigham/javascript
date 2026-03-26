@@ -27,7 +27,7 @@ Each package has `lint`, `lint:fix`, and `format:check` scripts. There are no te
 - **pnpm** workspaces with a `catalog:` for shared dependency versions in `pnpm-workspace.yaml`
 - **Turborepo** orchestrates `lint`, `lint:fix`, and `format:check` tasks
 - **Changesets** for versioning and npm publishing (public access, GitHub changelog)
-- **Lefthook** git hooks: pre-commit (Prettier on staged files), commit-msg (commitlint), post-merge (auto `pnpm install`)
+- **Lefthook** git hooks: pre-commit (Prettier on staged files), commit-msg (commitlint), post-merge on `main` (auto `pnpm install`)
 - **mise** manages development tool versions (`.mise.toml`)
 - **Renovate** for automated dependency updates
 
