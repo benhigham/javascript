@@ -1,0 +1,18 @@
+{
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(jq -r '.tool_input.file_path') && pnpm exec prettier --no-error-on-unmatched-pattern --write \"$FILE\" && pnpm exec eslint --no-error-on-unmatched-pattern --fix \"$FILE\""
+          }
+        ]
+      }
+    ]
+  }
+}
