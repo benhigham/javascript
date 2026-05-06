@@ -60,7 +60,7 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 - **prettier-config** — Single quotes, trailing commas everywhere
 - **stylelint-config** — Extends standard-scss + recess-order; plugins for browser compat, performance, strict values, nesting
 - **commitlint-config** — Extends config-conventional; enforces 100-char body line length
-- **tsconfig** — 7 variants: base (NodeNext/strict), browser, react-app, react-library, next, astro, vite
+- **tsconfig** — 6 variants: base (NodeNext/strict), browser, react-app, next, astro, vite
 - **browserslist-config** — Default (ES modules + last 2 major versions) and Node (maintained versions)
 
 ## CI
