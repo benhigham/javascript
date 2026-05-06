@@ -9,7 +9,6 @@
     "./browser.json": "./src/browser.json",
     "./next.json": "./src/next.json",
     "./react-app.json": "./src/react-app.json",
-    "./react-library.json": "./src/react-library.json",
     "./vite.json": "./src/vite.json"
   },
   "files": [
@@ -37,7 +36,7 @@
     "url": "https://github.com/benhigham/javascript/issues"
   },
   "peerDependencies": {
-    "typescript": ">=5.5"
+    "typescript": ">=6.0"
   },
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",
