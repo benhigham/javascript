@@ -1,5 +1,11 @@
 # @benhigham/tsconfig
 
+## 2.0.0
+
+### Major Changes
+
+- [#46](https://github.com/benhigham/javascript/pull/46) [`ebcf950`](https://github.com/benhigham/javascript/commit/ebcf95085287f9fe0afadb4616dbfb73bc0bfe98) Thanks [@renovate](https://github.com/apps/renovate)! - Require TypeScript 6, update browser-oriented configs for TS 6 compatibility, and remove the redundant react-library config.
+
 ## 1.0.1
 
 ### Patch Changes
