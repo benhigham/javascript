@@ -182,7 +182,7 @@ importers:
         version: 7.16.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-turbo:
         specifier: ^2.5.6
-        version: 2.9.9(eslint@10.3.0(jiti@2.7.0))(turbo@2.9.9)
+        version: 2.9.9(eslint@10.3.0(jiti@2.7.0))(turbo@2.9.14)
       eslint-plugin-unicorn:
         specifier: ^63.0.0
         version: 63.0.0(eslint@10.3.0(jiti@2.7.0))
@@ -217,7 +217,7 @@ importers:
         version: 7.7.0(stylelint-order@7.0.1(stylelint@17.11.0(typescript@6.0.3)))(stylelint@17.11.0(typescript@6.0.3))
       stylelint-config-standard-scss:
         specifier: ^17.0.0
-        version: 17.0.0(postcss@8.5.14)(stylelint@17.11.0(typescript@6.0.3))
+        version: 17.0.0(postcss@8.5.15)(stylelint@17.11.0(typescript@6.0.3))
       stylelint-declaration-block-no-ignored-properties:
         specifier: ^3.0.0
         version: 3.0.0(stylelint@17.11.0(typescript@6.0.3))
@@ -226,7 +226,7 @@ importers:
         version: 1.11.1(stylelint@17.11.0(typescript@6.0.3))
       stylelint-gamut:
         specifier: ^2.0.0
-        version: 2.0.0(stylelint@17.11.0(typescript@6.0.3))
+        version: 2.0.1(stylelint@17.11.0(typescript@6.0.3))
       stylelint-high-performance-animation:
         specifier: ^2.0.0
         version: 2.0.0(stylelint@17.11.0(typescript@6.0.3))
@@ -247,7 +247,7 @@ importers:
         version: 7.0.1(stylelint@17.11.0(typescript@6.0.3))
       stylelint-plugin-use-baseline:
         specifier: ^1.0.3
-        version: 1.4.1(stylelint@17.11.0(typescript@6.0.3))
+        version: 1.4.2(stylelint@17.11.0(typescript@6.0.3))
       stylelint-use-nesting:
         specifier: ^6.0.0
         version: 6.0.2(stylelint@17.11.0(typescript@6.0.3))
@@ -1020,9 +1020,19 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
+  '@turbo/darwin-64@2.9.14':
+    resolution: {integrity: sha512-t7QiPflaEyBE4oayeZtSmu4mEfjgIrcNlNNl1z1dmIVPqEdtA7+CfTf8d7KXsOGPh6aNgWjKxyvQg9uGfDQF+A==}
+    cpu: [x64]
+    os: [darwin]
+
   '@turbo/darwin-64@2.9.9':
     resolution: {integrity: sha512-hTEiNu2ABZZOO1qbjnKASI8eF3BdOOzU6iKv5w5uGOK65DDMc10cS40N1kqM99YT0uSAGUwNu6GdFctRPeEeVA==}
     cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.9.14':
+    resolution: {integrity: sha512-d23147mC9BsCPA9mJ0h/ubcpbRgcJBXbcG3+Vq7YLhjz3IXuvQsJ1UXH8f4MD76ZjJ4m/E4aRdJV+MW88CDfbw==}
+    cpu: [arm64]
     os: [darwin]
 
   '@turbo/darwin-arm64@2.9.9':
@@ -1030,9 +1040,19 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@turbo/linux-64@2.9.14':
+    resolution: {integrity: sha512-P3ZKB5tuUDdDQWuAsACGUR1qv9W7BNWxdxqVJ0kZNuNNPRaVYTPPikLcp79+GiEcW3npsR+KyP38lnQiBc5aSA==}
+    cpu: [x64]
+    os: [linux]
+
   '@turbo/linux-64@2.9.9':
     resolution: {integrity: sha512-7JNLw88Isk+gMlbsC8pulLDkrqe2B827ZsKFEHilb17AC6Xn/62pzH7afjY7fEU6Ayp4XP/vGhlRWOzqBvBvIQ==}
     cpu: [x64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.9.14':
+    resolution: {integrity: sha512-ZRTlzcUMrrPv9ZuDzRF9n60Ym13bKeG9jDB8WjxyLhWNzV+AJQN+zdpIk3NJYf2zQsGUm1mNar2P0elRzLw25g==}
+    cpu: [arm64]
     os: [linux]
 
   '@turbo/linux-arm64@2.9.9':
@@ -1040,9 +1060,19 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@turbo/windows-64@2.9.14':
+    resolution: {integrity: sha512-exanwN6sIduZwykYeiTQj8kCmOhazP5WOz3bvXMcYtjhL6Z3iRWLewKrXCBq0bqwSP3iBMb/AerRCnHI4lx46A==}
+    cpu: [x64]
+    os: [win32]
+
   '@turbo/windows-64@2.9.9':
     resolution: {integrity: sha512-vjDQycz4gQVvIq4n2rPtiiIESwJlAc406qtkiZlqyL+fHZEd9SxYNlBIFYtc5cuMuwrk+sIKrhN7XvwjmvS9YQ==}
     cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.9.14':
+    resolution: {integrity: sha512-fVdCsnmYoKICsycbWuuGp6Jvi51/3G/UluFWuAUCvR8PIW5IJkAk5BM9UF8PSm0Q2IphWHFZjYEgjHsh3B9y/g==}
+    cpu: [arm64]
     os: [win32]
 
   '@turbo/windows-arm64@2.9.9':
@@ -1581,8 +1611,8 @@ packages:
     resolution: {integrity: sha512-8DKNMPDI2pX3XzBPMwWwLGgsiWO6dwWaQbVDkzk0DVaZR7UycNXniqF6lTh7mbyDo1JJ5cdv+aIqvHka/ROYvQ==}
     engines: {node: '>=18.0.0'}
 
-  colorjs.io@0.4.5:
-    resolution: {integrity: sha512-yCtUNCmge7llyfd/Wou19PMAcf5yC3XXhgFoAh6zsO2pGswhUPBaaUh8jzgHnXtXuZyFKzXZNAnyF5i+apICow==}
+  colorjs.io@0.6.1:
+    resolution: {integrity: sha512-8lyR2wHzuIykCpqHKgluGsqQi5iDm3/a2IgP2GBZrasn2sBRkE4NOGsglZxWLs/jZQoNkmA/KM/8NV16rLUdBg==}
 
   columnify@1.6.0:
     resolution: {integrity: sha512-lomjuFZKfM6MSAnV9aCZC9sc0qGbmZdfygNv+nCpqVkSKdCxCklLtd16O0EILGkImHw9ZpHkAnHaB+8Zxq5W6Q==}
@@ -2835,6 +2865,9 @@ packages:
   mdn-data@2.28.0:
     resolution: {integrity: sha512-uy9AS1yt+wW5eUEefgE3lOpqPghanUttycV0GXKbiXyBjwvbeE8XPj4u1C+voRfz7dEjwU4NDHTMfZ/s/JtZrQ==}
 
+  mdn-data@2.28.1:
+    resolution: {integrity: sha512-U9w+PzSZ00Z5m9rZ5ARVFL5xOfuCHdKYi/1RRwDCJsboFgJDNT3zT6PIPD7mZQYaQLhsZM3GfDRgSMRHhSmVng==}
+
   meow@13.2.0:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
     engines: {node: '>=18'}
@@ -3126,6 +3159,10 @@ packages:
 
   postcss@8.5.14:
     resolution: {integrity: sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.5.15:
+    resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.8:
@@ -3496,8 +3533,8 @@ packages:
     peerDependencies:
       stylelint: ^17
 
-  stylelint-gamut@2.0.0:
-    resolution: {integrity: sha512-JlpsCcJj9DYkzRTshw8tBM5xB9GKhCERUiUpi+v2pSVlV+QqLQvx8ykGAw7MSeu0GkK7io5yyLjJmJP7P0bWWQ==}
+  stylelint-gamut@2.0.1:
+    resolution: {integrity: sha512-tsNmkvzm4LbeUBOcLIn8A6aDGBanWwcg+3AlBoljlxz0rxxAC3ZHq/sHKso9YLbNlNvCDIMzw8KVtchStOSO8w==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       stylelint: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -3536,8 +3573,8 @@ packages:
     peerDependencies:
       stylelint: ^16.18.0 || ^17.0.0
 
-  stylelint-plugin-use-baseline@1.4.1:
-    resolution: {integrity: sha512-mR48HQISd+6avPBVEucHncuGGZ0IBSUQ5b6QWcFVKSXhkfA3PPtgxKn1oEKMlfkBihJ7m+L/sK1jNT3zPuJ88Q==}
+  stylelint-plugin-use-baseline@1.4.2:
+    resolution: {integrity: sha512-VTPqkL1Cmy+6cjbLobXo0DUyANgHyHJuJ6nuPQOXnwpu3ovK7wD6tkk79boWA18Ter0C8uvWOU5TaiQsJhoZmA==}
     peerDependencies:
       stylelint: ^16.0.2 || ^17.0.0
 
@@ -3661,6 +3698,10 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  turbo@2.9.14:
+    resolution: {integrity: sha512-BQqXRr4UoWI3UPFrtznCLykYHxwxWh53iCB57x092jPMjIlW1wnm3N895g5irpiXmnxUhREBB0n6+y8BHhs4nw==}
+    hasBin: true
 
   turbo@2.9.9:
     resolution: {integrity: sha512-3xfzXE/yTjhh0S5dIWlE+3E+J9A09REpLI1ZqVh2+HrNZoVzZn0pkvjiRgVK/Ev3PF9XnaTwCntTx+CADWXcyA==}
@@ -4841,19 +4882,37 @@ snapshots:
       estraverse: 5.3.0
       picomatch: 4.0.3
 
+  '@turbo/darwin-64@2.9.14':
+    optional: true
+
   '@turbo/darwin-64@2.9.9':
+    optional: true
+
+  '@turbo/darwin-arm64@2.9.14':
     optional: true
 
   '@turbo/darwin-arm64@2.9.9':
     optional: true
 
+  '@turbo/linux-64@2.9.14':
+    optional: true
+
   '@turbo/linux-64@2.9.9':
+    optional: true
+
+  '@turbo/linux-arm64@2.9.14':
     optional: true
 
   '@turbo/linux-arm64@2.9.9':
     optional: true
 
+  '@turbo/windows-64@2.9.14':
+    optional: true
+
   '@turbo/windows-64@2.9.9':
+    optional: true
+
+  '@turbo/windows-arm64@2.9.14':
     optional: true
 
   '@turbo/windows-arm64@2.9.9':
@@ -5406,7 +5465,7 @@ snapshots:
 
   colorguard-processor@2.0.36: {}
 
-  colorjs.io@0.4.5: {}
+  colorjs.io@0.6.1: {}
 
   columnify@1.6.0:
     dependencies:
@@ -5566,7 +5625,7 @@ snapshots:
       css-tokenize: 1.0.1
       duplexify: 4.1.3
       multimatch: 5.0.0
-      postcss: 8.5.14
+      postcss: 8.5.8
       source-map: 0.7.6
       yargs: 17.7.2
 
@@ -6001,11 +6060,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.9.9(eslint@10.3.0(jiti@2.7.0))(turbo@2.9.9):
+  eslint-plugin-turbo@2.9.9(eslint@10.3.0(jiti@2.7.0))(turbo@2.9.14):
     dependencies:
       dotenv: 16.0.3
       eslint: 10.3.0(jiti@2.7.0)
-      turbo: 2.9.9
+      turbo: 2.9.14
 
   eslint-plugin-unicorn@63.0.0(eslint@10.3.0(jiti@2.7.0)):
     dependencies:
@@ -6793,6 +6852,8 @@ snapshots:
 
   mdn-data@2.28.0: {}
 
+  mdn-data@2.28.1: {}
+
   meow@13.2.0: {}
 
   meow@14.1.0: {}
@@ -7048,9 +7109,9 @@ snapshots:
     dependencies:
       postcss: 8.5.14
 
-  postcss-scss@4.0.9(postcss@8.5.14):
+  postcss-scss@4.0.9(postcss@8.5.15):
     dependencies:
-      postcss: 8.5.14
+      postcss: 8.5.15
 
   postcss-selector-parser@7.1.1:
     dependencies:
@@ -7064,6 +7125,12 @@ snapshots:
   postcss-value-parser@4.2.0: {}
 
   postcss@8.5.14:
+    dependencies:
+      nanoid: 3.3.12
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
+
+  postcss@8.5.15:
     dependencies:
       nanoid: 3.3.12
       picocolors: 1.1.1
@@ -7432,26 +7499,26 @@ snapshots:
       stylelint: 17.11.0(typescript@6.0.3)
       stylelint-order: 7.0.1(stylelint@17.11.0(typescript@6.0.3))
 
-  stylelint-config-recommended-scss@17.0.0(postcss@8.5.14)(stylelint@17.11.0(typescript@6.0.3)):
+  stylelint-config-recommended-scss@17.0.0(postcss@8.5.15)(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
-      postcss-scss: 4.0.9(postcss@8.5.14)
+      postcss-scss: 4.0.9(postcss@8.5.15)
       stylelint: 17.11.0(typescript@6.0.3)
       stylelint-config-recommended: 18.0.0(stylelint@17.11.0(typescript@6.0.3))
       stylelint-scss: 7.0.0(stylelint@17.11.0(typescript@6.0.3))
     optionalDependencies:
-      postcss: 8.5.14
+      postcss: 8.5.15
 
   stylelint-config-recommended@18.0.0(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
       stylelint: 17.11.0(typescript@6.0.3)
 
-  stylelint-config-standard-scss@17.0.0(postcss@8.5.14)(stylelint@17.11.0(typescript@6.0.3)):
+  stylelint-config-standard-scss@17.0.0(postcss@8.5.15)(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
       stylelint: 17.11.0(typescript@6.0.3)
-      stylelint-config-recommended-scss: 17.0.0(postcss@8.5.14)(stylelint@17.11.0(typescript@6.0.3))
+      stylelint-config-recommended-scss: 17.0.0(postcss@8.5.15)(stylelint@17.11.0(typescript@6.0.3))
       stylelint-config-standard: 40.0.0(stylelint@17.11.0(typescript@6.0.3))
     optionalDependencies:
-      postcss: 8.5.14
+      postcss: 8.5.15
 
   stylelint-config-standard@40.0.0(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
@@ -7474,9 +7541,9 @@ snapshots:
       stylelint: 17.11.0(typescript@6.0.3)
       yargs: 18.0.0
 
-  stylelint-gamut@2.0.0(stylelint@17.11.0(typescript@6.0.3)):
+  stylelint-gamut@2.0.1(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
-      colorjs.io: 0.4.5
+      colorjs.io: 0.6.1
       stylelint: 17.11.0(typescript@6.0.3)
 
   stylelint-high-performance-animation@2.0.0(stylelint@17.11.0(typescript@6.0.3)):
@@ -7516,11 +7583,11 @@ snapshots:
       postcss-sorting: 9.1.0(postcss@8.5.8)
       stylelint: 17.11.0(typescript@6.0.3)
 
-  stylelint-plugin-use-baseline@1.4.1(stylelint@17.11.0(typescript@6.0.3)):
+  stylelint-plugin-use-baseline@1.4.2(stylelint@17.11.0(typescript@6.0.3)):
     dependencies:
       css-tree: 3.2.1
       is-plain-object: 5.0.0
-      postcss: 8.5.8
+      postcss: 8.5.15
       postcss-value-parser: 4.2.0
       stylelint: 17.11.0(typescript@6.0.3)
 
@@ -7529,7 +7596,7 @@ snapshots:
       css-tree: 3.2.1
       is-plain-object: 5.0.0
       known-css-properties: 0.37.0
-      mdn-data: 2.28.0
+      mdn-data: 2.28.1
       postcss-media-query-parser: 0.2.3
       postcss-resolve-nested-selector: 0.1.6
       postcss-selector-parser: 7.1.1
@@ -7673,6 +7740,15 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@2.8.1: {}
+
+  turbo@2.9.14:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.9.14
+      '@turbo/darwin-arm64': 2.9.14
+      '@turbo/linux-64': 2.9.14
+      '@turbo/linux-arm64': 2.9.14
+      '@turbo/windows-64': 2.9.14
+      '@turbo/windows-arm64': 2.9.14
 
   turbo@2.9.9:
     optionalDependencies:
