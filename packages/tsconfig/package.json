@@ -44,7 +44,6 @@
     "typescript": "catalog:"
   },
   "scripts": {
-    "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   }

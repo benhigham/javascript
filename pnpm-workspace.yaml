@@ -16,6 +16,7 @@ catalog:
   browserslist: ^4.25.3
   eslint: ^10.0.0
   lefthook: ^2.1.4
+  markdownlint-cli2: ^0.22.1
   prettier: ^3.8.1
   stylelint: ^17.4.0
   turbo: ^2.8.17

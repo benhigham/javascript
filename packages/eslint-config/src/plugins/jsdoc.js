@@ -16,8 +16,7 @@ export const jsConfig = {
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs['flat/recommended-typescript-flavor-error']
-      .rules,
+    ...eslintPluginJsdoc.configs['flat/recommended-typescript-flavor-error'].rules,
   },
 };
 

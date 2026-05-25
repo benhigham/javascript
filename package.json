@@ -14,13 +14,21 @@
   "packageManager": "pnpm@11.3.0",
   "scripts": {
     "format": "prettier --write .",
-    "format:check": "turbo run format:check",
+    "format:check": "prettier --check .",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
+    "lint:md": "markdownlint-cli2 \"**/*.md\"",
+    "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\"",
+    "lint:actions": "actionlint",
+    "prepare": "lefthook install || echo 'lefthook install failed'",
     "changeset": "changeset",
     "changeset:status": "changeset status",
     "release": "changeset publish",
-    "version": "changeset version"
+    "version": "changeset version",
+    "skills:add": "npx skills add",
+    "skills:remove": "npx skills remove",
+    "skills:update": "npx skills update",
+    "skills:list": "npx skills list"
   },
   "devDependencies": {
     "@benhigham/commitlint-config": "workspace:*",
@@ -28,7 +36,9 @@
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
     "@commitlint/cli": "catalog:",
+    "eslint": "catalog:",
     "lefthook": "catalog:",
+    "markdownlint-cli2": "catalog:",
     "prettier": "catalog:",
     "turbo": "catalog:"
   }

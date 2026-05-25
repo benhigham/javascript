@@ -8,7 +8,4 @@ export const DEFAULT_FILES = ['**/*.?(c|m)[jt]s?(x)'];
 export const JSON_FILES = ['**/*.json?(c|5)'];
 export const GQL_FILES = ['**/*.{graphql,gql}'];
 export const CONFIG_FILES = ['*.config.?(c|m)[jt]s'];
-export const TEST_FILES = [
-  '**/__tests__/**/*.?(c|m)[jt]s?(x)',
-  '**/*.{test,spec}.?(c|m)[jt]s?(x)',
-];
+export const TEST_FILES = ['**/__tests__/**/*.?(c|m)[jt]s?(x)', '**/*.{test,spec}.?(c|m)[jt]s?(x)'];

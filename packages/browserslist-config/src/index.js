@@ -18,10 +18,6 @@ const mobileConfig = [
  * A shared Browserslist configuration.
  * @type {Config | string[]}
  */
-const config = [
-  'defaults and fully supports es6-module',
-  ...desktopConfig,
-  ...mobileConfig,
-];
+const config = ['defaults and fully supports es6-module', ...desktopConfig, ...mobileConfig];
 
 export default config;
