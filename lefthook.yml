@@ -11,7 +11,7 @@ pre-commit:
       stage_fixed: true
     lint:
       priority: 2
-      glob: '*.{js,ts,tsx}'
+      glob: 'packages/**/*.{js,ts,tsx}'
       run: pnpm exec eslint --no-error-on-unmatched-pattern --fix {staged_files}
       stage_fixed: true
     lint-content:
