@@ -14,24 +14,28 @@ Monorepo of shareable JavaScript/TypeScript tooling configurations published to 
 pnpm install                          # Install dependencies
 pnpm run lint                         # Lint all packages (via Turborepo)
 pnpm run lint:fix                     # Auto-fix lint issues across all packages
-pnpm run format:check                 # Check formatting across all packages
-pnpm run format                       # Fix formatting across all packages (root-level Prettier)
+pnpm run lint:md                      # markdownlint over all *.md files
+pnpm run lint:md:fix                  # markdownlint auto-fix
+pnpm run lint:actions                 # actionlint over GitHub Actions workflows
+pnpm run format                       # Fix formatting across the repo (root Prettier)
+pnpm run format:check                 # Check formatting across the repo (root Prettier)
 pnpm changeset                        # Create a changeset for versioning
 
 # Single package
 pnpm --filter @benhigham/<pkg> lint   # Lint one package (e.g., eslint-config)
 ```
 
-Each package has `lint`, `lint:fix`, and `format:check` scripts. There are no test suites.
+Each package has `lint` and `lint:fix` scripts. Formatting is run from the repository root (no per-package `format:check`). There are no test suites.
 
 ## Toolchain
 
 - **pnpm** workspaces with a `catalog:` for shared dependency versions in `pnpm-workspace.yaml`
-- **Turborepo** orchestrates `lint`, `lint:fix`, and `format:check` tasks
+- **Turborepo** orchestrates `lint` and `lint:fix` tasks (Prettier runs at root, not via Turborepo)
 - **Changesets** for versioning and npm publishing (public access, GitHub changelog)
-- **Lefthook** git hooks: pre-commit (Prettier on staged files), commit-msg (commitlint), post-merge on `main` (auto `pnpm install`)
-- **mise** manages development tool versions (`.mise.toml`)
-- **Renovate** for automated dependency updates
+- **Lefthook** git hooks — pre-commit (piped, fail-fast): Prettier → ESLint → markdownlint → actionlint, all on staged files; commit-msg (commitlint); post-merge on `main` (auto `pnpm install`)
+- **mise** manages development tool versions (`.mise.toml`), including `actionlint`
+- **markdownlint-cli2** lints all `*.md` files via `.markdownlint-cli2.jsonc` at root
+- **Renovate** for automated dependency updates (extends `config:best-practices`)
 
 The monorepo dogfoods its own configs: `@benhigham/prettier-config` (via `prettier.config.js`) and `@benhigham/commitlint-config` (via `commitlint.config.js`), both referenced as `workspace:*` devDependencies.
 
@@ -39,7 +43,7 @@ The monorepo dogfoods its own configs: `@benhigham/prettier-config` (via `pretti
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) enforced by commitlint (extends `@commitlint/config-conventional`). Body lines max 100 characters.
 
-Renovate uses `build` for dependency updates and `ci` for GitHub Actions updates.
+Renovate uses default semantic commit types (`chore(deps):` for dependency updates).
 
 ## Architecture
 
@@ -67,4 +71,4 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 
 ## CI
 
-The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.
+The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint, lint markdown, lint GitHub Actions. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.

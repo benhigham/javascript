@@ -16,7 +16,7 @@ Shared JavaScript tooling configurations — ESLint, Prettier, Stylelint, Commit
 ## Prerequisites
 
 - **Node.js** ≥ 22
-- **pnpm** ≥ 10
+- **pnpm** ≥ 11
 
 ## Development
 
