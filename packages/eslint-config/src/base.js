@@ -1,6 +1,7 @@
 import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
-import { DEFAULT_FILES } from './constants.js';
+import { JS_FILES } from './constants.js';
 import dependConfig from './plugins/depend.js';
 import eslintCommentsConfig from './plugins/eslint-comments.js';
 import { jsConfig as jsdocJsConfig, tsConfig as jsdocTsConfig } from './plugins/jsdoc.js';
@@ -106,9 +107,14 @@ const config = [
     ],
   },
   {
-    files: [...DEFAULT_FILES],
+    files: [...JS_FILES],
     ...js.configs.recommended,
   },
+  // typescript-eslint's non-type-aware recommended preset. Supplies the TS
+  // parser and a curated rule set for `.ts`/`.tsx` files without requiring
+  // `projectService` or a consumer-provided tsconfig. Type-aware rules live
+  // in the `/typescript` export.
+  ...tseslint.configs.recommended,
   dependConfig,
   eslintCommentsConfig,
   jsdocJsConfig,
