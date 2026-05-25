@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^22.13.0 || >=24.0.0"
   },
   "devEngines": {
     "runtime": {
@@ -11,7 +11,7 @@
       "version": "24"
     }
   },
-  "packageManager": "pnpm@10.33.3",
+  "packageManager": "pnpm@11.3.0",
   "scripts": {
     "format": "prettier --write .",
     "format:check": "turbo run format:check",
