@@ -1,5 +1,5 @@
+import eslintReact from '@eslint-react/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import eslintConfigXoReact from 'eslint-config-xo-react';
 import globals from 'globals';
 
 import { baseConfig as browserConfig } from './browser.js';
@@ -18,7 +18,16 @@ const config = [
   ...browserConfig,
   jsxA11yConfig,
   testingLibraryConfig,
-  ...eslintConfigXoReact,
+  {
+    files: ['**/*.{jsx,tsx}'],
+    ...eslintReact.configs['recommended-type-checked'],
+    settings: {
+      ...eslintReact.configs['recommended-type-checked'].settings,
+      'react-x': {
+        version: 'detect',
+      },
+    },
+  },
   {
     languageOptions: {
       globals: {

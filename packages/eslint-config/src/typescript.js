@@ -1,38 +1,118 @@
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import eslintConfigXoTypeScript from 'eslint-config-xo-typescript';
+import tseslint from 'typescript-eslint';
 
 import baseConfig, { rules } from './base.js';
 import { CONFIG_FILES, JS_FILES } from './constants.js';
 import { tsConfig as importConfig } from './plugins/import.js';
-import { tsConfig as jsdocConfig } from './plugins/jsdoc.js';
 
 /** @import { Linter } from 'eslint' */
 
+/**
+ * Rules from `@typescript-eslint/eslint-plugin` that require type information,
+ * derived at module-load time so the list stays in sync on plugin upgrades.
+ * @type {Linter.RulesRecord}
+ */
+const jsDisableTypeRules = Object.fromEntries(
+  Object.entries(tseslint.plugin.rules)
+    .filter(([, rule]) => rule?.meta?.docs?.requiresTypeChecking)
+    .map(([name]) => [`@typescript-eslint/${name}`, 'off']),
+);
+
 /** @type {Linter.RulesRecord} */
-const jsDisableTypeRules = {
-  '@typescript-eslint/consistent-type-exports': 'off',
-  '@typescript-eslint/no-duplicate-type-constituents': 'off',
-  '@typescript-eslint/no-mixed-enums': 'off',
-  '@typescript-eslint/no-redundant-type-constituents': 'off',
-  '@typescript-eslint/no-unnecessary-type-arguments': 'off',
-  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-  '@typescript-eslint/no-unnecessary-type-parameters': 'off',
-  '@typescript-eslint/no-unsafe-argument': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-unsafe-call': 'off',
-  '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-  '@typescript-eslint/no-unsafe-member-access': 'off',
-  '@typescript-eslint/no-unsafe-return': 'off',
-  '@typescript-eslint/no-unsafe-type-assertion': 'off',
-  '@typescript-eslint/no-unsafe-unary-minus': 'off',
-  '@typescript-eslint/non-nullable-type-assertion-style': 'off',
-  '@typescript-eslint/prefer-readonly': 'off',
-  '@typescript-eslint/prefer-readonly-parameter-types': 'off',
-  '@typescript-eslint/prefer-reduce-type-parameter': 'off',
-  '@typescript-eslint/related-getter-setter-pairs': 'off',
-  '@typescript-eslint/switch-exhaustiveness-check': 'off',
-  '@typescript-eslint/unbound-method': 'off',
-  '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
+const tsRules = {
+  '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
+  '@typescript-eslint/ban-ts-comment': [
+    'error',
+    {
+      'ts-expect-error': 'allow-with-description',
+      minimumDescriptionLength: 4,
+    },
+  ],
+  '@typescript-eslint/consistent-type-assertions': [
+    'error',
+    {
+      assertionStyle: 'as',
+      objectLiteralTypeAssertions: 'allow-as-parameter',
+    },
+  ],
+  '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+  '@typescript-eslint/consistent-type-exports': [
+    'error',
+    { fixMixedExportsWithInlineTypeSpecifier: true },
+  ],
+  '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+  '@typescript-eslint/no-floating-promises': [
+    'error',
+    {
+      checkThenables: true,
+      ignoreVoid: true,
+      ignoreIIFE: true,
+    },
+  ],
+  '@typescript-eslint/no-loop-func': 'error',
+  '@typescript-eslint/no-misused-promises': [
+    'error',
+    {
+      checksConditionals: true,
+      checksVoidReturn: false,
+    },
+  ],
+  '@typescript-eslint/no-restricted-imports': [
+    'error',
+    {
+      paths: [
+        'domain',
+        'freelist',
+        'smalloc',
+        'punycode',
+        'sys',
+        'querystring',
+        'colors',
+        { name: 'mkdirp', message: 'Use `fs.mkdir` with `{recursive: true}` instead.' },
+        { name: 'rimraf', message: 'Use `fs.rm` with `{recursive: true}` instead.' },
+        { name: 'object-assign', message: 'Use `Object.assign()` or object spread instead.' },
+        { name: 'left-pad', message: 'Use `String.prototype.padStart()` instead.' },
+        { name: 'isarray', message: 'Use `Array.isArray()` instead.' },
+        { name: 'globalthis', message: 'Use the `globalThis` global instead.' },
+        { name: 'abort-controller', message: 'Use the native `AbortController` instead.' },
+        { name: 'queue-microtask', message: 'Use `queueMicrotask()` instead.' },
+        { name: 'has', message: 'Use `Object.hasOwn()` instead.' },
+        { name: 'hasown', message: 'Use `Object.hasOwn()` instead.' },
+        { name: 'is-nan', message: 'Use `Number.isNaN()` instead.' },
+        { name: 'is-finite', message: 'Use `Number.isFinite()` instead.' },
+        { name: 'aggregate-error', message: 'Use the native `AggregateError` instead.' },
+        { name: 'array-flatten', message: 'Use `Array.prototype.flat()` instead.' },
+        { name: 'concat-map', message: 'Use `Array.prototype.flatMap()` instead.' },
+        { name: 'safe-buffer', message: 'Use `Buffer.alloc()` or `Buffer.from()` instead.' },
+        { name: 'es6-promise', message: 'Use `Promise` instead.' },
+        { name: 'whatwg-url', message: 'Use the native `URL` API instead.' },
+      ],
+    },
+  ],
+  '@typescript-eslint/no-shadow': ['error', { ignoreOnInitialization: true }],
+  '@typescript-eslint/no-this-alias': ['error', { allowDestructuring: true }],
+  '@typescript-eslint/only-throw-error': [
+    'error',
+    {
+      allowThrowingUnknown: true,
+      allowThrowingAny: false,
+    },
+  ],
+  '@typescript-eslint/prefer-nullish-coalescing': [
+    'error',
+    {
+      ignoreTernaryTests: false,
+      ignoreConditionalTests: false,
+      ignoreMixedLogicalExpressions: false,
+    },
+  ],
+  '@typescript-eslint/promise-function-async': 'error',
+  '@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false }],
+  '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+  '@typescript-eslint/triple-slash-reference': [
+    'error',
+    { path: 'never', types: 'never', lib: 'never' },
+  ],
 };
 
 /**
@@ -42,8 +122,8 @@ const jsDisableTypeRules = {
 const config = [
   ...baseConfig,
   importConfig,
-  jsdocConfig,
-  ...eslintConfigXoTypeScript,
+  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
   {
     languageOptions: {
       parserOptions: {
@@ -52,7 +132,7 @@ const config = [
         },
       },
     },
-    rules,
+    rules: { ...rules, ...tsRules },
   },
   {
     files: [...JS_FILES],

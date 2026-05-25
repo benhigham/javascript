@@ -1,5 +1,4 @@
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import eslintConfigXo from 'eslint-config-xo';
 
 import baseConfig, { rules } from './base.js';
 import { jsConfig as importConfig } from './plugins/import.js';
@@ -13,7 +12,6 @@ import { jsConfig as importConfig } from './plugins/import.js';
 const config = [
   ...baseConfig,
   importConfig,
-  ...eslintConfigXo,
   { rules },
   // Apply prettier last in this config to disable formatting rules from preceding presets.
   eslintConfigPrettier,

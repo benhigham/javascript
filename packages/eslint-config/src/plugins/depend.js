@@ -6,7 +6,7 @@ import { DEFAULT_FILES } from '../constants.js';
 
 /** @type {Linter.Config} */
 const config = {
-  files: [...DEFAULT_FILES, '**/package.json'],
+  files: [...DEFAULT_FILES],
   plugins: {
     depend: eslintPluginDepend,
   },
