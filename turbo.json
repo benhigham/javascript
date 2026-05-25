@@ -7,9 +7,6 @@
     },
     "lint:fix": {
       "cache": false
-    },
-    "format:check": {
-      "outputs": []
     }
   }
 }

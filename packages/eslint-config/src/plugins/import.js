@@ -1,7 +1,5 @@
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
-import eslintPluginImportX, {
-  createNodeResolver,
-} from 'eslint-plugin-import-x';
+import eslintPluginImportX, { createNodeResolver } from 'eslint-plugin-import-x';
 
 import {
   CONFIG_FILES,
@@ -97,13 +95,7 @@ export const jsConfig = {
     'import-x/order': [
       'error',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          ['parent', 'sibling', 'index'],
-          'object',
-        ],
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'object'],
         alphabetize: {
           order: 'asc',
           caseInsensitive: true,

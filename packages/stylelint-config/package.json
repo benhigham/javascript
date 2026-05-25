@@ -69,7 +69,6 @@
     "stylelint-find-new-rules": "^6.0.0"
   },
   "scripts": {
-    "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   }

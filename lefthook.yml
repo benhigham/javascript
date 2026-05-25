@@ -1,18 +1,34 @@
-# Format staged files
+# Pre-commit (piped, fail-fast): format → lint → lint-content → lint-actions.
+# Formatters write before linters read. Each step must pass before the next runs.
+# Commit-msg: conventional commits. No pre-push (CI covers lint + format:check).
 pre-commit:
+  piped: true
   commands:
     format:
-      glob: '*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,json,css,scss,md,yml,yaml,html,vue,graphql,gql}'
+      priority: 1
+      glob: '*.{js,ts,tsx,json,jsonc,md,yml,yaml,css,scss,html,graphql,gql}'
       run: pnpm exec prettier --no-error-on-unmatched-pattern --write {staged_files}
       stage_fixed: true
+    lint:
+      priority: 2
+      glob: 'packages/**/*.{js,ts,tsx}'
+      run: pnpm exec eslint --no-error-on-unmatched-pattern --fix {staged_files}
+      stage_fixed: true
+    lint-content:
+      priority: 3
+      glob: '*.md'
+      run: pnpm exec markdownlint-cli2 --fix {staged_files}
+      stage_fixed: true
+    lint-actions:
+      priority: 4
+      glob: '.github/workflows/*.yml'
+      run: actionlint {staged_files}
 
-# Validate commit message
 commit-msg:
   commands:
     lint-commit:
       run: pnpm exec commitlint --edit {1}
 
-# Install dependencies after merge
 post-merge:
   files: 'git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD'
   only:
