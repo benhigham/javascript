@@ -1,38 +1,65 @@
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import eslintConfigXoTypeScript from 'eslint-config-xo-typescript';
+import tseslint from 'typescript-eslint';
 
-import baseConfig, { rules } from './base.js';
-import { CONFIG_FILES, JS_FILES } from './constants.js';
+import baseConfig, { rules, tsRules } from './base.js';
+import { CONFIG_FILES, TS_FILES } from './constants.js';
 import { tsConfig as importConfig } from './plugins/import.js';
-import { tsConfig as jsdocConfig } from './plugins/jsdoc.js';
 
 /** @import { Linter } from 'eslint' */
 
-/** @type {Linter.RulesRecord} */
-const jsDisableTypeRules = {
-  '@typescript-eslint/consistent-type-exports': 'off',
-  '@typescript-eslint/no-duplicate-type-constituents': 'off',
-  '@typescript-eslint/no-mixed-enums': 'off',
-  '@typescript-eslint/no-redundant-type-constituents': 'off',
-  '@typescript-eslint/no-unnecessary-type-arguments': 'off',
-  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-  '@typescript-eslint/no-unnecessary-type-parameters': 'off',
-  '@typescript-eslint/no-unsafe-argument': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-unsafe-call': 'off',
-  '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-  '@typescript-eslint/no-unsafe-member-access': 'off',
-  '@typescript-eslint/no-unsafe-return': 'off',
-  '@typescript-eslint/no-unsafe-type-assertion': 'off',
-  '@typescript-eslint/no-unsafe-unary-minus': 'off',
-  '@typescript-eslint/non-nullable-type-assertion-style': 'off',
-  '@typescript-eslint/prefer-readonly': 'off',
-  '@typescript-eslint/prefer-readonly-parameter-types': 'off',
-  '@typescript-eslint/prefer-reduce-type-parameter': 'off',
-  '@typescript-eslint/related-getter-setter-pairs': 'off',
-  '@typescript-eslint/switch-exhaustiveness-check': 'off',
-  '@typescript-eslint/unbound-method': 'off',
-  '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
+/**
+ * Scope a typescript-eslint preset's config blocks to TS files only. The
+ * `*TypeCheckedOnly` presets ship a "global" block that disables corresponding
+ * core ESLint rules everywhere; scoping prevents those disables from leaking
+ * into JS files (which keep their core-rule coverage from `base.js`).
+ * @param {Linter.Config[]} configs - Config blocks to constrain.
+ * @returns {Linter.Config[]} The same blocks with `files` restricted to TS extensions.
+ */
+const scopeToTs = (configs) => configs.map((block) => ({ ...block, files: [...TS_FILES] }));
+
+/**
+ * Type-aware `@typescript-eslint/*` tunings (require `projectService`).
+ * Non-type-aware tunings live in `./base.js` as `tsRules`.
+ * @type {Linter.RulesRecord}
+ */
+const tsCheckedRules = {
+  '@typescript-eslint/consistent-type-exports': [
+    'error',
+    { fixMixedExportsWithInlineTypeSpecifier: true },
+  ],
+  '@typescript-eslint/no-floating-promises': [
+    'error',
+    {
+      checkThenables: true,
+      ignoreVoid: true,
+      ignoreIIFE: true,
+    },
+  ],
+  '@typescript-eslint/no-misused-promises': [
+    'error',
+    {
+      checksConditionals: true,
+      checksVoidReturn: false,
+    },
+  ],
+  '@typescript-eslint/only-throw-error': [
+    'error',
+    {
+      allowThrowingUnknown: true,
+      allowThrowingAny: false,
+    },
+  ],
+  '@typescript-eslint/prefer-nullish-coalescing': [
+    'error',
+    {
+      ignoreTernaryTests: false,
+      ignoreConditionalTests: false,
+      ignoreMixedLogicalExpressions: false,
+    },
+  ],
+  '@typescript-eslint/promise-function-async': 'error',
+  '@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false }],
+  '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
 };
 
 /**
@@ -42,9 +69,12 @@ const jsDisableTypeRules = {
 const config = [
   ...baseConfig,
   importConfig,
-  jsdocConfig,
-  ...eslintConfigXoTypeScript,
+  // Layer only the type-aware additions on top of base. Scoped to TS files so
+  // JS files keep their core-rule coverage and never see type-aware rules.
+  ...scopeToTs(tseslint.configs.recommendedTypeCheckedOnly),
+  ...scopeToTs(tseslint.configs.stylisticTypeCheckedOnly),
   {
+    files: [...TS_FILES],
     languageOptions: {
       parserOptions: {
         projectService: {
@@ -52,13 +82,11 @@ const config = [
         },
       },
     },
-    rules,
   },
-  {
-    files: [...JS_FILES],
-    rules: jsDisableTypeRules,
-  },
-  // Apply prettier last in this config to disable formatting rules from preceding presets.
+  // Re-apply curated rules after intermediate configs so our tunings win.
+  { rules },
+  { files: [...TS_FILES], rules: { ...tsRules, ...tsCheckedRules } },
+  // Apply prettier last to disable formatting rules from preceding presets.
   eslintConfigPrettier,
 ];
 
