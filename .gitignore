@@ -1,3 +1,10 @@
 node_modules
 .turbo
 .mise.local.toml
+
+# Superpowers
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
