@@ -82,3 +82,12 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
+
+      - name: Lint markdown
+        run: pnpm run lint:md
+
+      - name: Setup mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
+
+      - name: Lint GitHub Actions
+        run: pnpm run lint:actions
