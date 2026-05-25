@@ -2,7 +2,6 @@ import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescrip
 import eslintPluginImportX, { createNodeResolver } from 'eslint-plugin-import-x';
 
 import {
-  CONFIG_FILES,
   DEFAULT_EXTENSIONS,
   DEFAULT_FILES,
   JS_EXTENSIONS,
@@ -78,7 +77,7 @@ export const jsConfig = {
       {
         includeInternal: true,
         includeTypes: true,
-        devDependencies: [...CONFIG_FILES, ...TEST_FILES],
+        devDependencies: ['**/*.config.?(c|m)[jt]s', ...TEST_FILES],
         optionalDependencies: false,
         peerDependencies: true,
       },
