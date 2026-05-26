@@ -8,7 +8,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12.0"
   },
   "keywords": [
     "commitlint",
@@ -54,7 +54,7 @@
     "@commitlint/format": "^21.0.0"
   },
   "peerDependencies": {
-    "@commitlint/cli": ">=20.0.0"
+    "@commitlint/cli": ">=21.0.0"
   },
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",
