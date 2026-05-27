@@ -200,7 +200,7 @@ importers:
         version: 8.59.4(eslint@10.4.0(jiti@2.7.0))(typescript@6.0.3)
     devDependencies:
       eslint:
-        specifier: 10.4.0
+        specifier: 'catalog:'
         version: 10.4.0(jiti@2.7.0)
 
   packages/prettier-config:
