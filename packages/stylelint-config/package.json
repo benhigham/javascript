@@ -52,8 +52,6 @@
     "stylelint-gamut": "^2.0.0",
     "stylelint-high-performance-animation": "^2.0.0",
     "stylelint-media-use-custom-media": "^4.0.0",
-    "stylelint-no-indistinguishable-colors": "^2.3.1",
-    "stylelint-no-unresolved-module": "^2.5.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
     "stylelint-order": "^8.0.0",
     "stylelint-plugin-use-baseline": "^1.0.3",
@@ -65,8 +63,7 @@
   "devDependencies": {
     "@benhigham/eslint-config": "workspace:*",
     "eslint": "catalog:",
-    "stylelint": "catalog:",
-    "stylelint-find-new-rules": "6.0.0"
+    "stylelint": "catalog:"
   },
   "scripts": {
     "lint": "eslint .",
