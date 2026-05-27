@@ -1,6 +1,6 @@
 import eslintPluginGraphql from '@graphql-eslint/eslint-plugin';
 
-import { DEFAULT_FILES, GQL_FILES } from '../constants.js';
+import { DEFAULT_FILES, GQL_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

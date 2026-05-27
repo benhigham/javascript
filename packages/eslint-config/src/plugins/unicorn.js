@@ -1,6 +1,6 @@
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
-import { DEFAULT_FILES } from '../constants.js';
+import { DEFAULT_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

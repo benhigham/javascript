@@ -2,7 +2,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import tseslint from 'typescript-eslint';
 
 import baseConfig, { rules, tsRules } from './base.js';
-import { CONFIG_FILES, TS_FILES } from './constants.js';
+import { CONFIG_FILES, TS_FILES } from './lib/file-patterns.js';
 import { tsConfig as importConfig } from './plugins/import.js';
 
 /** @import { Linter } from 'eslint' */

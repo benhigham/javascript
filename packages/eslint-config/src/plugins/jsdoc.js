@@ -1,6 +1,6 @@
 import eslintPluginJsdoc from 'eslint-plugin-jsdoc';
 
-import { JS_FILES, TS_FILES } from '../constants.js';
+import { JS_FILES, TS_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

@@ -1,6 +1,6 @@
 import eslintPluginEslintComments from '@eslint-community/eslint-plugin-eslint-comments';
 
-import { DEFAULT_FILES } from '../constants.js';
+import { DEFAULT_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

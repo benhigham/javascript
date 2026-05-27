@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
-import { JS_FILES, TS_FILES } from './constants.js';
+import { JS_FILES, TS_FILES } from './lib/file-patterns.js';
 import dependConfig from './plugins/depend.js';
 import eslintCommentsConfig from './plugins/eslint-comments.js';
 import { jsConfig as jsdocJsConfig, tsConfig as jsdocTsConfig } from './plugins/jsdoc.js';
