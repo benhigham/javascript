@@ -6,9 +6,7 @@ const config = {
   plugins: [
     'stylelint-declaration-block-no-ignored-properties',
     'stylelint-declaration-strict-value',
-    'stylelint-no-unresolved-module',
     'stylelint-high-performance-animation',
-    'stylelint-no-indistinguishable-colors',
     'stylelint-gamut',
     'stylelint-media-use-custom-media',
     'stylelint-use-nesting',
@@ -56,10 +54,8 @@ const config = {
     'plugin/declaration-block-no-ignored-properties': true,
     'csstools/media-use-custom-media': 'always',
     'csstools/use-nesting': ['always', { syntax: 'scss' }],
-    'plugin/stylelint-no-indistinguishable-colors': true,
     'gamut/color-no-out-gamut-range': true,
     'plugin/no-low-performance-animation-properties': true,
-    'plugin/no-unresolved-module': { modules: ['node_modules'] },
   },
   overrides: [
     {
