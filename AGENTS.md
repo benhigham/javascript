@@ -2,11 +2,25 @@
 
 This file provides guidance to AI agents when working with code in this repository. `CLAUDE.md` is a symlink to this file.
 
-Project-scoped agent skills live in `.agents/skills/`. `.claude/skills` is a symlink to that directory.
-
 ## Overview
 
 Monorepo of shareable JavaScript/TypeScript tooling configurations published to npm under the `@benhigham` scope. Packages: eslint-config, prettier-config, stylelint-config, commitlint-config, tsconfig, browserslist-config.
+
+## Agent skills
+
+Project-scoped agent skills live in `.agents/skills/`. `.claude/skills` is a symlink to that directory.
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for `benhigham/javascript` using the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Triage uses `status:*` labels for active workflow states and `wontfix` for rejected work. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repo uses a single-context domain-doc layout. See `docs/agents/domain.md`.
 
 ## Commands
 

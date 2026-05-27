@@ -13,6 +13,7 @@
   },
   "packageManager": "pnpm@11.3.0",
   "scripts": {
+    "prepare": "lefthook install || echo 'lefthook install failed'",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "turbo run lint",
@@ -20,7 +21,6 @@
     "lint:md": "markdownlint-cli2 \"**/*.md\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\"",
     "lint:actions": "actionlint",
-    "prepare": "lefthook install || echo 'lefthook install failed'",
     "changeset": "changeset",
     "changeset:status": "changeset status",
     "release": "changeset publish",
