@@ -65,11 +65,13 @@ Renovate uses default semantic commit types (`chore(deps):` for dependency updat
 
 Uses **ESLint flat config** format (ESLint 10+). Configs compose as arrays via layered entry points:
 
-- **`index.js`** (base JS) — xo + import + base plugins + prettier
-- **`typescript.js`** — base + xo-typescript + TS import/jsdoc variants; relaxes strict type rules for `.js` files
+- **`index.js`** (base JS) — `base.js` (`@eslint/js` recommended + `typescript-eslint` recommended/stylistic + curated rules + bundled plugin configs) + import + prettier
+- **`typescript.js`** — base + `typescript-eslint` `*TypeCheckedOnly` presets (scoped to TS files, see below) + `projectService` + curated type-aware rules + prettier
 - **`browser.js`** — typescript + compat plugin + testing-library (DOM) + browser globals
-- **`react.js`** — typescript + browser + jsx-a11y + xo-react + testing-library (React)
+- **`react.js`** — typescript + browser + jsx-a11y + `@eslint-react/eslint-plugin` (`recommended-type-checked`) + testing-library (React)
 - **`next.js`** — react + next plugin
+
+The `*TypeCheckedOnly` presets ship "global" blocks that disable corresponding core ESLint rules everywhere. `typescript.js` scopes those blocks to TS files only (via `scopeToTs`), so `.js` files keep their core-rule coverage from `base.js`.
 
 Optional plugins exported separately: `plugins/graphql`, `plugins/playwright`, `plugins/tailwindcss`, `plugins/turbo`.
 
