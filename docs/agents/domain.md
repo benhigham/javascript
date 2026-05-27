@@ -2,8 +2,6 @@
 
 How the engineering skills should consume this repo's domain documentation when exploring the codebase.
 
-This repo uses a **single-context** layout: one root `CONTEXT.md` for domain language and one root `docs/adr/` directory for architectural decisions.
-
 ## Before exploring, read these
 
 - **`CONTEXT.md`** at the repo root.
