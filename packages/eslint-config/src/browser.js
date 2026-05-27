@@ -1,6 +1,6 @@
 import globals from 'globals';
 
-import { confusingGlobals } from './browser-globals.js';
+import { confusingGlobals } from './lib/browser-globals.js';
 import compatConfig from './plugins/compat.js';
 import { domConfig as testingLibraryConfig } from './plugins/testing-library.js';
 import typescriptConfig from './typescript.js';

@@ -1,6 +1,6 @@
 import eslintPluginTestingLibrary from 'eslint-plugin-testing-library';
 
-import { TEST_FILES } from '../constants.js';
+import { TEST_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

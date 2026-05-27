@@ -1,6 +1,6 @@
 import eslintPluginNoSecrets from 'eslint-plugin-no-secrets';
 
-import { DEFAULT_FILES } from '../constants.js';
+import { DEFAULT_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 

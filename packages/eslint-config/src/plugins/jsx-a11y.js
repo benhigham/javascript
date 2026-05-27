@@ -1,6 +1,6 @@
 import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
-import { DEFAULT_FILES } from '../constants.js';
+import { DEFAULT_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 
