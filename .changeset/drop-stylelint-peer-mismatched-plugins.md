@@ -6,11 +6,11 @@ Drop `stylelint-no-indistinguishable-colors` and `stylelint-no-unresolved-module
 
 **Breaking changes for consumers:**
 
-- The rule `plugin/stylelint-no-indistinguishable-colors` (flagged colors that
-  were visually too close to distinguish) is no longer enforced. Consumers
+- The rule `plugin/stylelint-no-indistinguishable-colors` (flags colors that
+  are visually too close to distinguish) is no longer enforced. Consumers
   needing the check should install `stylelint-no-indistinguishable-colors`
   directly and re-add the plugin + rule in their own config.
-- The rule `plugin/no-unresolved-module` (validated `@import` / `@use` paths
+- The rule `plugin/no-unresolved-module` (validates `@import` / `@use` paths
   against `node_modules`) is no longer enforced. Consumers needing the check
   should install `stylelint-no-unresolved-module` directly and re-add the
   plugin + rule in their own config.
