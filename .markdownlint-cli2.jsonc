@@ -6,6 +6,7 @@
   },
   "gitignore": true,
   "ignores": [
+    ".agents/skills/turborepo/**",
     ".changeset/*.md",
     ".claude/skills/**",
     "**/CHANGELOG.md",
