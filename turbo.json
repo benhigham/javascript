@@ -2,7 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": ["CI"],
   "tasks": {
+    "transit": {
+      "dependsOn": ["^transit"]
+    },
     "lint": {
+      "dependsOn": ["transit"],
       "outputs": []
     },
     "lint:fix": {

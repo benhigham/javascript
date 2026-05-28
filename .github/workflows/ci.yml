@@ -80,7 +80,12 @@ jobs:
       - name: Check formatting
         run: pnpm run format:check
 
-      - name: Lint
+      - name: Lint affected packages
+        if: github.event_name == 'pull_request'
+        run: pnpm run lint:affected
+
+      - name: Lint all packages
+        if: github.event_name != 'pull_request'
         run: pnpm run lint
 
       - name: Lint markdown

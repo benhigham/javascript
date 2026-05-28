@@ -1,5 +1,8 @@
 pnpm-lock.yaml
 skills-lock.json
 
+# Vendored agent skills — keep hashes stable for skills-lock.json
+.agents/skills/turborepo/**
+
 # .claude/skills is a symlink to .agents/skills — avoid formatting twice
 .claude/skills/**
