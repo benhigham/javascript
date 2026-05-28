@@ -40,7 +40,7 @@ const config = {
     'declaration-property-unit-allowed-list': {
       'font-size': ['em', 'rem', '%'],
       'line-height': ['', 'em', 'rem', '%'],
-      '/^border(?:$|-(?!radius)[a-z]+$)|^outline(?:$|-width$)/': ['px'],
+      '/^border(?:-(?!.*radius$)[a-z-]+)?$|^outline(?:-[a-z-]+)?$/': ['px'],
     },
     'unit-allowed-list': [
       [
