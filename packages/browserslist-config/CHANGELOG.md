@@ -1,5 +1,11 @@
 # @benhigham/browserslist-config
 
+## 1.0.2
+
+### Patch Changes
+
+- [#65](https://github.com/benhigham/javascript/pull/65) [`4a77d3d`](https://github.com/benhigham/javascript/commit/4a77d3d81e694b6b1e65ff422be44817d1f95a96) Thanks [@renovate](https://github.com/apps/renovate)! - Tighten `engines.node` to `>=22.13.0` to align with the floor required by `eslint-plugin-jsdoc@63` (a transitive dependency via `@benhigham/eslint-config`) and to match the baseline the broader ecosystem has converged on.
+
 ## 1.0.1
 
 ### Patch Changes
