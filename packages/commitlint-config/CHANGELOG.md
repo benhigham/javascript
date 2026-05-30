@@ -1,5 +1,11 @@
 # @benhigham/commitlint-config
 
+## 3.0.0
+
+### Major Changes
+
+- [#64](https://github.com/benhigham/javascript/pull/64) [`648b8c8`](https://github.com/benhigham/javascript/commit/648b8c8390621bc0a6fa71088e2388592b697ae5) Thanks [@renovate](https://github.com/apps/renovate)! - Update `@commitlint/config-conventional` and `@commitlint/format` to v21. The `@commitlint/cli` peer dependency requirement is raised to `>=21.0.0` (was `>=20.0.0`), so consumers must upgrade their commitlint CLI. Minimum Node version is now 22.13.0 (was 22.0.0); Node 18 and 20 are no longer supported.
+
 ## 2.0.0
 
 ### Major Changes

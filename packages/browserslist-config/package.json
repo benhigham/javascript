@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/browserslist-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shareable Browserslist configuration",
   "type": "module",
   "exports": {
