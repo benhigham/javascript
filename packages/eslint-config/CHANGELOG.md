@@ -1,5 +1,11 @@
 # @benhigham/eslint-config
 
+## 4.2.1
+
+### Patch Changes
+
+- [#97](https://github.com/benhigham/javascript/pull/97) [`2da5f6b`](https://github.com/benhigham/javascript/commit/2da5f6b258bee8b49d491e0dc60140118c54a46b) - Fix a second contradictory vitest matcher pair (same class as the boolean matchers in the previous release). `prefer-called-once` (wants `toHaveBeenCalledOnce()`) and `prefer-called-times` (wants `toHaveBeenCalledTimes(1)`) are direct inverses on a single call, so enabling both left every "called once" assertion flagged by one rule or the other and made the autofix oscillate. Keep `prefer-called-times` (the explicit count form, consistent with preferring strict `toBe(true)` over `toBeTruthy()`) and turn `prefer-called-once` off; it only ever fired on the one-call case.
+
 ## 4.2.0
 
 ### Minor Changes
