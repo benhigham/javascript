@@ -4,8 +4,8 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["DOM", "ESNext"],
-    "target": "ES2015",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "target": "ES2022",
     "jsx": "react-jsx"
   }
 }
