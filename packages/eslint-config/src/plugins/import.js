@@ -7,6 +7,7 @@ import {
   JS_EXTENSIONS,
   JS_FILES,
   TEST_FILES,
+  TEST_SUPPORT_FILES,
 } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
@@ -77,7 +78,11 @@ export const jsConfig = {
       {
         includeInternal: true,
         includeTypes: true,
-        devDependencies: ['**/*.config.?(c|m)[jt]s', ...TEST_FILES],
+        // Permit devDependencies in config files, test files, and test-support
+        // dirs (helpers/mocks/fixtures that import vitest, @testing-library/*,
+        // etc. but aren't named `*.{test,spec}.*`). vitest rule scoping stays on
+        // `TEST_FILES` only — this allowlist is intentionally broader.
+        devDependencies: ['**/*.config.?(c|m)[jt]s', ...TEST_FILES, ...TEST_SUPPORT_FILES],
         optionalDependencies: false,
         peerDependencies: true,
       },

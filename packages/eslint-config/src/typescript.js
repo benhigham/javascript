@@ -12,7 +12,7 @@ import { tsConfig as importConfig } from './plugins/import.js';
  * `*TypeCheckedOnly` presets ship a "global" block that disables corresponding
  * core ESLint rules everywhere; scoping prevents those disables from leaking
  * into JS files (which keep their core-rule coverage from `base.js`).
- * @param {Linter.Config[]} configs - Config blocks to constrain.
+ * @param {Linter.Config[]} configs Config blocks to constrain.
  * @returns {Linter.Config[]} The same blocks with `files` restricted to TS extensions.
  */
 const scopeToTs = (configs) => configs.map((block) => ({ ...block, files: [...TS_FILES] }));
