@@ -16,7 +16,7 @@ Issues are tracked in GitHub Issues for `benhigham/javascript` using the `gh` CL
 
 ### Triage labels
 
-Triage uses `status:*` labels for active workflow states and `wontfix` for rejected work. See `docs/agents/triage-labels.md`.
+Use the default canonical triage labels. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 

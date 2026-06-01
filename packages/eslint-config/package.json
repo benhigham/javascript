@@ -10,6 +10,7 @@
     "./react": "./src/react.js",
     "./typescript": "./src/typescript.js",
     "./plugins/graphql": "./src/plugins/graphql.js",
+    "./plugins/jsdoc-required": "./src/plugins/jsdoc-required.js",
     "./plugins/playwright": "./src/plugins/playwright.js",
     "./plugins/tailwindcss": "./src/plugins/tailwindcss.js",
     "./plugins/turbo": "./src/plugins/turbo.js"
