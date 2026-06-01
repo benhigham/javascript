@@ -40,8 +40,14 @@ const config = {
     'vitest/prefer-strict-boolean-matchers': 'error',
     'vitest/prefer-to-be-truthy': 'off',
     'vitest/prefer-to-be-falsy': 'off',
-    'vitest/prefer-called-once': 'error',
+    // Explicit count form (`toHaveBeenCalledTimes(1)`) over the
+    // `toHaveBeenCalledOnce()` shorthand — the same lean toward the explicit
+    // matcher as the strict boolean choice above. Direct inverse of
+    // `prefer-called-once` on a single call, so that stays off; enabling both
+    // leaves the assertion flagged by one rule or the other (neither touches
+    // counts other than one).
     'vitest/prefer-called-times': 'error',
+    'vitest/prefer-called-once': 'off',
     'vitest/prefer-called-with': 'error',
     'vitest/prefer-spy-on': 'error',
     'vitest/prefer-vi-mocked': 'error',
