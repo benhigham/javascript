@@ -85,7 +85,7 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 - **prettier-config** — Single quotes, trailing commas everywhere
 - **stylelint-config** — Extends standard-scss + recess-order; plugins for browser compat, performance, strict values, nesting
 - **commitlint-config** — Extends config-conventional; enforces 100-char body line length
-- **tsconfig** — 6 variants: base (NodeNext/strict), browser, react-app, next, astro, vite
+- **tsconfig** — 4 environment×emit primitives over an internal `base` kernel: `node` (the `.` default) and `browser` are libraries (`tsc` emits, `nodenext`); `node-app` and `browser-app` are apps (`noEmit`, bundler resolution). No framework configs — consumers compose a primitive with the framework's own config (see `packages/tsconfig/README.md`; ADR-0001)
 - **browserslist-config** — Default (ES modules + last 2 major versions) and Node (maintained versions)
 
 ## CI

@@ -1,7 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./react-app.json",
+  "extends": "./node-app.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }]
+    "lib": ["ES2023", "DOM"],
+    "jsx": "react-jsx"
   }
 }
