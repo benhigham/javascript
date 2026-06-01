@@ -28,14 +28,18 @@ const config = {
 
     // Prefer the canonical/strict matcher over its looser equivalents.
     'vitest/prefer-to-be': 'error',
-    'vitest/prefer-to-be-truthy': 'error',
-    'vitest/prefer-to-be-falsy': 'error',
     'vitest/prefer-to-have-length': 'error',
     'vitest/prefer-to-contain': 'error',
     'vitest/prefer-comparison-matcher': 'error',
     'vitest/prefer-equality-matcher': 'error',
     'vitest/prefer-strict-equal': 'error',
+    // Strict boolean matcher (`toBe(true)`/`toBe(false)`) over the loose
+    // `toBeTruthy`/`toBeFalsy`. It is the direct inverse of
+    // `prefer-to-be-truthy`/`prefer-to-be-falsy`, so those stay off — enabling
+    // both leaves every boolean assertion flagged by one rule or the other.
     'vitest/prefer-strict-boolean-matchers': 'error',
+    'vitest/prefer-to-be-truthy': 'off',
+    'vitest/prefer-to-be-falsy': 'off',
     'vitest/prefer-called-once': 'error',
     'vitest/prefer-called-times': 'error',
     'vitest/prefer-called-with': 'error',

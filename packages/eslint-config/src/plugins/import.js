@@ -6,6 +6,7 @@ import {
   DEFAULT_FILES,
   JS_EXTENSIONS,
   JS_FILES,
+  NODE_FILES,
   TEST_FILES,
   TEST_SUPPORT_FILES,
 } from '../lib/file-patterns.js';
@@ -20,7 +21,10 @@ export const jsConfig = {
   },
   settings: {
     'import-x/core-modules': ['electron'],
-    'import-x/internal-regex': '^@repo/',
+    // No `import-x/internal-regex`: it would also mark matching workspace
+    // packages (`@repo/*`) internal, and `no-extraneous-dependencies` skips
+    // internal imports — so undeclared workspace deps would go unchecked. Left
+    // external they stay checked. (Its only other effect is order grouping.)
     'import-x/resolver-next': [
       createNodeResolver({
         extensions: [...JS_EXTENSIONS],
@@ -76,13 +80,17 @@ export const jsConfig = {
     'import-x/no-extraneous-dependencies': [
       'error',
       {
-        includeInternal: true,
+        // Leave `includeInternal` at its default (false): turning it on also
+        // checks imports that resolve inside the package, flagging
+        // `package.json#imports` self-imports (`#foo/bar`) as the package's own
+        // missing dependency.
         includeTypes: true,
-        // Permit devDependencies in config files, test files, and test-support
-        // dirs (helpers/mocks/fixtures that import vitest, @testing-library/*,
-        // etc. but aren't named `*.{test,spec}.*`). vitest rule scoping stays on
-        // `TEST_FILES` only — this allowlist is intentionally broader.
-        devDependencies: ['**/*.config.?(c|m)[jt]s', ...TEST_FILES, ...TEST_SUPPORT_FILES],
+        // Permit devDependencies in Node-environment files (config files, build
+        // scripts) and test/test-support files (helpers/mocks/fixtures/setup
+        // that import vitest, @testing-library/*, etc. but aren't named
+        // `*.{test,spec}.*`). vitest rule scoping stays on `TEST_FILES` only —
+        // this allowlist is intentionally broader.
+        devDependencies: [...NODE_FILES, ...TEST_FILES, ...TEST_SUPPORT_FILES],
         optionalDependencies: false,
         peerDependencies: true,
       },
