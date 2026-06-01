@@ -21,7 +21,14 @@ export const jsConfig = {
   },
   settings: {
     'import-x/core-modules': ['electron'],
-    'import-x/internal-regex': '^@repo/',
+    // No `import-x/internal-regex`. It only groups matching specifiers in the
+    // `import-x/order` "internal" bucket, but it also reclassifies them as
+    // internal everywhere — and `no-extraneous-dependencies` ignores internal
+    // imports, so a reclassified workspace package (e.g. `@repo/*`) imported
+    // but not declared would slip through. Letting workspace packages resolve
+    // as external keeps them dependency-checked; `package.json#imports`
+    // self-imports (`#foo/bar`) resolve inside the package, so they land in the
+    // "internal" order group and are correctly skipped by the extraneous check.
     'import-x/resolver-next': [
       createNodeResolver({
         extensions: [...JS_EXTENSIONS],
