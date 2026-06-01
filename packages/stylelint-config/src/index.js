@@ -18,18 +18,21 @@ const config = {
     'plugin/use-baseline': [true, { available: 'newly' }],
     'plugin/no-unsupported-browser-features': true,
 
+    // Performance
+    'plugin/no-low-performance-animation-properties': true,
+
     // SCSS-specific rules
     'scss/at-rule-no-unknown': true,
     'scss/selector-no-redundant-nesting-selector': true,
     'scss/dollar-variable-pattern': '^[a-z][a-zA-Z0-9]+$',
     'scss/at-extend-no-missing-placeholder': true,
-    'scss/at-import-partial-extension': 'never',
+    'scss/load-partial-extension': 'never',
     'scss/at-mixin-pattern': '^[a-z][a-zA-Z0-9]+$',
-    'scss/max-nesting-depth': 3,
 
     // Selector and class naming
     'selector-max-id': 0,
     'selector-max-specificity': '0,3,2',
+    'max-nesting-depth': 3,
 
     // General consistency
     'color-named': 'never',
@@ -84,7 +87,6 @@ const config = {
     'csstools/media-use-custom-media': 'always',
     'csstools/use-nesting': 'always',
     'gamut/color-no-out-gamut-range': true,
-    'plugin/no-low-performance-animation-properties': true,
   },
   overrides: [
     {
