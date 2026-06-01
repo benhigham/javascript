@@ -48,7 +48,12 @@ const config = {
     // counts other than one).
     'vitest/prefer-called-times': 'error',
     'vitest/prefer-called-once': 'off',
-    'vitest/prefer-called-with': 'error',
+    // `prefer-called-with` is off: its autofix rewrites `toHaveBeenCalled()` to
+    // `toHaveBeenCalledWith()` (i.e. "called with *zero* args"), silently
+    // breaking every assertion on a mock that was called with arguments. It
+    // also forbids the legitimate "was it called at all" assertion on spies
+    // where the arguments aren't the point.
+    'vitest/prefer-called-with': 'off',
     'vitest/prefer-spy-on': 'error',
     'vitest/prefer-vi-mocked': 'error',
     'vitest/prefer-mock-promise-shorthand': 'error',
@@ -82,19 +87,17 @@ const config = {
     'vitest/require-hook': 'error',
     'vitest/no-test-return-statement': 'error',
 
-    // Auto-fixable, so cheap to enforce.
-    'vitest/require-mock-type-parameters': 'error',
-
-    // Scope to where missing assertions hide real bugs (async/callback/loop)
-    // rather than mandating `expect.assertions()` in every test.
-    'vitest/prefer-expect-assertions': [
-      'error',
-      {
-        onlyFunctionsWithAsyncKeyword: true,
-        onlyFunctionsWithExpectInCallback: true,
-        onlyFunctionsWithExpectInLoop: true,
-      },
-    ],
+    // High-ceremony rules, off for app/browser consumers: they impose broad,
+    // low-value churn on a typical app test suite for little safety. (Node
+    // libraries can re-enable them locally.)
+    // - `require-mock-type-parameters`: forces a type argument on every
+    //   `vi.fn()`, including mocks immediately cast to a target type (where the
+    //   parameter is erased); not reliably auto-fixable in practice.
+    // - `prefer-expect-assertions`: mandates `expect.assertions(n)` bookkeeping
+    //   on async/callback/loop tests — a maintenance burden that rarely catches
+    //   a real bug here.
+    'vitest/require-mock-type-parameters': 'off',
+    'vitest/prefer-expect-assertions': 'off',
   },
 };
 
