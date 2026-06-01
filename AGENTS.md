@@ -27,6 +27,7 @@ This repo uses a single-context domain-doc layout. See `docs/agents/domain.md`.
 ```bash
 pnpm install                          # Install dependencies
 pnpm run lint                         # Lint all packages (via Turborepo)
+pnpm run lint:affected                # Lint only packages affected by changes
 pnpm run lint:fix                     # Auto-fix lint issues across all packages
 pnpm run lint:md                      # markdownlint over all *.md files
 pnpm run lint:md:fix                  # markdownlint auto-fix
@@ -53,6 +54,8 @@ Each package has `lint` and `lint:fix` scripts. Formatting is run from the repos
 
 The monorepo dogfoods its own configs: `@benhigham/prettier-config` (via `prettier.config.js`) and `@benhigham/commitlint-config` (via `commitlint.config.js`), both referenced as `workspace:*` devDependencies.
 
+Dependency pinning has release implications. Bundled plugins that ship to consumers (e.g. `@eslint-react/...`, `@graphql-eslint/...`) are direct `dependencies`, pinned with `^` in each package — bumping one is consumer-facing and **needs a changeset**. Tooling used only to develop this repo (`eslint`, `prettier`, `stylelint`, `@commitlint/cli`) routes through `catalog:` in devDependencies and warrants no release. CONTEXT.md formalizes these as _consumer-facing_ vs _tooling_ dependencies.
+
 ## Commit Convention
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) enforced by commitlint (extends `@commitlint/config-conventional`). Body lines max 100 characters.
@@ -75,7 +78,7 @@ The `*TypeCheckedOnly` presets ship "global" blocks that disable corresponding c
 
 Optional plugins exported separately: `plugins/graphql`, `plugins/playwright`, `plugins/tailwindcss`, `plugins/turbo`.
 
-Plugin configs live in `src/plugins/` and follow a consistent pattern: import plugin, define config object with files/rules/plugins, export default. File globs and extension lists are centralized in `src/constants.js`.
+Plugin configs live in `src/plugins/` and follow a consistent pattern: import plugin, define config object with files/rules/plugins, export default. File globs and extension lists are centralized in `src/lib/file-patterns.js` (browser globals in `src/lib/browser-globals.js`).
 
 ### Other Packages
 
