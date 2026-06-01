@@ -23,9 +23,9 @@ const config = {
     'scss/selector-no-redundant-nesting-selector': true,
     'scss/dollar-variable-pattern': '^[a-z][a-zA-Z0-9]+$',
     'scss/at-extend-no-missing-placeholder': true,
-    'scss/at-import-partial-extension': 'never',
+    'scss/load-partial-extension': 'never',
     'scss/at-mixin-pattern': '^[a-z][a-zA-Z0-9]+$',
-    'scss/max-nesting-depth': 3,
+    'max-nesting-depth': 3,
 
     // Selector and class naming
     'selector-max-id': 0,
