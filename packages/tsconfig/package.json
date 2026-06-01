@@ -8,7 +8,7 @@
     "./astro.json": "./src/astro.json",
     "./browser.json": "./src/browser.json",
     "./next.json": "./src/next.json",
-    "./react-app.json": "./src/react-app.json",
+    "./react.json": "./src/react.json",
     "./vite.json": "./src/vite.json"
   },
   "files": [
