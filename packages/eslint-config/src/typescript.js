@@ -2,7 +2,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import tseslint from 'typescript-eslint';
 
 import baseConfig, { rules, tsRules } from './base.js';
-import { CONFIG_FILES, TS_FILES } from './lib/file-patterns.js';
+import { TS_FILES } from './lib/file-patterns.js';
 import { tsConfig as importConfig } from './plugins/import.js';
 
 /** @import { Linter } from 'eslint' */
@@ -77,9 +77,14 @@ const config = [
     files: [...TS_FILES],
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: [...CONFIG_FILES],
-        },
+        // Resolve every TS file through the consumer's tsconfig project. We do
+        // not list config files under `allowDefaultProject`: a consumer whose
+        // tsconfig already includes them (e.g. `include: ["**/*.ts"]`, the
+        // pattern the app tsconfigs produce) would have each config file in
+        // both the project and the default-project allowlist, which
+        // typescript-eslint rejects as a parse error. Config files that sit
+        // outside the project should be added to the consumer's tsconfig.
+        projectService: true,
       },
     },
   },

@@ -6,6 +6,7 @@ import {
   DEFAULT_FILES,
   JS_EXTENSIONS,
   JS_FILES,
+  NODE_FILES,
   TEST_FILES,
   TEST_SUPPORT_FILES,
 } from '../lib/file-patterns.js';
@@ -76,13 +77,18 @@ export const jsConfig = {
     'import-x/no-extraneous-dependencies': [
       'error',
       {
-        includeInternal: true,
+        // `includeInternal` stays at its default (false). With it on the rule
+        // also verifies imports that resolve inside the package, which flags
+        // `package.json#imports` subpath self-imports (`#foo/bar`) as the
+        // package's own missing dependency — a false positive for any consumer
+        // using subpath imports. Only external dependencies need declaring.
         includeTypes: true,
-        // Permit devDependencies in config files, test files, and test-support
-        // dirs (helpers/mocks/fixtures that import vitest, @testing-library/*,
-        // etc. but aren't named `*.{test,spec}.*`). vitest rule scoping stays on
-        // `TEST_FILES` only — this allowlist is intentionally broader.
-        devDependencies: ['**/*.config.?(c|m)[jt]s', ...TEST_FILES, ...TEST_SUPPORT_FILES],
+        // Permit devDependencies in Node-environment files (config files, build
+        // scripts) and test/test-support files (helpers/mocks/fixtures/setup
+        // that import vitest, @testing-library/*, etc. but aren't named
+        // `*.{test,spec}.*`). vitest rule scoping stays on `TEST_FILES` only —
+        // this allowlist is intentionally broader.
+        devDependencies: [...NODE_FILES, ...TEST_FILES, ...TEST_SUPPORT_FILES],
         optionalDependencies: false,
         peerDependencies: true,
       },

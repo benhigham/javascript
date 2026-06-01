@@ -23,15 +23,19 @@ export const baseConfig = [
     },
   },
   {
-    // `n` is a Node-environment plugin; its global-preference rules don't apply
-    // to browser source. Most sharply, `n/prefer-global/process: never` flags
-    // reads of `process.env` (Next's NODE_ENV and the public client vars) and
-    // pushes a `node:process` import that breaks Next's build-time env
-    // replacement and ships a non-existent browser import. Neutralize the whole
-    // family on browser source; Node files (config, build scripts) keep them.
+    // `n` is a Node-environment plugin; its global-preference and
+    // Node-version-support rules don't apply to browser source. Most sharply,
+    // `n/prefer-global/process: never` flags reads of `process.env` (Next's
+    // NODE_ENV and the public client vars) and pushes a `node:process` import
+    // that breaks Next's build-time env replacement and ships a non-existent
+    // browser import. `no-unsupported-features/node-builtins` likewise flags
+    // browser globals that Node has only added experimentally (`localStorage`,
+    // `Storage`, `navigator`) as unsupported Node features. Neutralize them on
+    // browser source; Node files (config, build scripts) keep them.
     files: [...DEFAULT_FILES],
     ignores: [...NODE_FILES],
     rules: {
+      'n/no-unsupported-features/node-builtins': 'off',
       'n/prefer-global/buffer': 'off',
       'n/prefer-global/console': 'off',
       'n/prefer-global/process': 'off',
