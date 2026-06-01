@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/eslint-config",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Shareable ESLint configuration for JavaScript and TypeScript projects",
   "type": "module",
   "exports": {
