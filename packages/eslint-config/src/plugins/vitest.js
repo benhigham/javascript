@@ -34,10 +34,9 @@ const config = {
     'vitest/prefer-equality-matcher': 'error',
     'vitest/prefer-strict-equal': 'error',
     // Strict boolean matcher (`toBe(true)`/`toBe(false)`) over the loose
-    // `toBeTruthy`/`toBeFalsy`. This is the direct inverse of
+    // `toBeTruthy`/`toBeFalsy`. It is the direct inverse of
     // `prefer-to-be-truthy`/`prefer-to-be-falsy`, so those stay off — enabling
-    // both leaves every boolean assertion flagged by one rule or the other and
-    // makes the autofix oscillate (no satisfiable form).
+    // both leaves every boolean assertion flagged by one rule or the other.
     'vitest/prefer-strict-boolean-matchers': 'error',
     'vitest/prefer-to-be-truthy': 'off',
     'vitest/prefer-to-be-falsy': 'off',

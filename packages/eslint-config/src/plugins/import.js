@@ -21,14 +21,10 @@ export const jsConfig = {
   },
   settings: {
     'import-x/core-modules': ['electron'],
-    // No `import-x/internal-regex`. It only groups matching specifiers in the
-    // `import-x/order` "internal" bucket, but it also reclassifies them as
-    // internal everywhere — and `no-extraneous-dependencies` ignores internal
-    // imports, so a reclassified workspace package (e.g. `@repo/*`) imported
-    // but not declared would slip through. Letting workspace packages resolve
-    // as external keeps them dependency-checked; `package.json#imports`
-    // self-imports (`#foo/bar`) resolve inside the package, so they land in the
-    // "internal" order group and are correctly skipped by the extraneous check.
+    // No `import-x/internal-regex`: it would also mark matching workspace
+    // packages (`@repo/*`) internal, and `no-extraneous-dependencies` skips
+    // internal imports — so undeclared workspace deps would go unchecked. Left
+    // external they stay checked. (Its only other effect is order grouping.)
     'import-x/resolver-next': [
       createNodeResolver({
         extensions: [...JS_EXTENSIONS],
@@ -84,11 +80,10 @@ export const jsConfig = {
     'import-x/no-extraneous-dependencies': [
       'error',
       {
-        // `includeInternal` stays at its default (false). With it on the rule
-        // also verifies imports that resolve inside the package, which flags
-        // `package.json#imports` subpath self-imports (`#foo/bar`) as the
-        // package's own missing dependency — a false positive for any consumer
-        // using subpath imports. Only external dependencies need declaring.
+        // Leave `includeInternal` at its default (false): turning it on also
+        // checks imports that resolve inside the package, flagging
+        // `package.json#imports` self-imports (`#foo/bar`) as the package's own
+        // missing dependency.
         includeTypes: true,
         // Permit devDependencies in Node-environment files (config files, build
         // scripts) and test/test-support files (helpers/mocks/fixtures/setup
