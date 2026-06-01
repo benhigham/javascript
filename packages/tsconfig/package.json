@@ -4,12 +4,11 @@
   "description": "Shareable TypeScript configurations",
   "type": "module",
   "exports": {
-    ".": "./src/base.json",
-    "./astro.json": "./src/astro.json",
+    ".": "./src/node.json",
+    "./node.json": "./src/node.json",
     "./browser.json": "./src/browser.json",
-    "./next.json": "./src/next.json",
-    "./react-app.json": "./src/react-app.json",
-    "./vite.json": "./src/vite.json"
+    "./node-app.json": "./src/node-app.json",
+    "./browser-app.json": "./src/browser-app.json"
   },
   "files": [
     "src"
