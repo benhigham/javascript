@@ -98,6 +98,13 @@ const config = {
     //   a real bug here.
     'vitest/require-mock-type-parameters': 'off',
     'vitest/prefer-expect-assertions': 'off',
+
+    // Not a vitest rule, but relaxed here because it fires in test files:
+    // `unicorn/no-useless-undefined` is a destructive autofix that strips the
+    // deliberate explicit `undefined` stubs/unset values that are normal in tests
+    // (`toBe(undefined)`, `mockReturnValue(undefined)`). The `unicorn` plugin is
+    // already registered for these files by `unicorn.js`.
+    'unicorn/no-useless-undefined': 'off',
   },
 };
 

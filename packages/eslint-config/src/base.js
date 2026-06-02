@@ -64,7 +64,7 @@ export const rules = {
   'no-useless-concat': 'error',
   'no-useless-return': 'error',
   radix: 'error',
-  'require-unicode-regexp': ['error', { requireFlag: 'v' }],
+  'require-unicode-regexp': 'error', // `u` or `v`; the browser layer narrows to `u`
 
   // Modern style / consistency
   'arrow-body-style': 'error',
