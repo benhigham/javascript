@@ -53,7 +53,8 @@ export const baseConfig = [
     //     instead (existing `/…/v` is then flagged, with a suggestion to use `u`).
     //   - `unicorn/no-array-sort` only offers `.toSorted()` (Chrome 110+) as the
     //     escape from a flagged `.sort()`, not the floor-safe `[...arr].sort()`.
-    // Scoped to browser source; NODE_FILES run on Node (>=20), where both are fine.
+    // Scoped to browser source; NODE_FILES run on Node (this package requires
+    // >=22.13 via `engines`), where both `v` and `.toSorted()` are supported.
     files: [...DEFAULT_FILES],
     ignores: [...NODE_FILES],
     rules: {
