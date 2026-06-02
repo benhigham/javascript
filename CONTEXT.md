@@ -27,3 +27,7 @@ _Avoid_: build config
 **App config**:
 A primitive whose emit mode is _app_: `noEmit` — a bundler (Vite/esbuild/swc) or runtime type-stripper performs the transpile and `tsc` only type-checks. The `node-app` and `browser-app` configs. For consumers building an application, not publishing types.
 _Avoid_: bundler config, noEmit config
+
+**Browserslist floor**:
+The lowest browser/runtime a consumer's code must not break, taken from `@benhigham/browserslist-config` (e.g. `chrome 109`). It is the line that decides whether a lint rule belongs in the browser eslint layer: a rule that steers code toward syntax or APIs newer than the floor — which `compat` does not catch (it misses ECMAScript built-ins and regex-flag syntax) — is relaxed there.
+_Avoid_: baseline, browser target, browserslist target

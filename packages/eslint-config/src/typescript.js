@@ -54,7 +54,9 @@ const tsCheckedRules = {
     {
       ignoreTernaryTests: false,
       ignoreConditionalTests: false,
-      ignoreMixedLogicalExpressions: false,
+      // Switching `||` to `??` in a mixed `&&`/`||` expression changes semantics;
+      // the value-or-null cases still fire.
+      ignoreMixedLogicalExpressions: true,
     },
   ],
   '@typescript-eslint/promise-function-async': 'error',
