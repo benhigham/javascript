@@ -19,6 +19,8 @@
     "lint": "turbo run lint",
     "lint:affected": "turbo run lint --affected",
     "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "test:affected": "turbo run test --affected",
     "lint:md": "markdownlint-cli2 \"**/*.md\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\"",
     "lint:actions": "actionlint",

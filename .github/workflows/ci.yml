@@ -88,6 +88,14 @@ jobs:
         if: github.event_name != 'pull_request'
         run: pnpm run lint
 
+      - name: Test affected packages
+        if: github.event_name == 'pull_request'
+        run: pnpm run test:affected
+
+      - name: Test all packages
+        if: github.event_name != 'pull_request'
+        run: pnpm run test
+
       - name: Lint markdown
         run: pnpm run lint:md
 
