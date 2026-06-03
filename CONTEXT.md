@@ -31,3 +31,11 @@ _Avoid_: bundler config, noEmit config
 **Browserslist floor**:
 The lowest browser/runtime a consumer's code must not break, taken from `@benhigham/browserslist-config` (e.g. `chrome 109`). It is the line that decides whether a lint rule belongs in the browser eslint layer: a rule that steers code toward syntax or APIs newer than the floor — which `compat` does not catch (it misses ECMAScript built-ins and regex-flag syntax) — is relaxed there.
 _Avoid_: baseline, browser target, browserslist target
+
+**Resolved config**:
+The rule set (with parser, globals, and settings) ESLint computes for a single file path after composing every layer of an exported `@benhigham/eslint-config` config. It is what a consumer's file actually gets — the genuine interface of the package, and the surface its tests assert against — as opposed to the exported config arrays, which are the ingredients that compose into it.
+_Avoid_: the config (overloaded — say "config arrays" or "config source" for the ingredients), effective config
+
+**Composition invariant**:
+A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the re-applied "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's tests assert against the resolved config, currently load-bearing on code comments alone.
+_Avoid_: composition decision, tuning (too vague)

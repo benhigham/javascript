@@ -89,10 +89,12 @@
     "eslint": ">=10.0.0"
   },
   "devDependencies": {
-    "eslint": "catalog:"
+    "eslint": "catalog:",
+    "vitest": "catalog:"
   },
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run"
   }
 }
