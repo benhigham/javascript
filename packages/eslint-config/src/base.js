@@ -95,6 +95,21 @@ export const rules = {
   'prefer-spread': 'error',
 };
 
+// Shared `no-unused-vars` tuning honoring the `_`-prefix "intentionally unused"
+// convention. Applied to TS files via `@typescript-eslint/no-unused-vars` (in
+// `tsRules`) and to JS files via core `no-unused-vars` (the JS-scoped block in
+// `config`), so the convention holds in both. `ignoreRestSiblings` permits the
+// destructure-to-omit pattern (`{ a: _a, ...rest }`); `reportUsedIgnorePattern`
+// keeps it honest — a `_`-prefixed name that is actually used is flagged.
+const unusedVarsOptions = {
+  argsIgnorePattern: '^_',
+  varsIgnorePattern: '^_',
+  caughtErrorsIgnorePattern: '^_',
+  destructuredArrayIgnorePattern: '^_',
+  ignoreRestSiblings: true,
+  reportUsedIgnorePattern: true,
+};
+
 /**
  * Non-type-aware `@typescript-eslint/*` tunings. Applied to TS files only; the
  * type-aware tunings live in `./typescript.js`.
@@ -153,6 +168,7 @@ export const tsRules = {
   ],
   '@typescript-eslint/no-shadow': ['error', { ignoreOnInitialization: true }],
   '@typescript-eslint/no-this-alias': ['error', { allowDestructuring: true }],
+  '@typescript-eslint/no-unused-vars': ['error', unusedVarsOptions],
   '@typescript-eslint/triple-slash-reference': [
     'error',
     { path: 'never', types: 'never', lib: 'never' },
@@ -198,6 +214,16 @@ const config = [
   {
     files: [...TS_FILES],
     rules: tsRules,
+  },
+  // Honor the `_`-prefix convention for core `no-unused-vars` on JS files (TS
+  // files get it via `@typescript-eslint/no-unused-vars` in `tsRules`). Applied
+  // once here is enough: nothing in `index.js`/`typescript.js` re-touches core
+  // `no-unused-vars` for JS files after this base config.
+  {
+    files: [...JS_FILES],
+    rules: {
+      'no-unused-vars': ['error', unusedVarsOptions],
+    },
   },
 ];
 
