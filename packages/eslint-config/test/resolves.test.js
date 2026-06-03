@@ -1,12 +1,31 @@
 import { describe, expect, it } from 'vitest';
 
+import pkg from '../package.json' with { type: 'json' };
 import {
   configBlocksOf,
   FIXTURES,
   PLUGIN_EXPORTS,
   resolveConfig,
   STANDALONE_EXPORTS,
+  TESTED_EXPORTS,
 } from './helpers.js';
+
+// The coverage below only reaches the exports listed in helpers.js. Guard
+// against silent drift: a new `package.json` export that nobody adds there
+// would ship with zero coverage while the suite still looks exhaustive. These
+// assertions force the tested set to track what the package actually exports,
+// and the standalone/plugin split to partition it without gaps or overlap.
+describe('the tested export set tracks package.json exports', () => {
+  it('tests exactly the subpaths package.json exports', () => {
+    expect(new Set(TESTED_EXPORTS)).toStrictEqual(new Set(Object.keys(pkg.exports)));
+  });
+
+  it('partitions every tested export into standalone or plugin', () => {
+    expect(new Set([...STANDALONE_EXPORTS, ...PLUGIN_EXPORTS])).toStrictEqual(
+      new Set(TESTED_EXPORTS),
+    );
+  });
+});
 
 // Resolving every standalone export against every fixture path is the smoke
 // surface: it proves each module imports (so every bundled plugin is present)

@@ -15,7 +15,7 @@ import * as react from '../src/react.js';
 import * as typescript from '../src/typescript.js';
 
 /** Absolute path to the package root (the parent of this `test/` directory). */
-export const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 // Each export's module namespace, keyed by the subpath a consumer imports.
 const MODULES = {
@@ -30,6 +30,14 @@ const MODULES = {
   './plugins/tailwindcss': tailwindcss,
   './plugins/turbo': turbo,
 };
+
+/**
+ * Every export subpath these helpers can resolve — the keys of `MODULES`. The
+ * smoke and invariant tests only cover what is listed here, so a guard test
+ * pins this set against `package.json` `exports` to catch a newly-shipped
+ * export that nobody added (which would otherwise ship with no coverage).
+ */
+export const TESTED_EXPORTS = Object.keys(MODULES);
 
 /** Standalone exports: complete config arrays a consumer uses as their whole config. */
 export const STANDALONE_EXPORTS = ['.', './browser', './next', './react', './typescript'];

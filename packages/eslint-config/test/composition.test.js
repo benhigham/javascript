@@ -47,6 +47,22 @@ describe('type-aware rules layer in only at ./typescript and only on TS files', 
   });
 });
 
+describe('the shipped vitest layer composes in, scoped to test files', () => {
+  it('applies vitest rules on a test file but leaves source untouched', async () => {
+    const test = await resolveConfig('.', FIXTURES.test);
+    const source = await resolveConfig('.', FIXTURES.ts);
+
+    expect(severityOf(test, 'vitest/prefer-to-be')).toBe('error');
+    expect(severityOf(source, 'vitest/prefer-to-be')).toBe('absent');
+  });
+
+  it('ships typecheck enabled by default (the setting this package dogfoods off)', async () => {
+    const test = await resolveConfig('.', FIXTURES.test);
+
+    expect(test.settings?.vitest?.typecheck).toBe(true);
+  });
+});
+
 describe('curated tunings win over the presets they layer on top of', () => {
   it('keeps @typescript-eslint/array-type at array-simple over the stylistic preset', async () => {
     const ts = await resolveConfig('./typescript', FIXTURES.ts);
