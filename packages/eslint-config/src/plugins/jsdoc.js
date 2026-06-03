@@ -40,6 +40,13 @@ export const jsConfig = {
     // cross-file, or `@import`ed types as undefined.
     'jsdoc/no-types': 'off',
     'jsdoc/no-undefined-types': 'off',
+    // The `contents` category enables `text-escaping` at error; every
+    // `recommended-*` bundle ships it off. Restore that: its autofix escapes
+    // `<` -> `&lt;` in JSDoc but isn't markdown-aware (it mangles `<` inside
+    // backtick code spans) and escapes only `<`, not `>` (asymmetric garbage).
+    // It targets JSDoc rendered as raw HTML; TS/TSDoc and editor hover render
+    // markdown, so the escaping is pure corruption there.
+    'jsdoc/text-escaping': 'off',
   },
 };
 
@@ -57,5 +64,9 @@ export const tsConfig = {
     // `check-tag-names` should run in typed mode.
     'jsdoc/no-undefined-types': 'off',
     'jsdoc/check-tag-names': ['error', { typed: true }],
+    // See `jsConfig` above: the `contents` category re-enables `text-escaping`
+    // that every `recommended-*` bundle ships off; its non-markdown-aware
+    // autofix corrupts `<` inside code spans. Restore the bundle default.
+    'jsdoc/text-escaping': 'off',
   },
 };

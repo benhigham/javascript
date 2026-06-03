@@ -12,7 +12,12 @@ const config = {
   },
   rules: {
     ...eslintPluginSonarjs.configs.recommended.rules,
-    'sonarjs/unused-import': 'off', // We use `no-unused-vars` instead.
+    // Defer all unused detection to `no-unused-vars`, which honors the
+    // `_`-prefix convention and `ignoreRestSiblings`; sonarjs's overlapping
+    // rules ignore both (e.g. they flag the destructure-to-omit `{ a: _a,
+    // ...rest }`). `no-unused-function-argument` is already off in recommended.
+    'sonarjs/unused-import': 'off',
+    'sonarjs/no-unused-vars': 'off',
   },
 };
 
