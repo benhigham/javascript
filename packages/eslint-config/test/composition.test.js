@@ -56,10 +56,37 @@ describe('the shipped vitest layer composes in, scoped to test files', () => {
     expect(severityOf(source, 'vitest/prefer-to-be')).toBe('absent');
   });
 
-  it('ships typecheck enabled by default (the setting this package dogfoods off)', async () => {
-    const test = await resolveConfig('.', FIXTURES.test);
+  it('keeps the non-type-aware vitest rules on JS test files', async () => {
+    const testJs = await resolveConfig('.', FIXTURES.testJs);
 
-    expect(test.settings?.vitest?.typecheck).toBe(true);
+    expect(severityOf(testJs, 'vitest/prefer-to-be')).toBe('error');
+  });
+});
+
+describe('vitest typecheck rides with projectService — TS test files only', () => {
+  // The setting makes type-aware vitest rules (e.g. vitest/valid-title) consult
+  // parser type services, which only exist where projectService is set. It must
+  // never land on a file without type info, or those rules throw a hard crash.
+  it('omits typecheck under the non-type-aware base (.) export, on TS and JS tests', async () => {
+    const ts = await resolveConfig('.', FIXTURES.test);
+    const js = await resolveConfig('.', FIXTURES.testJs);
+
+    expect(ts.settings?.vitest?.typecheck).toBeUndefined();
+    expect(js.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('enables typecheck on TS test files but not JS ones under ./typescript', async () => {
+    const ts = await resolveConfig('./typescript', FIXTURES.test);
+    const js = await resolveConfig('./typescript', FIXTURES.testJs);
+
+    expect(ts.settings?.vitest?.typecheck).toBe(true);
+    expect(js.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('propagates to exports that layer on ./typescript (e.g. ./browser)', async () => {
+    const ts = await resolveConfig('./browser', FIXTURES.test);
+
+    expect(ts.settings?.vitest?.typecheck).toBe(true);
   });
 });
 
