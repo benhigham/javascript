@@ -1,16 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./base.json",
-  "compilerOptions": {
-    "module": "nodenext",
-    "lib": ["ES2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "stripInternal": true,
-    "newLine": "lf",
-    "noEmitOnError": true,
-    "preserveWatchOutput": true,
-    "outDir": "${configDir}/dist"
-  }
+  // base kernel + library emit + node environment
+  "extends": ["./internal/base.json", "./internal/emit-library.json", "./internal/env-node.json"]
 }
