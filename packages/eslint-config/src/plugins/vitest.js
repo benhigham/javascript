@@ -1,6 +1,6 @@
 import eslintPluginVitest from '@vitest/eslint-plugin';
 
-import { TEST_FILES } from '../lib/file-patterns.js';
+import { TEST_FILES, TS_TEST_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -9,11 +9,6 @@ const config = {
   files: [...TEST_FILES],
   plugins: {
     vitest: eslintPluginVitest,
-  },
-  settings: {
-    vitest: {
-      typecheck: true,
-    },
   },
   languageOptions: {
     globals: {
@@ -105,6 +100,26 @@ const config = {
     // (`toBe(undefined)`, `mockReturnValue(undefined)`). The `unicorn` plugin is
     // already registered for these files by `unicorn.js`.
     'unicorn/no-useless-undefined': 'off',
+  },
+};
+
+/**
+ * The type-aware half of the vitest layer: `typecheck: true` makes the
+ * type-requiring vitest rules (e.g. `vitest/valid-title`) recognize
+ * `expectTypeOf`/`assertType` and consult the parser's type services. Those
+ * services only exist where `parserOptions.projectService` is set, so this is
+ * composed in by `typescript.js` (which owns `projectService`) and scoped to TS
+ * test files. Keeping it out of the default `config` above is deliberate: on a
+ * non-type-aware export (`.`), or a JS test file anywhere, the setting would
+ * make those rules throw a hard ESLint crash for want of type information.
+ * @type {Linter.Config}
+ */
+export const tsConfig = {
+  files: [...TS_TEST_FILES],
+  settings: {
+    vitest: {
+      typecheck: true,
+    },
   },
 };
 

@@ -60,8 +60,9 @@ export const PLUGIN_EXPORTS = [
  * Representative virtual file paths the configs are resolved against. None need
  * to exist on disk — `calculateConfigForFile` only matches the path against the
  * config globs. `configFile` and `script` hit the two distinct `NODE_FILES`
- * patterns (a `*.config.*` file and a path under `scripts/`); `test` hits the
- * `TEST_FILES` pattern.
+ * patterns (a `*.config.*` file and a path under `scripts/`); `test` and
+ * `testJs` hit the `TEST_FILES` pattern (a TS and a JS test file — the pair that
+ * pins the vitest `typecheck` setting to TS test files only).
  */
 export const FIXTURES = {
   js: 'src/a.js',
@@ -70,6 +71,7 @@ export const FIXTURES = {
   configFile: 'a.config.ts',
   script: 'scripts/x.ts',
   test: 'src/a.test.ts',
+  testJs: 'src/a.test.js',
 };
 
 /**
