@@ -90,6 +90,88 @@ describe('vitest typecheck rides with projectService — TS test files only', ()
   });
 });
 
+describe('type-test files (*.test-d.ts) are linted only in the type-aware layer', () => {
+  // Type tests need `typecheck` + `projectService` to be meaningful, both of
+  // which live only in ./typescript+. The base (.) export must leave them with
+  // no vitest layer at all; ./typescript lints them with typecheck on, minus the
+  // structural rules that misfire on type tests (require-hook, the expect-group
+  // padding). See ADR-0005.
+  it('gives a -d file no vitest rules and no typecheck under the base (.) export', async () => {
+    const typeTest = await resolveConfig('.', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('absent');
+    expect(typeTest.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('keeps a __tests__/-located -d file out of the runtime layer under base (.)', async () => {
+    // A `-d` file under `__tests__/` matches the runtime `TEST_FILES` dir glob,
+    // so only the runtime layer's `ignores: [...TYPE_TEST_FILES]` keeps it out of
+    // the base layer (where it would misfire — vitest rules with no typecheck).
+    // The `src/a.test-d.ts` fixture above can't catch a dropped `ignores`: it
+    // never matches `TEST_FILES`, so it resolves to no vitest rules regardless.
+    const typeTest = await resolveConfig('.', FIXTURES.typeTestInDir);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('absent');
+    expect(typeTest.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('governs a __tests__/-located -d file by the type-aware block under ./typescript', async () => {
+    // Wherever it sits, a `-d` file is linted by exactly one block: the type-aware
+    // one. Under `__tests__/` it also matches the runtime globs, so this pins that
+    // the type-test treatment (rules + typecheck) still wins via the `ignores`.
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTestInDir);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+    expect(severityOf(typeTest, 'vitest/require-hook')).toBe('off');
+  });
+
+  it('lints a -d file with the curated vitest rules and typecheck under ./typescript', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+  });
+
+  it('turns off the rules that misfire on type tests, on -d files only', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+    const test = await resolveConfig('./typescript', FIXTURES.test);
+
+    expect(severityOf(typeTest, 'vitest/require-hook')).toBe('off');
+    expect(severityOf(typeTest, 'vitest/padding-around-expect-groups')).toBe('off');
+
+    // The deny-list is scoped to type-test files: runtime test files keep them.
+    expect(severityOf(test, 'vitest/require-hook')).toBe('error');
+    expect(severityOf(test, 'vitest/padding-around-expect-groups')).toBe('error');
+  });
+
+  it('keeps rules triage suspected but that do not misfire (e.g. require-top-level-describe)', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/require-top-level-describe')).toBe('error');
+    expect(severityOf(typeTest, 'vitest/consistent-test-filename')).toBe('error');
+  });
+
+  it('propagates to exports that layer on ./typescript (e.g. ./react)', async () => {
+    const typeTest = await resolveConfig('./react', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+  });
+
+  it('allows devDependency imports (e.g. vitest) in type-test files', async () => {
+    // The import layer (`import-x/no-extraneous-dependencies`) applies on every
+    // export, independent of the type-aware-only vitest scoping. Its
+    // devDependencies allowlist must include the type-test glob, or a colocated
+    // `src/a.test-d.ts` importing vitest's `expectTypeOf` (a devDependency) is
+    // wrongly flagged as extraneous in a consumer project.
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+    const allowed = optionsOf(typeTest, 'import-x/no-extraneous-dependencies')?.devDependencies;
+
+    expect(allowed).toContain('**/*.{test,spec}-d.{ts,tsx,mts,cts}');
+  });
+});
+
 describe('curated tunings win over the presets they layer on top of', () => {
   it('keeps @typescript-eslint/array-type at array-simple over the stylistic preset', async () => {
     const ts = await resolveConfig('./typescript', FIXTURES.ts);

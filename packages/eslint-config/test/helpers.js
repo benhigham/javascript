@@ -62,7 +62,12 @@ export const PLUGIN_EXPORTS = [
  * config globs. `configFile` and `script` hit the two distinct `NODE_FILES`
  * patterns (a `*.config.*` file and a path under `scripts/`); `test` and
  * `testJs` hit the `TEST_FILES` pattern (a TS and a JS test file — the pair that
- * pins the vitest `typecheck` setting to TS test files only).
+ * pins the vitest `typecheck` setting to TS test files only). `typeTest` and
+ * `typeTestInDir` both hit the `TYPE_TEST_FILES` pattern (a `*.test-d.ts` type-test
+ * file — linted by the vitest layer only under the type-aware exports, never under
+ * base `.`); `typeTestInDir` sits under `__tests__/`, the one place a `-d` file
+ * also matches the runtime `TEST_FILES` dir glob, so it exercises the runtime
+ * layer's `ignores` that keeps the overlap out of the base layer.
  */
 export const FIXTURES = {
   js: 'src/a.js',
@@ -72,6 +77,8 @@ export const FIXTURES = {
   script: 'scripts/x.ts',
   test: 'src/a.test.ts',
   testJs: 'src/a.test.js',
+  typeTest: 'src/a.test-d.ts',
+  typeTestInDir: 'src/__tests__/a.test-d.ts',
 };
 
 /**

@@ -39,3 +39,7 @@ _Avoid_: the config (overloaded — say "config arrays" or "config source" for t
 **Composition invariant**:
 A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the re-applied "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's tests assert against the resolved config, currently load-bearing on code comments alone.
 _Avoid_: composition decision, tuning (too vague)
+
+**Type-test file**:
+A vitest test file using the `-d` suffix convention — `*.{test,spec}-d.{ts,tsx,mts,cts}` — whose body holds type-level assertions (`expectTypeOf`/`assertType`) rather than runtime ones. Inherently TypeScript and meaningful only with type information, so `@benhigham/eslint-config` lints it solely in the type-aware layer (where `typecheck: true` rides with `projectService`), never under the base/non-type-aware exports; the runtime test layer excludes it outright. The few curated vitest rules that assume a runtime test (`require-hook`, `padding-around-expect-groups`) are turned off for it.
+_Avoid_: type test (the activity), test file (overloaded — reserve for runtime `*.{test,spec}.*` files)
