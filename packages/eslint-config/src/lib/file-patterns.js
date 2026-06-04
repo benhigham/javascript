@@ -18,6 +18,14 @@ export const TS_TEST_FILES = [
   '**/__tests__/**/*.{ts,tsx,mts,cts}',
   '**/*.{test,spec}.{ts,tsx,mts,cts}',
 ];
+// vitest type-test files (`expectTypeOf`/`assertType`), named with vitest's `-d`
+// suffix convention. TS-only (type tests are inherently TypeScript), listing the
+// same extensions as TS_FILES. This file class is governed solely by the
+// type-aware layer: the type-requiring vitest rules need `typecheck` +
+// `projectService`, so the runtime vitest layer excludes these (via `ignores`)
+// and `typescript.js` lints them through a dedicated block. Disjoint from
+// TEST_FILES — the `-d` suffix is unmatched by `*.{test,spec}.*`.
+export const TYPE_TEST_FILES = ['**/*.{test,spec}-d.{ts,tsx,mts,cts}'];
 // Node-environment files within an otherwise browser/app project — config files
 // and build scripts. In the browser/`next` layer these keep their Node rules
 // (`n`) while browser source has them neutralized; `compat` is the inverse.

@@ -62,7 +62,9 @@ export const PLUGIN_EXPORTS = [
  * config globs. `configFile` and `script` hit the two distinct `NODE_FILES`
  * patterns (a `*.config.*` file and a path under `scripts/`); `test` and
  * `testJs` hit the `TEST_FILES` pattern (a TS and a JS test file — the pair that
- * pins the vitest `typecheck` setting to TS test files only).
+ * pins the vitest `typecheck` setting to TS test files only). `typeTest` hits the
+ * `TYPE_TEST_FILES` pattern (a `*.test-d.ts` type-test file — linted by the vitest
+ * layer only under the type-aware exports, never under base `.`).
  */
 export const FIXTURES = {
   js: 'src/a.js',
@@ -72,6 +74,7 @@ export const FIXTURES = {
   script: 'scripts/x.ts',
   test: 'src/a.test.ts',
   testJs: 'src/a.test.js',
+  typeTest: 'src/a.test-d.ts',
 };
 
 /**

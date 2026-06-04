@@ -4,7 +4,10 @@ import tseslint from 'typescript-eslint';
 import baseConfig, { rules, tsRules } from './base.js';
 import { TS_FILES } from './lib/file-patterns.js';
 import { tsConfig as importConfig } from './plugins/import.js';
-import { tsConfig as vitestTsConfig } from './plugins/vitest.js';
+import {
+  tsConfig as vitestTsConfig,
+  tsTypeTestConfig as vitestTypeTestConfig,
+} from './plugins/vitest.js';
 
 /** @import { Linter } from 'eslint' */
 
@@ -96,6 +99,11 @@ const config = [
   // so the type-requiring vitest rules never crash for want of it. The base
   // vitest layer (in `base.js`) ships the rules; this adds the type-aware setting.
   vitestTsConfig,
+  // The type-test layer (`*.test-d.*`): a self-contained vitest block scoped to
+  // type-test files. It only composes here, where `projectService` exists, so the
+  // type-requiring rules have type info. The base vitest layer excludes these
+  // files, so this is the sole place they are linted. See ADR-0005.
+  vitestTypeTestConfig,
   // Re-apply curated rules after intermediate configs so our tunings win.
   { rules },
   { files: [...TS_FILES], rules: { ...tsRules, ...tsCheckedRules } },

@@ -90,6 +90,53 @@ describe('vitest typecheck rides with projectService — TS test files only', ()
   });
 });
 
+describe('type-test files (*.test-d.ts) are linted only in the type-aware layer', () => {
+  // Type tests need `typecheck` + `projectService` to be meaningful, both of
+  // which live only in ./typescript+. The base (.) export must leave them with
+  // no vitest layer at all; ./typescript lints them with typecheck on, minus the
+  // structural rules that misfire on type tests (require-hook, the expect-group
+  // padding). See ADR-0005.
+  it('gives a -d file no vitest rules and no typecheck under the base (.) export', async () => {
+    const typeTest = await resolveConfig('.', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('absent');
+    expect(typeTest.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('lints a -d file with the curated vitest rules and typecheck under ./typescript', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+  });
+
+  it('turns off the rules that misfire on type tests, on -d files only', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+    const test = await resolveConfig('./typescript', FIXTURES.test);
+
+    expect(severityOf(typeTest, 'vitest/require-hook')).toBe('off');
+    expect(severityOf(typeTest, 'vitest/padding-around-expect-groups')).toBe('off');
+
+    // The deny-list is scoped to type-test files: runtime test files keep them.
+    expect(severityOf(test, 'vitest/require-hook')).toBe('error');
+    expect(severityOf(test, 'vitest/padding-around-expect-groups')).toBe('error');
+  });
+
+  it('keeps rules triage suspected but that do not misfire (e.g. require-top-level-describe)', async () => {
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/require-top-level-describe')).toBe('error');
+    expect(severityOf(typeTest, 'vitest/consistent-test-filename')).toBe('error');
+  });
+
+  it('propagates to exports that layer on ./typescript (e.g. ./react)', async () => {
+    const typeTest = await resolveConfig('./react', FIXTURES.typeTest);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+  });
+});
+
 describe('curated tunings win over the presets they layer on top of', () => {
   it('keeps @typescript-eslint/array-type at array-simple over the stylistic preset', async () => {
     const ts = await resolveConfig('./typescript', FIXTURES.ts);
