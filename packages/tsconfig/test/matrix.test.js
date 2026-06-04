@@ -11,21 +11,19 @@ const BROWSER = ['browser', 'browser-app'];
 // The base kernel is axis-independent: every primitive includes it
 // unconditionally, so these hold across all four regardless of emit or env.
 describe('base kernel applies to every primitive', () => {
-  it.each(PRIMITIVES)('%s inherits strict and the ES2023 target', (primitive) => {
-    const options = optionsOf(primitive);
+  it.each(PRIMITIVES)(
+    '%s inherits strict, the ES2023 target, and the kernel safety/module-hygiene flags',
+    (primitive) => {
+      const options = optionsOf(primitive);
 
-    expect(options.strict).toBe(true);
-    expect(options.target).toBe(ts.ScriptTarget.ES2023);
-  });
-
-  it.each(PRIMITIVES)('%s inherits the kernel safety and module-hygiene flags', (primitive) => {
-    const options = optionsOf(primitive);
-
-    expect(options.noUncheckedIndexedAccess).toBe(true);
-    expect(options.verbatimModuleSyntax).toBe(true);
-    expect(options.erasableSyntaxOnly).toBe(true);
-    expect(options.moduleDetection).toBe(ts.ModuleDetectionKind.Force);
-  });
+      expect(options.strict).toBe(true);
+      expect(options.target).toBe(ts.ScriptTarget.ES2023);
+      expect(options.noUncheckedIndexedAccess).toBe(true);
+      expect(options.verbatimModuleSyntax).toBe(true);
+      expect(options.erasableSyntaxOnly).toBe(true);
+      expect(options.moduleDetection).toBe(ts.ModuleDetectionKind.Force);
+    },
+  );
 });
 
 // Emit axis — set by exactly one of emit-library / emit-app. moduleResolution
@@ -86,25 +84,8 @@ describe('env axis: browser primitives get the DOM lib and jsx', () => {
   });
 });
 
-// Cross-terms — the combinations the old linear chain expressed only implicitly
-// (browser inheriting node's emit "sideways"). State them outright so the matrix
-// is pinned at its corners, not only along each axis.
-describe('the matrix corners compose both axes independently', () => {
-  it('browser is a library that emits AND targets the DOM with jsx', () => {
-    const options = optionsOf('browser');
-
-    expect(options.declaration).toBe(true);
-    expect(options.moduleResolution).toBe(ts.ModuleResolutionKind.NodeNext);
-    expect(libsOf(options)).toContain('dom');
-    expect(options.jsx).toBe(ts.JsxEmit.ReactJSX);
-  });
-
-  it('node-app pairs the node lib with bundler and noEmit', () => {
-    const options = optionsOf('node-app');
-
-    expect(libsOf(options)).toContain('es2024');
-    expect(libsOf(options)).not.toContain('dom');
-    expect(options.noEmit).toBe(true);
-    expect(options.moduleResolution).toBe(ts.ModuleResolutionKind.Bundler);
-  });
-});
+// The matrix corners (browser = library + DOM, node-app = node + app) are not
+// asserted separately: each primitive belongs to one emit array and one env
+// array, so the axis suites above already run both halves against its single
+// resolved options object — the corners are pinned by membership, not by
+// re-resolving the same object a third time.
