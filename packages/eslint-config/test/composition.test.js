@@ -103,6 +103,29 @@ describe('type-test files (*.test-d.ts) are linted only in the type-aware layer'
     expect(typeTest.settings?.vitest?.typecheck).toBeUndefined();
   });
 
+  it('keeps a __tests__/-located -d file out of the runtime layer under base (.)', async () => {
+    // A `-d` file under `__tests__/` matches the runtime `TEST_FILES` dir glob,
+    // so only the runtime layer's `ignores: [...TYPE_TEST_FILES]` keeps it out of
+    // the base layer (where it would misfire — vitest rules with no typecheck).
+    // The `src/a.test-d.ts` fixture above can't catch a dropped `ignores`: it
+    // never matches `TEST_FILES`, so it resolves to no vitest rules regardless.
+    const typeTest = await resolveConfig('.', FIXTURES.typeTestInDir);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('absent');
+    expect(typeTest.settings?.vitest?.typecheck).toBeUndefined();
+  });
+
+  it('governs a __tests__/-located -d file by the type-aware block under ./typescript', async () => {
+    // Wherever it sits, a `-d` file is linted by exactly one block: the type-aware
+    // one. Under `__tests__/` it also matches the runtime globs, so this pins that
+    // the type-test treatment (rules + typecheck) still wins via the `ignores`.
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTestInDir);
+
+    expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
+    expect(typeTest.settings?.vitest?.typecheck).toBe(true);
+    expect(severityOf(typeTest, 'vitest/require-hook')).toBe('off');
+  });
+
   it('lints a -d file with the curated vitest rules and typecheck under ./typescript', async () => {
     const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
 
