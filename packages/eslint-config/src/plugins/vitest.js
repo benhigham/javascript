@@ -99,15 +99,14 @@ const rules = {
 };
 
 /**
- * The runtime vitest layer: the curated rules on runtime test files. Type-test
- * files (`*.test-d.*`) are excluded via `ignores` — they need `typecheck` +
- * `projectService`, so they are governed solely by the type-aware
- * `tsTypeTestConfig` block (composed in `typescript.js`), never the base layer.
+ * The vitest plugin + environment globals shared by both full vitest blocks
+ * (`config` and `tsTypeTestConfig`). They differ only in `files`/`ignores`,
+ * `settings`, and `rules`; the plugin registration and globals are identical, so
+ * they live here once. (The `tsConfig` overlay below is settings-only and rides
+ * on a block that already registered these, so it does not spread this.)
  * @type {Linter.Config}
  */
-const config = {
-  files: [...TEST_FILES],
-  ignores: [...TYPE_TEST_FILES],
+const vitestEnv = {
   plugins: {
     vitest: eslintPluginVitest,
   },
@@ -116,6 +115,19 @@ const config = {
       ...eslintPluginVitest.environments.env.globals,
     },
   },
+};
+
+/**
+ * The runtime vitest layer: the curated rules on runtime test files. Type-test
+ * files (`*.test-d.*`) are excluded via `ignores` — they need `typecheck` +
+ * `projectService`, so they are governed solely by the type-aware
+ * `tsTypeTestConfig` block (composed in `typescript.js`), never the base layer.
+ * @type {Linter.Config}
+ */
+const config = {
+  ...vitestEnv,
+  files: [...TEST_FILES],
+  ignores: [...TYPE_TEST_FILES],
   rules,
 };
 
@@ -157,15 +169,8 @@ export const tsConfig = {
  * @type {Linter.Config}
  */
 export const tsTypeTestConfig = {
+  ...vitestEnv,
   files: [...TYPE_TEST_FILES],
-  plugins: {
-    vitest: eslintPluginVitest,
-  },
-  languageOptions: {
-    globals: {
-      ...eslintPluginVitest.environments.env.globals,
-    },
-  },
   settings: {
     vitest: {
       typecheck: true,
