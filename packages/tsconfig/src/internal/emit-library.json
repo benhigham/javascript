@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "stripInternal": true,
+    "newLine": "lf",
+    "noEmitOnError": true,
+    "preserveWatchOutput": true,
+    "outDir": "${configDir}/dist"
+  }
+}

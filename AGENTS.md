@@ -41,7 +41,7 @@ pnpm changeset                        # Create a changeset for versioning
 pnpm --filter @benhigham/<pkg> lint   # Lint one package (e.g., eslint-config)
 ```
 
-Each package has `lint` and `lint:fix` scripts. Formatting is run from the repository root (no per-package `format:check`). `eslint-config` and `stylelint-config` have Vitest suites (a `test` script asserting resolved-config and browser-support behavior), orchestrated via `turbo run test`; the other packages have no tests.
+Each package has `lint` and `lint:fix` scripts. Formatting is run from the repository root (no per-package `format:check`). `eslint-config`, `stylelint-config`, and `tsconfig` have Vitest suites (a `test` script asserting resolved-config and browser-support behavior — for `tsconfig`, the merged `compilerOptions` of each primitive), orchestrated via `turbo run test`; the other packages have no tests.
 
 ## Toolchain
 

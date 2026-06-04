@@ -13,12 +13,16 @@ A dependency used only to develop, lint, or build this repo, routed through the 
 _Avoid_: dev dependency (overloaded with the literal `devDependencies` field)
 
 **Release coverage**:
-The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation.
+The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation. The surface is the _resolved behavior_ a consumer gets, not the set of files shipped — an internal restructure with byte-identical resolved behavior owes no changeset, even when the published tarball's file tree changes (or a previously-implied option becomes explicit without changing what TypeScript computes).
 _Avoid_: changeset coverage
 
 **Primitive config**:
 A `@benhigham/tsconfig` variant defined by the two orthogonal axes — runtime environment (node vs browser/DOM) and emit mode (library vs app) — rather than by a target framework. The package ships only primitives (`node` (the `.` default), `browser`, `node-app`, `browser-app`); framework toolchains (Next, Astro, Vite) are served by composing a primitive with the framework's own config and docs, never a bespoke variant.
 _Avoid_: framework config (the deliberately-rejected alternative — see ADR-0001)
+
+**Config fragment**:
+An internal, unexported building block of `@benhigham/tsconfig` carrying one axis's worth of `compilerOptions` — an _emit_ fragment (`emit-library`, `emit-app`) or an _environment_ fragment (`env-node`, `env-browser`). Each primitive is composed as `base` + one emit fragment + one environment fragment via an `extends` array; fragments live in `src/internal/` and are never exported.
+_Avoid_: preset, partial config
 
 **Library config**:
 A primitive whose emit mode is _library_: `tsc` emits JavaScript + `.d.ts`. The `node` (default) and `browser` configs. For consumers publishing a package whose types others consume.

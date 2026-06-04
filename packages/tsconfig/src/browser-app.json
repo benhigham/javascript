@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./node-app.json",
-  "compilerOptions": {
-    "lib": ["ES2023", "DOM"],
-    "jsx": "react-jsx"
-  }
+  // base kernel + app emit + browser environment
+  "extends": ["./internal/base.json", "./internal/emit-app.json", "./internal/env-browser.json"]
 }
