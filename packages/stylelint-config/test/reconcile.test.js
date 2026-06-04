@@ -56,17 +56,39 @@ const MODERN_CSS = `
 }
 `;
 
+// A feature below the floor, to prove the gates are still live: the "they agree"
+// test above passes whether the gates stay silent because the CSS is fine *or*
+// because someone disabled both, so on its own it can't tell working gates from
+// dead ones. `text-size-adjust` trips both — caniuse (Firefox doesn't support it)
+// and Baseline (not newly available) — so both must fire here. Durable: Firefox
+// has long declined it. Swap it if it ever reaches Baseline.
+const BELOW_FLOOR_CSS = `
+.t {
+  text-size-adjust: none;
+}
+`;
+
+/** Warnings from the two browser-support gates for a snippet, at the pinned floor. */
+const gateWarningsFor = async (code) => {
+  const { results } = await stylelint.lint({
+    code,
+    config,
+    configBasedir: PKG_ROOT,
+    codeFilename: path.join(PKG_ROOT, 'fixture.css'),
+  });
+
+  return results[0].warnings.filter((warning) => GATES.has(warning.rule));
+};
+
 describe('the browser-support gates agree at the modern floor', () => {
   it('flags none of the modern CSS the config encourages', async () => {
-    const { results } = await stylelint.lint({
-      code: MODERN_CSS,
-      config,
-      configBasedir: PKG_ROOT,
-      codeFilename: path.join(PKG_ROOT, 'fixture.css'),
-    });
+    await expect(gateWarningsFor(MODERN_CSS)).resolves.toStrictEqual([]);
+  });
 
-    const gateWarnings = results[0].warnings.filter((warning) => GATES.has(warning.rule));
+  it('still flags a feature below the floor (both gates live, not disabled)', async () => {
+    const warnings = await gateWarningsFor(BELOW_FLOOR_CSS);
+    const flagged = new Set(warnings.map((warning) => warning.rule));
 
-    expect(gateWarnings).toStrictEqual([]);
+    expect(flagged).toStrictEqual(GATES);
   });
 });
