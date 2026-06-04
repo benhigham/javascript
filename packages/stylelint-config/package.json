@@ -51,7 +51,6 @@
     "stylelint-declaration-strict-value": "^1.10.11",
     "stylelint-gamut": "^2.0.0",
     "stylelint-high-performance-animation": "^2.0.0",
-    "stylelint-media-use-custom-media": "^4.0.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
     "stylelint-order": "^8.0.0",
     "stylelint-plugin-use-baseline": "^1.0.3",
@@ -61,12 +60,15 @@
     "stylelint": ">=17.0.0"
   },
   "devDependencies": {
+    "@benhigham/browserslist-config": "workspace:*",
     "@benhigham/eslint-config": "workspace:*",
     "eslint": "catalog:",
-    "stylelint": "catalog:"
+    "stylelint": "catalog:",
+    "vitest": "catalog:"
   },
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run"
   }
 }

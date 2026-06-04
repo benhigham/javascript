@@ -64,7 +64,7 @@ export const rules = {
   'no-useless-concat': 'error',
   'no-useless-return': 'error',
   radix: 'error',
-  'require-unicode-regexp': 'error', // `u` or `v`; the browser layer narrows to `u`
+  'require-unicode-regexp': 'error', // `u` or `v`; `v` not forced (needs tsconfig target ES2024) — see ADR-0004
 
   // Modern style / consistency
   'arrow-body-style': 'error',

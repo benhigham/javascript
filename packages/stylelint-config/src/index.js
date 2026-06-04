@@ -8,7 +8,6 @@ const config = {
     'stylelint-declaration-strict-value',
     'stylelint-high-performance-animation',
     'stylelint-gamut',
-    'stylelint-media-use-custom-media',
     'stylelint-use-nesting',
     'stylelint-plugin-use-baseline',
     'stylelint-no-unsupported-browser-features',
@@ -16,10 +15,15 @@ const config = {
   rules: {
     // Browser compatibility
     'plugin/use-baseline': [true, { available: 'newly' }],
-    'plugin/no-unsupported-browser-features': true,
+    // `ignorePartialSupport` drops residual caniuse "partial support" pedantry so
+    // this gate (caniuse vs the floor) agrees with `use-baseline: newly` (Baseline
+    // data) instead of fighting it at the modern floor. See ADR-0004.
+    'plugin/no-unsupported-browser-features': [true, { ignorePartialSupport: true }],
 
     // Performance
-    'plugin/no-low-performance-animation-properties': true,
+    // Narrow to layout-triggering properties only; animating paint properties
+    // (color, box-shadow, …) is common and acceptable, so don't flag it.
+    'plugin/no-low-performance-animation-properties': [true, { ignore: 'paint-properties' }],
 
     // SCSS-specific rules
     'scss/at-rule-no-unknown': true,
@@ -84,7 +88,6 @@ const config = {
     'length-zero-no-unit': true,
     'shorthand-property-no-redundant-values': true,
     'plugin/declaration-block-no-ignored-properties': true,
-    'csstools/media-use-custom-media': 'always',
     'csstools/use-nesting': 'always',
     'gamut/color-no-out-gamut-range': true,
   },
@@ -98,8 +101,12 @@ const config = {
     {
       files: ['**/*.module.{css,scss}'],
       rules: {
-        // More permissive rules for CSS modules
+        // More permissive rules for CSS Modules
         'selector-class-pattern': null,
+        // `:global`/`:local` pseudos and the `composes` property are valid CSS
+        // Modules syntax; the recommended config would otherwise reject them.
+        'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global', 'local'] }],
+        'property-no-unknown': [true, { ignoreProperties: ['composes'] }],
       },
     },
   ],

@@ -46,23 +46,6 @@ export const baseConfig = [
     },
   },
   {
-    // These rules steer code toward syntax or APIs newer than the consumer's
-    // browserslist floor, and `compat` doesn't catch the result:
-    //   - `require-unicode-regexp`'s `v` flag is ES2024 (Chrome 112+ / Safari 17+),
-    //     a `SyntaxError` below the floor that SWC doesn't downlevel; require `u`
-    //     instead (existing `/…/v` is then flagged, with a suggestion to use `u`).
-    //   - `unicorn/no-array-sort` only offers `.toSorted()` (Chrome 110+) as the
-    //     escape from a flagged `.sort()`, not the floor-safe `[...arr].sort()`.
-    // Scoped to browser source; NODE_FILES run on Node (this package requires
-    // >=22.13 via `engines`), where both `v` and `.toSorted()` are supported.
-    files: [...DEFAULT_FILES],
-    ignores: [...NODE_FILES],
-    rules: {
-      'require-unicode-regexp': ['error', { requireFlag: 'u' }],
-      'unicorn/no-array-sort': 'off',
-    },
-  },
-  {
     // `unicorn/prefer-global-this` autofixes idiomatic `window`/`self` access to
     // `globalThis` and rewrites the canonical `typeof window === 'undefined'`
     // guard. `globalThis` is floor-safe (ES2020), so this is an idiom/churn
