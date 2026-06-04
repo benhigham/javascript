@@ -135,6 +135,18 @@ describe('type-test files (*.test-d.ts) are linted only in the type-aware layer'
     expect(severityOf(typeTest, 'vitest/prefer-to-be')).toBe('error');
     expect(typeTest.settings?.vitest?.typecheck).toBe(true);
   });
+
+  it('allows devDependency imports (e.g. vitest) in type-test files', async () => {
+    // The import layer (`import-x/no-extraneous-dependencies`) applies on every
+    // export, independent of the type-aware-only vitest scoping. Its
+    // devDependencies allowlist must include the type-test glob, or a colocated
+    // `src/a.test-d.ts` importing vitest's `expectTypeOf` (a devDependency) is
+    // wrongly flagged as extraneous in a consumer project.
+    const typeTest = await resolveConfig('./typescript', FIXTURES.typeTest);
+    const allowed = optionsOf(typeTest, 'import-x/no-extraneous-dependencies')?.devDependencies;
+
+    expect(allowed).toContain('**/*.{test,spec}-d.{ts,tsx,mts,cts}');
+  });
 });
 
 describe('curated tunings win over the presets they layer on top of', () => {

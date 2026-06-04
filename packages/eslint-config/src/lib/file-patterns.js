@@ -23,8 +23,11 @@ export const TS_TEST_FILES = [
 // same extensions as TS_FILES. This file class is governed solely by the
 // type-aware layer: the type-requiring vitest rules need `typecheck` +
 // `projectService`, so the runtime vitest layer excludes these (via `ignores`)
-// and `typescript.js` lints them through a dedicated block. Disjoint from
-// TEST_FILES — the `-d` suffix is unmatched by `*.{test,spec}.*`.
+// and `typescript.js` lints them through a dedicated block. Not a strict subset
+// of TEST_FILES: the `*.{test,spec}.*` suffix never matches a `-d` name, but the
+// `**/__tests__/**` dir glob does match a `-d` file placed under `__tests__/` —
+// the runtime layer's `ignores` covers that overlap, so a type-test file is
+// governed by the type-aware block wherever it sits.
 export const TYPE_TEST_FILES = ['**/*.{test,spec}-d.{ts,tsx,mts,cts}'];
 // Node-environment files within an otherwise browser/app project — config files
 // and build scripts. In the browser/`next` layer these keep their Node rules

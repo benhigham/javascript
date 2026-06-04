@@ -9,6 +9,7 @@ import {
   NODE_FILES,
   TEST_FILES,
   TEST_SUPPORT_FILES,
+  TYPE_TEST_FILES,
 } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
@@ -86,11 +87,13 @@ export const jsConfig = {
         // missing dependency.
         includeTypes: true,
         // Permit devDependencies in Node-environment files (config files, build
-        // scripts) and test/test-support files (helpers/mocks/fixtures/setup
-        // that import vitest, @testing-library/*, etc. but aren't named
-        // `*.{test,spec}.*`). vitest rule scoping stays on `TEST_FILES` only —
-        // this allowlist is intentionally broader.
-        devDependencies: [...NODE_FILES, ...TEST_FILES, ...TEST_SUPPORT_FILES],
+        // scripts), test/test-support files (helpers/mocks/fixtures/setup that
+        // import vitest, @testing-library/*, etc. but aren't named
+        // `*.{test,spec}.*`), and type-test files (`*.test-d.*`, which import
+        // `expectTypeOf`/`assertType` from vitest). This is the import layer, so
+        // it applies on every export — independent of the type-aware-only vitest
+        // rule scoping; the allowlist is intentionally broader.
+        devDependencies: [...NODE_FILES, ...TEST_FILES, ...TEST_SUPPORT_FILES, ...TYPE_TEST_FILES],
         optionalDependencies: false,
         peerDependencies: true,
       },
