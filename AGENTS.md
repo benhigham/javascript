@@ -32,6 +32,7 @@ pnpm run lint:fix                     # Auto-fix lint issues across all packages
 pnpm run lint:md                      # markdownlint over all *.md files
 pnpm run lint:md:fix                  # markdownlint auto-fix
 pnpm run lint:actions                 # actionlint over GitHub Actions workflows
+pnpm run test                         # Run package test suites (via Turborepo)
 pnpm run format                       # Fix formatting across the repo (root Prettier)
 pnpm run format:check                 # Check formatting across the repo (root Prettier)
 pnpm changeset                        # Create a changeset for versioning
@@ -40,7 +41,7 @@ pnpm changeset                        # Create a changeset for versioning
 pnpm --filter @benhigham/<pkg> lint   # Lint one package (e.g., eslint-config)
 ```
 
-Each package has `lint` and `lint:fix` scripts. Formatting is run from the repository root (no per-package `format:check`). There are no test suites.
+Each package has `lint` and `lint:fix` scripts. Formatting is run from the repository root (no per-package `format:check`). `eslint-config` and `stylelint-config` have Vitest suites (a `test` script asserting resolved-config and browser-support behavior), orchestrated via `turbo run test`; the other packages have no tests.
 
 ## Toolchain
 
@@ -86,8 +87,8 @@ Plugin configs live in `src/plugins/` and follow a consistent pattern: import pl
 - **stylelint-config** — Extends standard-scss + recess-order; plugins for browser compat, performance, strict values, nesting
 - **commitlint-config** — Extends config-conventional; enforces 100-char body line length
 - **tsconfig** — 4 environment×emit primitives over an internal `base` kernel: `node` (the `.` default) and `browser` are libraries (`tsc` emits, `nodenext`); `node-app` and `browser-app` are apps (`noEmit`, bundler resolution). No framework configs — consumers compose a primitive with the framework's own config (see `packages/tsconfig/README.md`; ADR-0001)
-- **browserslist-config** — Default (ES modules + last 2 major versions) and Node (maintained versions)
+- **browserslist-config** — Default (a single rolling, modern query `last 2 years and not dead and fully supports es6-module`, landing at ~Baseline "newly"; see ADR-0004) and Node (maintained versions)
 
 ## CI
 
-The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint, lint markdown, lint GitHub Actions. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.
+The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint, test, lint markdown, lint GitHub Actions. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.

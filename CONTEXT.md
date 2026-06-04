@@ -29,7 +29,7 @@ A primitive whose emit mode is _app_: `noEmit` — a bundler (Vite/esbuild/swc) 
 _Avoid_: bundler config, noEmit config
 
 **Browserslist floor**:
-The lowest browser/runtime a consumer's code must not break, taken from `@benhigham/browserslist-config` (e.g. `chrome 109`). It is the line that decides whether a lint rule belongs in the browser eslint layer: a rule that steers code toward syntax or APIs newer than the floor — which `compat` does not catch (it misses ECMAScript built-ins and regex-flag syntax) — is relaxed there.
+The lowest browser/runtime a consumer's code must not break, taken from `@benhigham/browserslist-config` (e.g. `chrome 126`). It is the line that governs how floor-sensitive lint rules — those steering code toward ECMAScript built-ins that `compat` cannot catch (e.g. `unicorn/no-array-sort`, whose `.toSorted()` fix needs Chrome 110+) — are tuned: relaxed when the floor sits below the feature, required when it sits at or above. (Regex-flag syntax is _not_ such a case: the `v` flag is gated on the consumer's tsconfig `target`, a compile-time axis this floor doesn't move — see ADR-0004.)
 _Avoid_: baseline, browser target, browserslist target
 
 **Resolved config**:
