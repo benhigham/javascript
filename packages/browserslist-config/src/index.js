@@ -1,23 +1,16 @@
 /** @import { Config } from 'browserslist' */
 
-const desktopConfig = [
-  'last 2 Chrome major versions',
-  'last 2 Firefox major versions',
-  'last 2 Safari major versions',
-  'last 2 Edge major versions',
-];
-
-const mobileConfig = [
-  'last 2 Android major versions',
-  'last 2 ChromeAndroid major versions',
-  'last 2 FirefoxAndroid major versions',
-  'last 2 iOS major versions',
-];
-
 /**
  * A shared Browserslist configuration.
+ *
+ * One rolling, modern query, intersected with `and` so the clauses _narrow_ each
+ * other. Browserslist combines comma- or array-separated queries with `or`, so a
+ * multi-entry array (e.g. `['last 2 years', 'not dead', ...]`) would _union_ them
+ * into a far broader floor (down to Chrome 61 plus the niche long tail) — the
+ * opposite of the intent. The single `and` query lands the floor at roughly
+ * Baseline "newly available". See ADR-0004.
  * @type {Config | string[]}
  */
-const config = ['defaults and fully supports es6-module', ...desktopConfig, ...mobileConfig];
+const config = ['last 2 years and not dead and fully supports es6-module'];
 
 export default config;
