@@ -7,13 +7,19 @@ export const TS_FILES = ['**/*.{ts,tsx,mts,cts}'];
 export const DEFAULT_FILES = ['**/*.?(c|m)[jt]s?(x)'];
 export const GQL_FILES = ['**/*.{graphql,gql}'];
 export const TEST_FILES = ['**/__tests__/**/*.?(c|m)[jt]s?(x)', '**/*.{test,spec}.?(c|m)[jt]s?(x)'];
-// The TypeScript subset of TEST_FILES. The vitest `typecheck` setting (which
-// makes type-aware vitest rules consult parser type services) must ride only
-// where type information exists — i.e. TS test files in the type-aware layer,
-// alongside `projectService`. Scoping the setting to these globs keeps it off JS
-// test files and off non-type-aware exports, where those rules would otherwise
-// throw a hard crash for want of type info.
-export const TS_TEST_FILES = ['**/__tests__/**/*.?(c|m)ts?(x)', '**/*.{test,spec}.?(c|m)ts?(x)'];
+// The TypeScript subset of TEST_FILES — TEST_FILES narrowed to the exact TS
+// extensions enumerated in TS_FILES, so it is a strict subset of both (the
+// extglob `?(c|m)ts?(x)` would over-match `.ctsx`/`.mtsx`, which TS_FILES omits).
+// The vitest `typecheck` setting (which makes type-aware vitest rules consult
+// parser type services) must ride only where type information exists — i.e. TS
+// test files in the type-aware layer, alongside `projectService`. Scoping the
+// setting to these globs keeps it off JS test files and off non-type-aware
+// exports, where those rules would otherwise throw a hard crash for want of type
+// info.
+export const TS_TEST_FILES = [
+  '**/__tests__/**/*.{ts,tsx,mts,cts}',
+  '**/*.{test,spec}.{ts,tsx,mts,cts}',
+];
 // Node-environment files within an otherwise browser/app project — config files
 // and build scripts. In the browser/`next` layer these keep their Node rules
 // (`n`) while browser source has them neutralized; `compat` is the inverse.
