@@ -13,7 +13,7 @@ A dependency used only to develop, lint, or build this repo, routed through the 
 _Avoid_: dev dependency (overloaded with the literal `devDependencies` field)
 
 **Release coverage**:
-The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation. The surface is the _resolved behavior_ a consumer gets, not the set of files shipped — an internal restructure with byte-identical resolved output owes no changeset, even when the published tarball's file tree changes.
+The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation. The surface is the _resolved behavior_ a consumer gets, not the set of files shipped — an internal restructure with byte-identical resolved behavior owes no changeset, even when the published tarball's file tree changes (or a previously-implied option becomes explicit without changing what TypeScript computes).
 _Avoid_: changeset coverage
 
 **Primitive config**:
