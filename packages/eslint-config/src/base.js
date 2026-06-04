@@ -64,7 +64,7 @@ export const rules = {
   'no-useless-concat': 'error',
   'no-useless-return': 'error',
   radix: 'error',
-  'require-unicode-regexp': 'error', // require the `u` or `v` flag; `v` is left optional, not forced — it needs tsconfig `target: ES2024` (a compile-time axis the browser floor doesn't move), and `@benhigham/tsconfig` targets ES2023
+  'require-unicode-regexp': 'error', // `u` or `v`; `v` not forced (needs tsconfig target ES2024) — see ADR-0004
 
   // Modern style / consistency
   'arrow-body-style': 'error',
