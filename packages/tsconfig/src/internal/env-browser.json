@@ -1,7 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "lib": ["ES2023", "DOM"],
+    // Browser lib tracks the standard ES-year, not the literal floor: the staged
+    // ESNext.* helpers stay node-only even when individually below it. See ADR-0006.
+    "lib": ["ES2024", "DOM"],
     "jsx": "react-jsx"
   }
 }
