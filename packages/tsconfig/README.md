@@ -14,7 +14,7 @@ That gives a 2×2, and this package ships one config per cell:
 | **node**    | `.` (`@benhigham/tsconfig`)        | `@benhigham/tsconfig/node-app.json`    |
 | **browser** | `@benhigham/tsconfig/browser.json` | `@benhigham/tsconfig/browser-app.json` |
 
-`moduleResolution` follows the **emit** axis (libraries → `nodenext` so output resolves under Node; apps → `bundler`). The **environment** axis only adds the `DOM` lib and `jsx: react-jsx`. There is no framework config — see [Framework composition](#framework-composition).
+`moduleResolution` follows the **emit** axis (libraries → `nodenext` so output resolves under Node; apps → `bundler`). The **environment** axis sets the `lib`: browser adds `DOM` + `jsx: react-jsx` on top of the `ES2024` baseline, while node additionally carries the staged `ESNext.*` iterator/Set/array helpers its pinned runtime guarantees and the browser configs omit by design (ADR-0006). There is no framework config — see [Framework composition](#framework-composition).
 
 ## Requirements
 

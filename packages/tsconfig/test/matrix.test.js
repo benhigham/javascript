@@ -74,14 +74,21 @@ describe('env axis: node primitives get the node lib, no DOM or jsx', () => {
 });
 
 describe('env axis: browser primitives get the DOM lib and jsx', () => {
-  it.each(BROWSER)('%s carries the DOM lib and the react-jsx runtime', (primitive) => {
-    const options = optionsOf(primitive);
-    const libs = libsOf(options);
+  it.each(BROWSER)(
+    '%s carries ES2024 + the DOM lib under react-jsx, and no ESNext helpers',
+    (primitive) => {
+      const options = optionsOf(primitive);
+      const libs = libsOf(options);
 
-    expect(libs).toContain('dom');
-    expect(libs).toContain('es2023');
-    expect(options.jsx).toBe(ts.JsxEmit.ReactJSX);
-  });
+      expect(libs).toContain('dom');
+      expect(libs).toContain('es2024');
+      // The staged ESNext.* helpers are node-only: the browser lib tracks the
+      // standard ES-year, not the literal floor (ADR-0006). This guard is the CI
+      // twin of that decision — re-adding ESNext.* to env-browser fails here.
+      expect(libs.every((lib) => !lib.startsWith('esnext.'))).toBe(true);
+      expect(options.jsx).toBe(ts.JsxEmit.ReactJSX);
+    },
+  );
 });
 
 // The matrix corners (browser = library + DOM, node-app = node + app) are not
