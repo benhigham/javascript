@@ -1,8 +1,9 @@
-import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import tseslint from 'typescript-eslint';
 
-import baseConfig, { rules, tsRules } from './base.js';
+import baseKernel from './base.js';
+import { composeConfig } from './lib/compose.js';
 import { TS_FILES } from './lib/file-patterns.js';
+import { tsTypeAwareRules } from './lib/tunings.js';
 import { tsConfig as importConfig } from './plugins/import.js';
 import {
   tsConfig as vitestTsConfig,
@@ -22,58 +23,15 @@ import {
 const scopeToTs = (configs) => configs.map((block) => ({ ...block, files: [...TS_FILES] }));
 
 /**
- * Type-aware `@typescript-eslint/*` tunings (require `projectService`).
- * Non-type-aware tunings live in `./base.js` as `tsRules`.
- * @type {Linter.RulesRecord}
- */
-const tsCheckedRules = {
-  '@typescript-eslint/consistent-type-exports': [
-    'error',
-    { fixMixedExportsWithInlineTypeSpecifier: true },
-  ],
-  '@typescript-eslint/no-floating-promises': [
-    'error',
-    {
-      checkThenables: true,
-      ignoreVoid: true,
-      ignoreIIFE: true,
-    },
-  ],
-  '@typescript-eslint/no-misused-promises': [
-    'error',
-    {
-      checksConditionals: true,
-      checksVoidReturn: false,
-    },
-  ],
-  '@typescript-eslint/only-throw-error': [
-    'error',
-    {
-      allowThrowingUnknown: true,
-      allowThrowingAny: false,
-    },
-  ],
-  '@typescript-eslint/prefer-nullish-coalescing': [
-    'error',
-    {
-      ignoreTernaryTests: false,
-      ignoreConditionalTests: false,
-      // Switching `||` to `??` in a mixed `&&`/`||` expression changes semantics;
-      // the value-or-null cases still fire.
-      ignoreMixedLogicalExpressions: true,
-    },
-  ],
-  '@typescript-eslint/promise-function-async': 'error',
-  '@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false }],
-  '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
-};
-
-/**
- * A shared ESLint configuration for libraries that use TypeScript.
+ * The layers the TypeScript export adds on top of the base kernel: the import
+ * layer (TS variant), the type-aware `typescript-eslint` presets (scoped to TS
+ * files), the `projectService` parser option, and the type-aware vitest blocks.
+ * The type-aware tunings themselves ride in the curated tail as `tsTypeAwareRules`.
+ * Reused by `./browser`, `./react`, and `./next`, which compose these layers with
+ * their own and pass the same `tsTypeAwareRules` variant to `composeConfig`.
  * @type {Linter.Config[]}
  */
-const config = [
-  ...baseConfig,
+export const typescriptLayers = [
   importConfig,
   // Layer only the type-aware additions on top of base. Scoped to TS files so
   // JS files keep their core-rule coverage and never see type-aware rules.
@@ -104,11 +62,12 @@ const config = [
   // type-requiring rules have type info. The base vitest layer excludes these
   // files, so this is the sole place they are linted. See ADR-0005.
   vitestTypeTestConfig,
-  // Re-apply curated rules after intermediate configs so our tunings win.
-  { rules },
-  { files: [...TS_FILES], rules: { ...tsRules, ...tsCheckedRules } },
-  // Apply prettier last to disable formatting rules from preceding presets.
-  eslintConfigPrettier,
 ];
+
+/**
+ * A shared ESLint configuration for libraries that use TypeScript.
+ * @type {Linter.Config[]}
+ */
+const config = composeConfig([...baseKernel, ...typescriptLayers], { tsRules: tsTypeAwareRules });
 
 export default config;

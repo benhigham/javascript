@@ -41,7 +41,7 @@ The rule set (with parser, globals, and settings) ESLint computes for a single f
 _Avoid_: the config (overloaded — say "config arrays" or "config source" for the ingredients), effective config
 
 **Composition invariant**:
-A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the re-applied "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's tests assert against the resolved config, currently load-bearing on code comments alone.
+A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's resolved-config tests assert (ADR-0003); the order-and-prettier members are concentrated in one config assembler rather than hand-written per export (ADR-0007).
 _Avoid_: composition decision, tuning (too vague)
 
 **Type-test file**:

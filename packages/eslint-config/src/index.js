@@ -1,23 +1,14 @@
-import eslintConfigPrettier from 'eslint-config-prettier/flat';
-
-import baseConfig, { rules, tsRules } from './base.js';
-import { TS_FILES } from './lib/file-patterns.js';
+import baseKernel from './base.js';
+import { composeConfig } from './lib/compose.js';
 import { jsConfig as importConfig } from './plugins/import.js';
 
 /** @import { Linter } from 'eslint' */
 
 /**
- * A shared ESLint configuration.
+ * A shared ESLint configuration. Uses the base `tsRules` variant (no type-aware
+ * tunings, which need `projectService` — see the `/typescript` export).
  * @type {Linter.Config[]}
  */
-const config = [
-  ...baseConfig,
-  importConfig,
-  // Re-apply curated rules after intermediate configs so our tunings win.
-  { rules },
-  { files: [...TS_FILES], rules: tsRules },
-  // Apply prettier last to disable formatting rules from preceding presets.
-  eslintConfigPrettier,
-];
+const config = composeConfig([...baseKernel, importConfig]);
 
 export default config;
