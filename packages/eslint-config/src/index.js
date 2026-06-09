@@ -1,4 +1,4 @@
-import baseKernel from './base.js';
+import base from './base.js';
 import { composeConfig } from './lib/compose.js';
 import { jsConfig as importConfig } from './plugins/import.js';
 
@@ -10,6 +10,6 @@ import { jsConfig as importConfig } from './plugins/import.js';
  * `projectService`.
  * @type {Linter.Config[]}
  */
-const config = composeConfig([...baseKernel, importConfig]);
+const config = composeConfig([...base, importConfig]);
 
 export default config;

@@ -1,5 +1,5 @@
-import baseKernel from './base.js';
-import { browserEnv } from './browser.js';
+import base from './base.js';
+import { browserEnvLayers } from './browser.js';
 import { composeConfig } from './lib/compose.js';
 import nextConfig from './plugins/next.js';
 import { reactLayers } from './react.js';
@@ -14,9 +14,9 @@ import { typescriptLayers } from './typescript.js';
  */
 const config = composeConfig([
   { ignores: ['.next', '.vercel'] },
-  ...baseKernel,
+  ...base,
   ...typescriptLayers,
-  ...browserEnv,
+  ...browserEnvLayers,
   ...reactLayers,
   nextConfig,
 ]);

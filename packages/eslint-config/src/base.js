@@ -25,7 +25,7 @@ import vitestConfig from './plugins/vitest.js';
  * the curated rule data itself lives in `lib/tunings.js`. See ADR-0007.
  * @type {Linter.Config[]}
  */
-const baseKernel = [
+const base = [
   {
     ignores: [
       'build',
@@ -72,4 +72,4 @@ const baseKernel = [
   },
 ];
 
-export default baseKernel;
+export default base;

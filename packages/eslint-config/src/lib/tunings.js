@@ -163,7 +163,7 @@ export const tsRules = {
  * Type-aware `@typescript-eslint/*` tunings (require `projectService`). Applied
  * as a TS-scoped layer within `typescript.js`'s `typescriptLayers`, beside the
  * `projectService` parser option that makes them resolve. Disjoint from the
- * non-type-aware `tsRules` the assembler re-applies in the curated tail, so the
+ * non-type-aware `tsRules` the composer re-applies in the curated tail, so the
  * two compose to the full type-aware set without either needing a merged variant.
  * @type {Linter.RulesRecord}
  */

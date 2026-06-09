@@ -6,7 +6,7 @@ import { rules, tsRules } from './tunings.js';
 /** @import { Linter } from 'eslint' */
 
 /**
- * Assemble an export's ordered layers into a complete config array, appending
+ * Compose an export's ordered layers into a complete config array, appending
  * the same curated tail exactly once, last: the language-agnostic `rules`, the
  * TS-scoped non-type-aware `tsRules`, then `eslint-config-prettier`. Appending
  * last is what makes the tunings win over the presets the layers pull in and
@@ -16,12 +16,12 @@ import { rules, tsRules } from './tunings.js';
  * tunings (`tsCheckedRules`) ride as their own TS-scoped layer inside
  * `typescriptLayers`, beside the `projectService` that resolves them, and are
  * disjoint from `tsRules`; an export is type-aware purely by including those
- * layers, never by configuring this assembler.
+ * layers, never by configuring this composer.
  *
  * Callers pass raw, non-terminated layers and must never spread an
  * already-terminated sibling export (e.g. `./browser`'s default) — doing so
  * would bake the tail mid-array and let the ordering contract drift, which is
- * exactly what this assembler exists to prevent. See ADR-0007.
+ * exactly what this composer exists to prevent. See ADR-0007.
  * @param {Linter.Config[]} layers The export's ordered layers, with no curated tail and no prettier.
  * @returns {Linter.Config[]} The complete config array.
  */

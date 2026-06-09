@@ -207,7 +207,7 @@ describe('eslint-config-prettier is applied last to turn formatting rules off', 
   // rules to off, so the same single-rule fact holds either way. This is the one
   // composition invariant resolved config provably can't distinguish, so assert
   // it structurally on the composed array — and catch the spread-a-terminated-
-  // sibling mistake (which would land a second prettier reference) the assembler
+  // sibling mistake (which would land a second prettier reference) the composer
   // exists to prevent.
   it.each(STANDALONE_EXPORTS)('makes prettier the single, last layer of %s', (subpath) => {
     const config = defaultConfigOf(subpath);

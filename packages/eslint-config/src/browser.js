@@ -1,6 +1,6 @@
 import globals from 'globals';
 
-import baseKernel from './base.js';
+import base from './base.js';
 import { confusingGlobals } from './lib/browser-globals.js';
 import { composeConfig } from './lib/compose.js';
 import { DEFAULT_FILES, NODE_FILES } from './lib/file-patterns.js';
@@ -17,7 +17,7 @@ import { typescriptLayers } from './typescript.js';
  * Reused by `./react`. (#109 will give the neutralization its own internal owner.)
  * @type {Linter.Config[]}
  */
-export const browserEnv = [
+export const browserEnvLayers = [
   compatConfig,
   {
     languageOptions: {
@@ -72,10 +72,10 @@ export const browserEnv = [
  * @type {Linter.Config[]}
  */
 const config = composeConfig([
-  ...baseKernel,
+  ...base,
   ...typescriptLayers,
   testingLibraryConfig,
-  ...browserEnv,
+  ...browserEnvLayers,
 ]);
 
 export default config;

@@ -1,6 +1,6 @@
 import tseslint from 'typescript-eslint';
 
-import baseKernel from './base.js';
+import base from './base.js';
 import { composeConfig } from './lib/compose.js';
 import { TS_FILES } from './lib/file-patterns.js';
 import { tsCheckedRules } from './lib/tunings.js';
@@ -27,8 +27,8 @@ const scopeToTs = (configs) => configs.map((block) => ({ ...block, files: [...TS
  * layer (TS variant), the type-aware `typescript-eslint` presets (scoped to TS
  * files), the `projectService` parser option, the type-aware vitest blocks, and
  * the curated type-aware tunings (`tsCheckedRules`, scoped to TS files). An
- * additive delta — it does not include `baseKernel`; the exports that reuse it
- * (`./browser`, `./react`, `./next`) prepend `baseKernel` themselves. Including
+ * additive delta — it does not include `base`; the exports that reuse it
+ * (`./browser`, `./react`, `./next`) prepend `base` themselves. Including
  * these layers is what makes an export type-aware; no `composeConfig` variant is
  * involved.
  * @type {Linter.Config[]}
@@ -67,7 +67,7 @@ export const typescriptLayers = [
   // The curated type-aware tunings, scoped to TS files and co-located with the
   // `projectService` that resolves them. They sit after the `*TypeCheckedOnly`
   // presets so they win, and are disjoint from the non-type-aware `tsRules` the
-  // assembler re-applies in the tail — so the two compose to the full type-aware
+  // composer re-applies in the tail — so the two compose to the full type-aware
   // set with no merged variant. See ADR-0007.
   {
     files: [...TS_FILES],
@@ -79,6 +79,6 @@ export const typescriptLayers = [
  * A shared ESLint configuration for libraries that use TypeScript.
  * @type {Linter.Config[]}
  */
-const config = composeConfig([...baseKernel, ...typescriptLayers]);
+const config = composeConfig([...base, ...typescriptLayers]);
 
 export default config;
