@@ -1,15 +1,23 @@
 import globals from 'globals';
 
+import base from './base.js';
 import { confusingGlobals } from './lib/browser-globals.js';
+import { composeConfig } from './lib/compose.js';
 import { DEFAULT_FILES, NODE_FILES } from './lib/file-patterns.js';
 import compatConfig from './plugins/compat.js';
 import { domConfig as testingLibraryConfig } from './plugins/testing-library.js';
-import typescriptConfig from './typescript.js';
+import { typescriptLayers } from './typescript.js';
 
 /** @import { Linter } from 'eslint' */
 
-/** @type {Linter.Config[]} */
-export const baseConfig = [
+/**
+ * The browser-environment layers: `compat`, the browser globals, and the
+ * per-environment neutralization of Node `n` rules and browser-hostile unicorn
+ * rules on browser source (Node files — config and build scripts — keep them).
+ * Reused by `./react`. (#109 will give the neutralization its own internal owner.)
+ * @type {Linter.Config[]}
+ */
+export const browserEnvLayers = [
   compatConfig,
   {
     languageOptions: {
@@ -63,6 +71,11 @@ export const baseConfig = [
  * A shared ESLint configuration for libraries that use browser APIs.
  * @type {Linter.Config[]}
  */
-const config = [...typescriptConfig, testingLibraryConfig, ...baseConfig];
+const config = composeConfig([
+  ...base,
+  ...typescriptLayers,
+  testingLibraryConfig,
+  ...browserEnvLayers,
+]);
 
 export default config;

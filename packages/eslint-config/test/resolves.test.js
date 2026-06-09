@@ -46,11 +46,11 @@ describe('every standalone export resolves for every fixture path', () => {
   );
 });
 
-// The plugin exports are fragments a consumer spreads onto a base and scopes,
-// not standalone configs, so resolving them in isolation is meaningless. The
-// smoke that matches what they are: the module imports (proving the bundled
+// The plugin exports are opt-in configs a consumer spreads onto a base and
+// scopes, not standalone configs, so resolving them in isolation is meaningless.
+// The smoke that matches what they are: the module imports (proving the bundled
 // plugin dependency resolves) and exposes a block that registers its plugin.
-describe('every optional plugin export imports as a well-formed fragment', () => {
+describe('every optional plugin export imports as a well-formed config', () => {
   it.each(PLUGIN_EXPORTS)('%s registers its plugin', (subpath) => {
     const blocks = configBlocksOf(subpath);
 

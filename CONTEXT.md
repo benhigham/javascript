@@ -22,7 +22,7 @@ _Avoid_: framework config (the deliberately-rejected alternative — see ADR-000
 
 **Config fragment**:
 An internal, unexported building block of `@benhigham/tsconfig` carrying one axis's worth of `compilerOptions` — an _emit_ fragment (`emit-library`, `emit-app`) or an _environment_ fragment (`env-node`, `env-browser`). Each primitive is composed as `base` + one emit fragment + one environment fragment via an `extends` array; fragments live in `src/internal/` and are never exported.
-_Avoid_: preset, partial config
+_Avoid_: preset, partial config, layer (that is eslint's composable unit — see _Layer_)
 
 **Library config**:
 A primitive whose emit mode is _library_: `tsc` emits JavaScript + `.d.ts`. The `node` (default) and `browser` configs. For consumers publishing a package whose types others consume.
@@ -40,9 +40,17 @@ _Avoid_: baseline, browser target, browserslist target
 The rule set (with parser, globals, and settings) ESLint computes for a single file path after composing every layer of an exported `@benhigham/eslint-config` config. It is what a consumer's file actually gets — the genuine interface of the package, and the surface its tests assert against — as opposed to the exported config arrays, which are the ingredients that compose into it.
 _Avoid_: the config (overloaded — say "config arrays" or "config source" for the ingredients), effective config
 
+**Layer**:
+One concern's contribution to an `@benhigham/eslint-config` export's config array — one or more flat-config objects spread in at a fixed position (the JS recommended preset, `browserEnvLayers`, the curated tail). The composable unit of an eslint export, as a _config fragment_ is of a tsconfig — the word differs because the mechanism does (flat-array spread vs tsconfig `extends`). Reusable layer bundles follow a shape-suffix convention: `*Layers` is an array of config objects to spread (`typescriptLayers`, `reactLayers`), `*Config` is a single config object to place (`compatConfig`, `reactConfig`). `base` — the kernel every export prepends — is the lone exception.
+_Avoid_: fragment (reserved for tsconfig — see _Config fragment_), part
+
 **Composition invariant**:
-A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the re-applied "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's tests assert against the resolved config, currently load-bearing on code comments alone.
-_Avoid_: composition decision, tuning (too vague)
+A guarantee about which rule configuration wins for a given file, arising from the order and scoping of the layers an `@benhigham/eslint-config` export composes rather than from any single layer — e.g. the JS-vs-TS split that keeps the type-checked global disables off `.js`, the "last-wins" curated tail, per-environment `n`/`compat` scoping on browser source vs Node files, and prettier applied last. The class of decisions the package's resolved-config tests assert (ADR-0003); the order-and-prettier members are concentrated in one config composer rather than hand-written per export (ADR-0007).
+_Avoid_: composition decision, tuning (too vague — bare "tuning" for the invariant; "curated tunings" names the rule data, below)
+
+**Curated tunings**:
+The repo's own ESLint rule customisations layered over the bundled presets, in `eslint-config/src/lib/tunings.js`: the language-agnostic `rules`, the non-type-aware `tsRules`, and the type-aware `tsCheckedRules`. The composer re-applies `rules` and `tsRules` last — the _curated tail_ — so they win over the presets; `tsCheckedRules` rides as a TS-scoped layer beside `projectService` (ADR-0007). Rule **data**, as opposed to the order-and-scoping guarantee a _composition invariant_ names.
+_Avoid_: tuning (bare — overloaded with the composition-invariant sense)
 
 **Type-test file**:
 A vitest test file using the `-d` suffix convention — `*.{test,spec}-d.{ts,tsx,mts,cts}` — whose body holds type-level assertions (`expectTypeOf`/`assertType`) rather than runtime ones. Inherently TypeScript and meaningful only with type information, so `@benhigham/eslint-config` lints it solely in the type-aware layer (where `typecheck: true` rides with `projectService`), never under the base/non-type-aware exports; the runtime test layer excludes it outright. The few curated vitest rules that assume a runtime test (`require-hook`, `padding-around-expect-groups`) are turned off for it.
