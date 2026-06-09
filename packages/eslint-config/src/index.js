@@ -5,8 +5,9 @@ import { jsConfig as importConfig } from './plugins/import.js';
 /** @import { Linter } from 'eslint' */
 
 /**
- * A shared ESLint configuration. Uses the base `tsRules` variant (no type-aware
- * tunings, which need `projectService` — see the `/typescript` export).
+ * A shared ESLint configuration: the base kernel plus the import layer. Carries
+ * no type-aware tunings — those ride in `./typescript`'s layers, which need
+ * `projectService`.
  * @type {Linter.Config[]}
  */
 const config = composeConfig([...baseKernel, importConfig]);

@@ -4,7 +4,6 @@ import baseKernel from './base.js';
 import { confusingGlobals } from './lib/browser-globals.js';
 import { composeConfig } from './lib/compose.js';
 import { DEFAULT_FILES, NODE_FILES } from './lib/file-patterns.js';
-import { tsTypeAwareRules } from './lib/tunings.js';
 import compatConfig from './plugins/compat.js';
 import { domConfig as testingLibraryConfig } from './plugins/testing-library.js';
 import { typescriptLayers } from './typescript.js';
@@ -72,9 +71,11 @@ export const browserEnv = [
  * A shared ESLint configuration for libraries that use browser APIs.
  * @type {Linter.Config[]}
  */
-const config = composeConfig(
-  [...baseKernel, ...typescriptLayers, testingLibraryConfig, ...browserEnv],
-  { tsRules: tsTypeAwareRules },
-);
+const config = composeConfig([
+  ...baseKernel,
+  ...typescriptLayers,
+  testingLibraryConfig,
+  ...browserEnv,
+]);
 
 export default config;

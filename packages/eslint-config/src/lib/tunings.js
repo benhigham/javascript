@@ -160,10 +160,11 @@ export const tsRules = {
 };
 
 /**
- * Type-aware `@typescript-eslint/*` tunings (require `projectService`). Layered
- * on top of `tsRules` for the type-aware exports as `tsTypeAwareRules`; the
- * `projectService` parser option that makes them resolve lives in
- * `typescript.js`'s `typescriptLayers`.
+ * Type-aware `@typescript-eslint/*` tunings (require `projectService`). Applied
+ * as a TS-scoped layer within `typescript.js`'s `typescriptLayers`, beside the
+ * `projectService` parser option that makes them resolve. Disjoint from the
+ * non-type-aware `tsRules` the assembler re-applies in the curated tail, so the
+ * two compose to the full type-aware set without either needing a merged variant.
  * @type {Linter.RulesRecord}
  */
 export const tsCheckedRules = {
@@ -207,11 +208,3 @@ export const tsCheckedRules = {
   '@typescript-eslint/restrict-plus-operands': ['error', { allowAny: false }],
   '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
 };
-
-/**
- * The TS-file tuning variant for the type-aware exports: the non-type-aware
- * `tsRules` plus the type-aware `tsCheckedRules`. Passed to `composeConfig` by
- * `./typescript` and the exports that build on it.
- * @type {Linter.RulesRecord}
- */
-export const tsTypeAwareRules = { ...tsRules, ...tsCheckedRules };

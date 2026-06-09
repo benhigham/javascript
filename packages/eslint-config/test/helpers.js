@@ -98,6 +98,16 @@ export const resolveConfig = async (subpath, relPath) => {
 };
 
 /**
+ * A standalone export's ordered default config array — the composed source
+ * (ingredients), not the per-file resolved config. Used by the structural
+ * assertion that prettier is the single, last layer, which resolved config
+ * cannot see (a duplicated or mid-chain prettier resolves identically).
+ * @param {string} subpath A standalone export subpath (see `STANDALONE_EXPORTS`).
+ * @returns {import('eslint').Linter.Config[]} The export's ordered config array.
+ */
+export const defaultConfigOf = (subpath) => MODULES[subpath].default;
+
+/**
  * Every flat-config block an export exposes, gathered across its default and
  * named exports. Used to smoke-test plugin fragments, which vary in shape (a
  * single object, an array, or named exports with no default).

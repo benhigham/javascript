@@ -1,6 +1,14 @@
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import { describe, expect, it } from 'vitest';
 
-import { FIXTURES, optionsOf, resolveConfig, severityOf } from './helpers.js';
+import {
+  defaultConfigOf,
+  FIXTURES,
+  optionsOf,
+  resolveConfig,
+  severityOf,
+  STANDALONE_EXPORTS,
+} from './helpers.js';
 
 describe('scopeToTs keeps the type-checked global disables off JS files', () => {
   it('disables core no-unused-vars on TS but keeps it on JS, under ./typescript', async () => {
@@ -193,4 +201,18 @@ describe('eslint-config-prettier is applied last to turn formatting rules off', 
       expect(severityOf(config, 'unicorn/no-nested-ternary')).toBe('off');
     },
   );
+
+  // The resolved-config check above can't see "prettier exactly once, last"
+  // (ADR-0007): a duplicated or mid-chain prettier still resolves formatting
+  // rules to off, so the same single-rule fact holds either way. This is the one
+  // composition invariant resolved config provably can't distinguish, so assert
+  // it structurally on the composed array — and catch the spread-a-terminated-
+  // sibling mistake (which would land a second prettier reference) the assembler
+  // exists to prevent.
+  it.each(STANDALONE_EXPORTS)('makes prettier the single, last layer of %s', (subpath) => {
+    const config = defaultConfigOf(subpath);
+
+    expect(config.at(-1)).toBe(eslintConfigPrettier);
+    expect(config.filter((layer) => layer === eslintConfigPrettier)).toHaveLength(1);
+  });
 });

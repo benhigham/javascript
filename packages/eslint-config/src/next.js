@@ -1,16 +1,24 @@
+import baseKernel from './base.js';
+import { browserEnv } from './browser.js';
 import { composeConfig } from './lib/compose.js';
-import { tsTypeAwareRules } from './lib/tunings.js';
 import nextConfig from './plugins/next.js';
 import { reactLayers } from './react.js';
+import { typescriptLayers } from './typescript.js';
 
 /** @import { Linter } from 'eslint' */
 
 /**
- * A shared ESLint configuration for libraries that use Next.js.
+ * A shared ESLint configuration for libraries that use Next.js: the full React
+ * stack plus the Next plugin and its build-output ignores.
  * @type {Linter.Config[]}
  */
-const config = composeConfig([{ ignores: ['.next', '.vercel'] }, ...reactLayers, nextConfig], {
-  tsRules: tsTypeAwareRules,
-});
+const config = composeConfig([
+  { ignores: ['.next', '.vercel'] },
+  ...baseKernel,
+  ...typescriptLayers,
+  ...browserEnv,
+  ...reactLayers,
+  nextConfig,
+]);
 
 export default config;
