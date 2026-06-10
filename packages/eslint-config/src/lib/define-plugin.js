@@ -1,7 +1,6 @@
 import { DEFAULT_FILES } from './file-patterns.js';
 
-/** @import { Linter } from 'eslint' */
-/** @import { ESLint } from 'eslint' */
+/** @import { ESLint, Linter } from 'eslint' */
 
 /**
  * @typedef {object} DefinePluginInput
