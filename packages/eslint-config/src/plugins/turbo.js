@@ -1,19 +1,16 @@
 import eslintPluginTurbo from 'eslint-plugin-turbo';
 
-/** @import { Linter } from 'eslint' */
+import { definePlugin } from '../lib/define-plugin.js';
 
-// No `files` property — consumers are expected to scope this to their project.
-/** @type {Linter.Config} */
-const config = {
-  plugins: {
-    turbo: eslintPluginTurbo,
-  },
+// `files: null` — no `files` property; consumers scope this to their project.
+export default definePlugin({
+  name: 'turbo',
+  plugin: eslintPluginTurbo,
+  files: null,
   settings: {
     ...eslintPluginTurbo.configs['flat/recommended'].settings,
   },
   rules: {
     'turbo/no-undeclared-env-vars': 'error',
   },
-};
-
-export default config;
+});

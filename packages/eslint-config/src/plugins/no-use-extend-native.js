@@ -1,18 +1,11 @@
 import eslintPluginNoUseExtendNative from 'eslint-plugin-no-use-extend-native';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    'no-use-extend-native': eslintPluginNoUseExtendNative,
-  },
+export default definePlugin({
+  name: 'no-use-extend-native',
+  plugin: eslintPluginNoUseExtendNative,
   rules: {
     'no-use-extend-native/no-use-extend-native': 'error',
   },
-};
-
-export default config;
+});

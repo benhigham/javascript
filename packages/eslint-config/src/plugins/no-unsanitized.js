@@ -1,18 +1,11 @@
 import eslintPluginNoUnsanitized from 'eslint-plugin-no-unsanitized';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    'no-unsanitized': eslintPluginNoUnsanitized,
-  },
+export default definePlugin({
+  name: 'no-unsanitized',
+  plugin: eslintPluginNoUnsanitized,
   rules: {
     ...eslintPluginNoUnsanitized.configs.recommended.rules,
   },
-};
-
-export default config;
+});
