@@ -1,15 +1,10 @@
 import eslintPluginSonarjs from 'eslint-plugin-sonarjs';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    sonarjs: eslintPluginSonarjs,
-  },
+export default definePlugin({
+  name: 'sonarjs',
+  plugin: eslintPluginSonarjs,
   rules: {
     ...eslintPluginSonarjs.configs.recommended.rules,
     // Defer all unused detection to `no-unused-vars`, which honors the
@@ -19,6 +14,4 @@ const config = {
     'sonarjs/unused-import': 'off',
     'sonarjs/no-unused-vars': 'off',
   },
-};
-
-export default config;
+});

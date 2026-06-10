@@ -1,16 +1,13 @@
 import eslintPluginPlaywright from 'eslint-plugin-playwright';
 
-/** @import { Linter } from 'eslint' */
+import { definePlugin } from '../lib/define-plugin.js';
 
-// No `files` property — consumers are expected to scope this to their test files.
-/** @type {Linter.Config} */
-const config = {
-  plugins: {
-    playwright: eslintPluginPlaywright,
-  },
+// `files: null` — no `files` property; consumers scope this to their test files.
+export default definePlugin({
+  name: 'playwright',
+  plugin: eslintPluginPlaywright,
+  files: null,
   rules: {
     ...eslintPluginPlaywright.configs['flat/recommended'].rules,
   },
-};
-
-export default config;
+});

@@ -1,15 +1,10 @@
 import eslintPluginPromise from 'eslint-plugin-promise';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    promise: eslintPluginPromise,
-  },
+export default definePlugin({
+  name: 'promise',
+  plugin: eslintPluginPromise,
   rules: {
     ...eslintPluginPromise.configs['flat/recommended'].rules,
     'promise/no-return-wrap': ['error', { allowReject: true }],
@@ -17,6 +12,4 @@ const config = {
     'promise/valid-params': 'error', // Elevated from recommended 'warn' to 'error'.
     'promise/prefer-await-to-then': 'error',
   },
-};
-
-export default config;
+});

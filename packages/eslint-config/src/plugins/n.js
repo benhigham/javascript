@@ -1,15 +1,10 @@
 import eslintPluginN from 'eslint-plugin-n';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    n: eslintPluginN,
-  },
+export default definePlugin({
+  name: 'n',
+  plugin: eslintPluginN,
   rules: {
     ...eslintPluginN.configs['flat/recommended'].rules,
 
@@ -38,6 +33,4 @@ const config = {
     'n/prefer-promises/dns': 'error',
     'n/prefer-promises/fs': 'error',
   },
-};
-
-export default config;
+});

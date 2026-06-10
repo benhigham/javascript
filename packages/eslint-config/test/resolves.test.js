@@ -58,3 +58,24 @@ describe('every optional plugin export imports as a well-formed config', () => {
     expect(blocks.some((block) => 'plugins' in block)).toBe(true);
   });
 });
+
+// `definePlugin` omits the `files` key for the global, consumer-scoped plugin
+// exports (they pass `files: null`), so they apply to whatever a consumer
+// composes them with. A regression to `DEFAULT_FILES` would silently narrow
+// that scope — and since these sit in no standalone export, the resolved-config
+// tests cannot see it (calculateConfigForFile never resolves them). Assert the
+// block shape directly, the same kind of guard the structural prettier test is
+// for composition. See ADR-0008.
+describe('the global plugin exports declare no files', () => {
+  it.each(['./plugins/turbo', './plugins/playwright'])(
+    '%s registers its plugin with no files key',
+    (subpath) => {
+      const registering = configBlocksOf(subpath).find((block) => 'plugins' in block);
+
+      expect(registering).toBeDefined();
+      // `not.toHaveProperty` asserts the key is absent (not merely set to
+      // `undefined`) and never throws on an unexpectedly-missing block.
+      expect(registering).not.toHaveProperty('files');
+    },
+  );
+});

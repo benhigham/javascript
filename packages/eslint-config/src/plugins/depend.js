@@ -1,18 +1,11 @@
 import eslintPluginDepend from 'eslint-plugin-depend';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    depend: eslintPluginDepend,
-  },
+export default definePlugin({
+  name: 'depend',
+  plugin: eslintPluginDepend,
   rules: {
     'depend/ban-dependencies': 'error',
   },
-};
-
-export default config;
+});

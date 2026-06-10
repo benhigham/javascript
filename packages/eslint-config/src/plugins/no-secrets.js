@@ -1,18 +1,11 @@
 import eslintPluginNoSecrets from 'eslint-plugin-no-secrets';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    'no-secrets': eslintPluginNoSecrets,
-  },
+export default definePlugin({
+  name: 'no-secrets',
+  plugin: eslintPluginNoSecrets,
   rules: {
     'no-secrets/no-secrets': 'error',
   },
-};
-
-export default config;
+});

@@ -1,18 +1,11 @@
 import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
-import { DEFAULT_FILES } from '../lib/file-patterns.js';
+import { definePlugin } from '../lib/define-plugin.js';
 
-/** @import { Linter } from 'eslint' */
-
-/** @type {Linter.Config} */
-const config = {
-  files: [...DEFAULT_FILES],
-  plugins: {
-    'jsx-a11y': eslintPluginJsxA11y,
-  },
+export default definePlugin({
+  name: 'jsx-a11y',
+  plugin: eslintPluginJsxA11y,
   rules: {
     ...eslintPluginJsxA11y.flatConfigs.strict.rules,
   },
-};
-
-export default config;
+});
