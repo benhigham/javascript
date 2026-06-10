@@ -73,7 +73,9 @@ describe('the global plugin exports declare no files', () => {
       const registering = configBlocksOf(subpath).find((block) => 'plugins' in block);
 
       expect(registering).toBeDefined();
-      expect('files' in registering).toBe(false);
+      // `not.toHaveProperty` asserts the key is absent (not merely set to
+      // `undefined`) and never throws on an unexpectedly-missing block.
+      expect(registering).not.toHaveProperty('files');
     },
   );
 });
