@@ -26,6 +26,7 @@ const baseConfig = {
 
 /** @type {Linter.Config} */
 export const jsConfig = {
+  name: '@benhigham/eslint-config/jsdoc/js',
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
@@ -52,6 +53,7 @@ export const jsConfig = {
 
 /** @type {Linter.Config} */
 export const tsConfig = {
+  name: '@benhigham/eslint-config/jsdoc/ts',
   files: [...TS_FILES],
   ...baseConfig,
   rules: {

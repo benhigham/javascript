@@ -13,7 +13,7 @@ import { typescriptLayers } from './typescript.js';
  * @type {Linter.Config[]}
  */
 const config = composeConfig([
-  { ignores: ['.next', '.vercel'] },
+  { name: '@benhigham/eslint-config/next/ignores', ignores: ['.next', '.vercel'] },
   ...base,
   ...typescriptLayers,
   ...browserEnvLayers,

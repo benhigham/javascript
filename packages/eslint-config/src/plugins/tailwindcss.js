@@ -5,6 +5,7 @@ import { DEFAULT_FILES } from '../lib/file-patterns.js';
 
 export default definePlugin({
   name: 'better-tailwindcss',
+  purpose: 'tailwindcss',
   plugin: eslintPluginBetterTailwindcss,
   files: [...DEFAULT_FILES, '**/*.{html,vue}'],
   rules: {

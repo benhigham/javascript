@@ -28,8 +28,8 @@ import { rules, tsRules } from './tunings.js';
 export const composeConfig = (layers) => [
   ...layers,
   // Re-apply the curated rules after the layers so our tunings win.
-  { rules },
-  { files: [...TS_FILES], rules: tsRules },
+  { name: '@benhigham/eslint-config/tunings/core', rules },
+  { name: '@benhigham/eslint-config/tunings/ts', files: [...TS_FILES], rules: tsRules },
   // Apply prettier last to disable formatting rules from the preceding presets.
   eslintConfigPrettier,
 ];

@@ -13,7 +13,7 @@ A dependency used only to develop, lint, or build this repo, routed through the 
 _Avoid_: dev dependency (overloaded with the literal `devDependencies` field)
 
 **Release coverage**:
-The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation. The surface is the _resolved behavior_ a consumer gets, not the set of files shipped — an internal restructure with byte-identical resolved behavior owes no changeset, even when the published tarball's file tree changes (or a previously-implied option becomes explicit without changing what TypeScript computes).
+The invariant that every change to a published package's consumer-facing surface has a corresponding changeset, so its version bump and changelog are complete and nothing needs retroactive reconciliation. The surface is the _resolved behavior_ a consumer gets, not the set of files shipped — an internal restructure with byte-identical resolved behavior owes no changeset, even when the published tarball's file tree changes (or a previously-implied option becomes explicit without changing what TypeScript computes, or a composed flat-config block gains a `name` — tooling-visible in `--inspect-config` and ESLint's error messages, but absent from the resolved config a consumer's lint run applies).
 _Avoid_: changeset coverage
 
 **Primitive config**:
@@ -40,8 +40,12 @@ _Avoid_: baseline, browser target, browserslist target
 The rule set (with parser, globals, and settings) ESLint computes for a single file path after composing every layer of an exported `@benhigham/eslint-config` config. It is what a consumer's file actually gets — the genuine interface of the package, and the surface its tests assert against — as opposed to the exported config arrays, which are the ingredients that compose into it.
 _Avoid_: the config (overloaded — say "config arrays" or "config source" for the ingredients), effective config
 
+**Block**:
+A single flat-config object — the atom a _Layer_ is composed of (a layer is one or more blocks), and the unit a flat-config `name` attaches to. A block's `name` is tooling-visible (`eslint --inspect-config`, ESLint's error messages) but never enters the _resolved config_, so it is not part of the consumer-facing surface _Release coverage_ governs.
+_Avoid_: config object, layer (reserve for the one-or-more-blocks composable unit — see _Layer_)
+
 **Layer**:
-One concern's contribution to an `@benhigham/eslint-config` export's config array — one or more flat-config objects spread in at a fixed position (the JS recommended preset, `browserEnvLayers`, the curated tail). The composable unit of an eslint export, as a _config fragment_ is of a tsconfig — the word differs because the mechanism does (flat-array spread vs tsconfig `extends`). Reusable layer bundles follow a shape-suffix convention: `*Layers` is an array of config objects to spread (`typescriptLayers`, `reactLayers`), `*Config` is a single config object to place (`compatConfig`, `reactConfig`). `base` — the kernel every export prepends — is the lone exception.
+One concern's contribution to an `@benhigham/eslint-config` export's config array — one or more _blocks_ (flat-config objects) spread in at a fixed position (the JS recommended preset, `browserEnvLayers`, the curated tail). The composable unit of an eslint export, as a _config fragment_ is of a tsconfig — the word differs because the mechanism does (flat-array spread vs tsconfig `extends`). Reusable layer bundles follow a shape-suffix convention: `*Layers` is an array of config objects to spread (`typescriptLayers`, `reactLayers`), `*Config` is a single config object to place (`compatConfig`, `reactConfig`). `base` — the kernel every export prepends — is the lone exception.
 _Avoid_: fragment (reserved for tsconfig — see _Config fragment_), part
 
 **Composition invariant**:

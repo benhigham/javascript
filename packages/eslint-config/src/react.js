@@ -24,6 +24,7 @@ const reactConfig = {
 
 /** @type {Linter.Config} */
 const serviceworkerConfig = {
+  name: '@benhigham/eslint-config/react/serviceworker',
   languageOptions: {
     globals: {
       ...globals.serviceworker,

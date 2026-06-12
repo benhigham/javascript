@@ -27,6 +27,7 @@ import vitestConfig from './plugins/vitest.js';
  */
 const base = [
   {
+    name: '@benhigham/eslint-config/base/ignores',
     ignores: [
       'build',
       'coverage',
@@ -65,6 +66,7 @@ const base = [
   // Applied once here is enough: nothing re-touches core `no-unused-vars` for JS
   // files after the kernel.
   {
+    name: '@benhigham/eslint-config/base/no-unused-vars',
     files: [...JS_FILES],
     rules: {
       'no-unused-vars': ['error', unusedVarsOptions],

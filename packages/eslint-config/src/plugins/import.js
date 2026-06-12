@@ -16,6 +16,7 @@ import {
 
 /** @type {Linter.Config} */
 export const jsConfig = {
+  name: '@benhigham/eslint-config/import/js',
   files: [...JS_FILES],
   plugins: {
     'import-x': eslintPluginImportX,
@@ -141,6 +142,7 @@ export const jsConfig = {
 /** @type {Linter.Config} */
 export const tsConfig = {
   ...jsConfig,
+  name: '@benhigham/eslint-config/import/ts',
   files: [...DEFAULT_FILES],
   settings: {
     ...jsConfig.settings,

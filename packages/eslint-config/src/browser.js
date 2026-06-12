@@ -20,6 +20,7 @@ import { typescriptLayers } from './typescript.js';
 export const browserEnvLayers = [
   compatConfig,
   {
+    name: '@benhigham/eslint-config/browser/globals',
     languageOptions: {
       globals: {
         ...globals.es2026,
@@ -31,6 +32,7 @@ export const browserEnvLayers = [
     },
   },
   {
+    name: '@benhigham/eslint-config/browser/n-neutralize',
     // `n` is a Node-environment plugin; its global-preference and
     // Node-version-support rules don't apply to browser source. Most sharply,
     // `n/prefer-global/process: never` flags reads of `process.env` (Next's
@@ -54,6 +56,7 @@ export const browserEnvLayers = [
     },
   },
   {
+    name: '@benhigham/eslint-config/browser/unicorn-neutralize',
     // `unicorn/prefer-global-this` autofixes idiomatic `window`/`self` access to
     // `globalThis` and rewrites the canonical `typeof window === 'undefined'`
     // guard. `globalThis` is floor-safe (ES2020), so this is an idiom/churn

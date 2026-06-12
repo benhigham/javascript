@@ -40,6 +40,7 @@ export const typescriptLayers = [
   ...scopeToTs(tseslint.configs.recommendedTypeCheckedOnly),
   ...scopeToTs(tseslint.configs.stylisticTypeCheckedOnly),
   {
+    name: '@benhigham/eslint-config/typescript/project-service',
     files: [...TS_FILES],
     languageOptions: {
       parserOptions: {
@@ -70,6 +71,7 @@ export const typescriptLayers = [
   // composer re-applies in the tail — so the two compose to the full type-aware
   // set with no merged variant. See ADR-0007.
   {
+    name: '@benhigham/eslint-config/tunings/ts-type-aware',
     files: [...TS_FILES],
     rules: tsCheckedRules,
   },

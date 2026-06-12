@@ -126,6 +126,7 @@ const vitestEnv = {
  */
 const config = {
   ...vitestEnv,
+  name: '@benhigham/eslint-config/vitest/runtime',
   files: [...TEST_FILES],
   ignores: [...TYPE_TEST_FILES],
   rules,
@@ -143,6 +144,7 @@ const config = {
  * @type {Linter.Config}
  */
 export const tsConfig = {
+  name: '@benhigham/eslint-config/vitest/typecheck',
   files: [...TS_TEST_FILES],
   settings: {
     vitest: {
@@ -170,6 +172,7 @@ export const tsConfig = {
  */
 export const tsTypeTestConfig = {
   ...vitestEnv,
+  name: '@benhigham/eslint-config/vitest/type-test',
   files: [...TYPE_TEST_FILES],
   settings: {
     vitest: {

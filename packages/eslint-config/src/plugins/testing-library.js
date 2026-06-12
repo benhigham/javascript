@@ -15,6 +15,7 @@ const baseConfig = {
 /** @type {Linter.Config} */
 export const domConfig = {
   ...baseConfig,
+  name: '@benhigham/eslint-config/testing-library/dom',
   rules: {
     ...eslintPluginTestingLibrary.configs['flat/dom'].rules,
   },
@@ -23,6 +24,7 @@ export const domConfig = {
 /** @type {Linter.Config} */
 export const reactConfig = {
   ...baseConfig,
+  name: '@benhigham/eslint-config/testing-library/react',
   rules: {
     ...eslintPluginTestingLibrary.configs['flat/react'].rules,
   },
