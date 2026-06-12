@@ -1,5 +1,49 @@
 # @benhigham/eslint-config
 
+## 5.0.0
+
+### Major Changes
+
+- [#116](https://github.com/benhigham/javascript/pull/116) [`9421b13`](https://github.com/benhigham/javascript/commit/9421b1310b63ef45f62de19aefe6399932ae2cdb) - Drop the browser-layer floor workarounds now that the toolchain targets a modern browser floor (ADR-0004). The browser-only narrowing of `require-unicode-regexp` to the `u` flag is removed — at the modern floor both `u` and `v` run, so the base's flag-agnostic rule (require `u` or `v`) applies uniformly. `v` is intentionally not forced: it is gated on the consumer's tsconfig `target` (ES2024), which `@benhigham/tsconfig` does not set, so forcing it would require every consumer to set `target: ES2024`. `unicorn/no-array-sort` is re-enabled (its `.toSorted()` autofix is floor-safe and needs only `lib: ES2023`); this surfaces new errors in consumer code.
+
+### Minor Changes
+
+- [#117](https://github.com/benhigham/javascript/pull/117) [`e211dfe`](https://github.com/benhigham/javascript/commit/e211dfee369fddd9fdcd00837ac67422d62517ac) - Lint vitest type-test files (`*.test-d.ts`) in the type-aware layer.
+
+  The vitest layer's `TEST_FILES` globs match `*.{test,spec}.*` and `**/__tests__/**`, but not vitest's `-d` type-test convention — so `*.test-d.ts` files (the home of `expectTypeOf`/`assertType`) never reached the vitest layer, even though `settings.vitest.typecheck: true` exists precisely to make the vitest rules type-test-aware.
+
+  Type-test files are now linted, but **only under the type-aware exports** (`./typescript`, `./browser`, `./react`, `./next`): a new `TYPE_TEST_FILES` glob is governed by a dedicated block that registers the vitest plugin, applies the curated rule set, and rides with `projectService` + `typecheck: true`. This is by construction — the type-requiring vitest rules (e.g. `vitest/valid-title`) and `expect-expect`'s recognition of type assertions only work where `typecheck` and type information exist, so the base (`.`) export deliberately excludes these files (the runtime vitest layer now `ignores` them).
+
+  Two curated rules are turned off for type-test files because they misfire on idiomatic type tests: `vitest/require-hook` (flags a bare top-level `expectTypeOf`/`assertType` as setup that belongs in a hook) and `vitest/padding-around-expect-groups` (treats a type assertion as a runtime expect group). Everything else in the curated set applies.
+
+  This is a minor (not a patch): it adds a new file class to the linted set, so it can surface new lint errors in a consumer's CI. Builds on the `typecheck` relocation from the previous release. See ADR-0005.
+
+- [#128](https://github.com/benhigham/javascript/pull/128) [`90a1890`](https://github.com/benhigham/javascript/commit/90a1890196af15d8a9fc7000fd29805bf6fc8622) - Update `eslint-plugin-unicorn` to v65. The recommended preset gains 28 new rules
+  (`better-dom-traversing`, `consistent-compound-words`, `consistent-json-file-read`,
+  `no-array-fill-with-reference-type`, `no-array-from-fill`, `no-blob-to-file`,
+  `no-canvas-to-image`, `no-confusing-array-splice`, `no-duplicate-set-values`,
+  `no-exports-in-scripts`, `no-incorrect-query-selector`, `no-late-current-target-access`,
+  `no-this-outside-of-class`, `no-unnecessary-nested-ternary`, `no-unused-array-method-return`,
+  `prefer-array-last-methods`, `prefer-get-or-insert-computed`, `prefer-https`,
+  `prefer-includes-over-repeated-comparisons`, `prefer-iterator-to-array-at-end`,
+  `prefer-math-abs`, `prefer-queue-microtask`, `prefer-split-limit`, `prefer-string-match-all`,
+  `prefer-string-pad-start-end`, `prefer-string-repeat`, `require-css-escape`,
+  `require-passive-events`); consumers may see new lint reports on previously-clean code.
+
+  Migration notes for consumers with their own overrides:
+
+  - `unicorn/prefer-dom-node-dataset` was renamed to `unicorn/dom-node-dataset` — rename any
+    override, or ESLint errors on configuring a nonexistent rule.
+  - `unicorn/better-regex` was removed — drop any override that enables it.
+
+### Patch Changes
+
+- [#114](https://github.com/benhigham/javascript/pull/114) [`d774ef1`](https://github.com/benhigham/javascript/commit/d774ef189ab30d77d53a69439cc3b02c075a0850) - Scope the vitest `typecheck` setting to type-aware test files, fixing a hard ESLint crash on non-type-aware test files (surfaced while adding the resolved-config test surface).
+
+  The vitest layer set `settings.vitest.typecheck: true` in the base config, so it applied under every export and on every test file. That setting makes the type-requiring vitest rules (e.g. `vitest/valid-title`) call `getParserServices()`, which **throws** (ESLint exit 2, aborting the whole run) on any file linted without type information — i.e. a JS test file anywhere, or a TS test file under the non-type-aware base (`.`) export, neither of which sets `parserOptions.projectService`.
+
+  The fix relocates `typecheck: true` out of the base vitest layer into the type-aware TypeScript layer, scoped to TS test files (new `TS_TEST_FILES` glob) and co-located with `projectService` — so the setting can only ever land where type information exists. Type-aware consumers (`./typescript`, `./browser`, `./react`, `./next`) keep the feature on their TS tests unchanged; JS test files and the base `.` export no longer crash.
+
 ## 4.3.0
 
 ### Minor Changes
