@@ -29,8 +29,7 @@ import { DEFAULT_FILES } from './file-patterns.js';
  * deep keepers (`import`, `vitest`, `jsdoc`, `jsdoc-required`, `graphql`,
  * `testing-library`) need structure outside this envelope and stay hand-rolled.
  * Environment scoping (`ignores`) is not part of the envelope: where a block
- * applies is an environment assumption owned by the composing layer (ADR-0002;
- * see the `compat` spread in `browser.js`).
+ * applies is an environment assumption owned by the composing layer (ADR-0002).
  * The block carries a flat-config `name` (`@benhigham/eslint-config/<slug>`) so
  * it is addressable in `eslint --inspect-config` and error messages. See
  * ADR-0008, ADR-0009, and #122.

@@ -12,8 +12,17 @@ import { typescriptLayers } from './typescript.js';
 /** @import { Linter } from 'eslint' */
 
 /**
+ * The browser-source side of the environment seam: everything but Node files
+ * (config files, build scripts). All three seam blocks scope through this —
+ * Node files keep their Node rules and lose `compat`; browser source keeps
+ * `compat` and loses the Node rules.
+ * @type {Pick<Linter.Config, 'files' | 'ignores'>}
+ */
+const browserSource = { files: [...DEFAULT_FILES], ignores: [...NODE_FILES] };
+
+/**
  * The browser-environment layers — the single owner of the environment seam
- * (#109): `compat` scoped off Node files, the browser globals, and the
+ * (#109): `compat` scoped to browser source, the browser globals, and the
  * neutralization of Node `n` rules and browser-hostile unicorn rules on
  * browser source (Node files — config and build scripts — keep them).
  * Reused by `./react`.
@@ -22,12 +31,9 @@ import { typescriptLayers } from './typescript.js';
 export const browserEnvLayers = [
   {
     // `compat` belongs to the browser environment, so it is scoped off Node
-    // files (config files, build scripts), where browser-compat checks
-    // false-positive. The inverse half of the seam the neutralize blocks
-    // below complete: Node files keep their Node rules and lose `compat`;
-    // browser source keeps `compat` and loses the Node rules.
+    // files, where browser-compat checks false-positive.
     ...compatConfig,
-    ignores: [...NODE_FILES],
+    ...browserSource,
   },
   {
     name: blockName('browser/globals'),
@@ -52,8 +58,7 @@ export const browserEnvLayers = [
     // browser globals that Node has only added experimentally (`localStorage`,
     // `Storage`, `navigator`) as unsupported Node features. Neutralize them on
     // browser source; Node files (config, build scripts) keep them.
-    files: [...DEFAULT_FILES],
-    ignores: [...NODE_FILES],
+    ...browserSource,
     rules: {
       'n/no-unsupported-features/node-builtins': 'off',
       'n/prefer-global/buffer': 'off',
@@ -72,8 +77,7 @@ export const browserEnvLayers = [
     // guard. `globalThis` is floor-safe (ES2020), so this is an idiom/churn
     // conflict with browser source, not a floor issue. NODE_FILES keep it on
     // (`globalThis` is the correct global there).
-    files: [...DEFAULT_FILES],
-    ignores: [...NODE_FILES],
+    ...browserSource,
     rules: {
       'unicorn/prefer-global-this': 'off',
     },
