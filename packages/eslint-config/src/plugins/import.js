@@ -1,6 +1,7 @@
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import eslintPluginImportX, { createNodeResolver } from 'eslint-plugin-import-x';
 
+import { blockName } from '../lib/block-name.js';
 import {
   DEFAULT_EXTENSIONS,
   DEFAULT_FILES,
@@ -16,6 +17,7 @@ import {
 
 /** @type {Linter.Config} */
 export const jsConfig = {
+  name: blockName('import/js'),
   files: [...JS_FILES],
   plugins: {
     'import-x': eslintPluginImportX,
@@ -141,6 +143,7 @@ export const jsConfig = {
 /** @type {Linter.Config} */
 export const tsConfig = {
   ...jsConfig,
+  name: blockName('import/ts'),
   files: [...DEFAULT_FILES],
   settings: {
     ...jsConfig.settings,

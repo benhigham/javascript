@@ -2,13 +2,16 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import { describe, expect, it } from 'vitest';
 
 import {
+  configBlocksOf,
   defaultConfigOf,
   FIXTURES,
   optionsOf,
   resolveConfig,
   severityOf,
   STANDALONE_EXPORTS,
+  TESTED_EXPORTS,
 } from './helpers.js';
+import { BLOCK_NS } from '../src/lib/block-name.js';
 
 describe('scopeToTs keeps the type-checked global disables off JS files', () => {
   it('disables core no-unused-vars on TS but keeps it on JS, under ./typescript', async () => {
@@ -214,5 +217,38 @@ describe('eslint-config-prettier is applied last to turn formatting rules off', 
 
     expect(config.at(-1)).toBe(eslintConfigPrettier);
     expect(config.filter((layer) => layer === eslintConfigPrettier)).toHaveLength(1);
+  });
+});
+
+const OUR_PREFIX = `${BLOCK_NS}/`;
+
+// Dedupe by identity: a block reused across arrays (graphql's shared
+// `graphql/setup`; a `*Layers` export also spread into its default) is one
+// block, not a collision.
+const distinctBlocksOf = (subpath) => [...new Set(configBlocksOf(subpath))];
+
+describe('every composed block carries a name (#122)', () => {
+  // A block's `name` is tooling-visible (`eslint --inspect-config`, error
+  // messages) but never enters the resolved config — so, like "prettier last"
+  // above, this is asserted structurally on the composed array, not via
+  // calculateConfigForFile.
+  it.each(TESTED_EXPORTS)('leaves no unnamed block in %s', (subpath) => {
+    for (const block of distinctBlocksOf(subpath)) {
+      const label = `block keys: ${Object.keys(block).join(', ')}`;
+
+      expect(typeof block.name, `unnamed ${label}`).toBe('string');
+      expect(block.name.length, `empty name on ${label}`).toBeGreaterThan(0);
+    }
+  });
+
+  it.each(TESTED_EXPORTS)('keeps our block names unique within %s', (subpath) => {
+    // Scoped to our prefix: upstream spreads legitimately repeat a name
+    // (typescript-eslint/base ships in both recommended and stylistic). Two
+    // distinct blocks sharing one of our slugs is the copy-paste bug to catch.
+    const ours = distinctBlocksOf(subpath)
+      .map((block) => block.name)
+      .filter((name) => name?.startsWith(OUR_PREFIX));
+
+    expect(new Set(ours).size).toBe(ours.length);
   });
 });

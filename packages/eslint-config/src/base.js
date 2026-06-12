@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
+import { blockName } from './lib/block-name.js';
 import { JS_FILES } from './lib/file-patterns.js';
 import { unusedVarsOptions } from './lib/tunings.js';
 import dependConfig from './plugins/depend.js';
@@ -27,6 +28,7 @@ import vitestConfig from './plugins/vitest.js';
  */
 const base = [
   {
+    name: blockName('base/ignores'),
     ignores: [
       'build',
       'coverage',
@@ -38,6 +40,9 @@ const base = [
       'pnpm-lock.yaml',
     ],
   },
+  // `@eslint/js`'s recommended preset. Its own `name` (`@eslint/js/recommended`)
+  // rides through the spread, so this block keeps its upstream name rather than
+  // taking one of ours — see ADR-0009 for why upstream presets aren't renamed.
   {
     files: [...JS_FILES],
     ...js.configs.recommended,
@@ -65,6 +70,7 @@ const base = [
   // Applied once here is enough: nothing re-touches core `no-unused-vars` for JS
   // files after the kernel.
   {
+    name: blockName('base/no-unused-vars'),
     files: [...JS_FILES],
     rules: {
       'no-unused-vars': ['error', unusedVarsOptions],

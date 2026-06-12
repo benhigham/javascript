@@ -1,6 +1,7 @@
 import tseslint from 'typescript-eslint';
 
 import base from './base.js';
+import { blockName } from './lib/block-name.js';
 import { composeConfig } from './lib/compose.js';
 import { TS_FILES } from './lib/file-patterns.js';
 import { tsCheckedRules } from './lib/tunings.js';
@@ -40,6 +41,7 @@ export const typescriptLayers = [
   ...scopeToTs(tseslint.configs.recommendedTypeCheckedOnly),
   ...scopeToTs(tseslint.configs.stylisticTypeCheckedOnly),
   {
+    name: blockName('typescript/project-service'),
     files: [...TS_FILES],
     languageOptions: {
       parserOptions: {
@@ -70,6 +72,7 @@ export const typescriptLayers = [
   // composer re-applies in the tail — so the two compose to the full type-aware
   // set with no merged variant. See ADR-0007.
   {
+    name: blockName('tunings/ts-type-aware'),
     files: [...TS_FILES],
     rules: tsCheckedRules,
   },
