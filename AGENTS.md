@@ -33,6 +33,7 @@ pnpm run lint:md                      # markdownlint over all *.md files
 pnpm run lint:md:fix                  # markdownlint auto-fix
 pnpm run lint:actions                 # actionlint over GitHub Actions workflows
 pnpm run test                         # Run package test suites (via Turborepo)
+pnpm run test:affected                # Test only packages affected by changes
 pnpm run format                       # Fix formatting across the repo (root Prettier)
 pnpm run format:check                 # Check formatting across the repo (root Prettier)
 pnpm changeset                        # Create a changeset for versioning
@@ -77,16 +78,16 @@ Uses **ESLint flat config** format (ESLint 10+). Configs compose as arrays via l
 
 The `*TypeCheckedOnly` presets ship "global" blocks that disable corresponding core ESLint rules everywhere. `typescript.js` scopes those blocks to TS files only (via `scopeToTs`), so `.js` files keep their core-rule coverage from `base.js`.
 
-Optional plugins exported separately: `plugins/graphql`, `plugins/playwright`, `plugins/tailwindcss`, `plugins/turbo`.
+Optional plugins exported separately: `plugins/graphql`, `plugins/jsdoc-required`, `plugins/playwright`, `plugins/tailwindcss`, `plugins/turbo`.
 
-Plugin configs live in `src/plugins/` and follow a consistent pattern: import plugin, define config object with files/rules/plugins, export default. File globs and extension lists are centralized in `src/lib/file-patterns.js` (browser globals in `src/lib/browser-globals.js`).
+Entry points pass raw layers to a single composer (`composeConfig` in `src/lib/compose.js`; ADR-0007), which appends the curated tunings and prettier tail exactly once, last — never spread an already-terminated sibling export into another entry point's layers. Plugin configs live in `src/plugins/` and are built with the `definePlugin` helper (`src/lib/define-plugin.js`; ADR-0008), which applies the block-naming convention (ADR-0009). File globs and extension lists are centralized in `src/lib/file-patterns.js` (browser globals in `src/lib/browser-globals.js`).
 
 ### Other Packages
 
 - **prettier-config** — Single quotes, trailing commas everywhere
 - **stylelint-config** — Extends standard-scss + recess-order; plugins for browser compat, performance, strict values, nesting
 - **commitlint-config** — Extends config-conventional; enforces 100-char body line length
-- **tsconfig** — 4 environment×emit primitives over an internal `base` kernel: `node` (the `.` default) and `browser` are libraries (`tsc` emits, `nodenext`); `node-app` and `browser-app` are apps (`noEmit`, bundler resolution). No framework configs — consumers compose a primitive with the framework's own config (see `packages/tsconfig/README.md`; ADR-0001)
+- **tsconfig** — 4 environment×emit primitives composed from internal fragments (`base` + `env-node`/`env-browser` + `emit-library`/`emit-app`): `node` (the `.` default) and `browser` are libraries (`tsc` emits, `nodenext`); `node-app` and `browser-app` are apps (`noEmit`, bundler resolution). No framework configs — consumers compose a primitive with the framework's own config (see `packages/tsconfig/README.md`; ADR-0001)
 - **browserslist-config** — Default (a single rolling, modern query `last 2 years and not dead and fully supports es6-module`, landing at ~Baseline "newly"; see ADR-0004) and Node (maintained versions)
 
 ## CI
