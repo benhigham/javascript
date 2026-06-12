@@ -12,14 +12,23 @@ import { typescriptLayers } from './typescript.js';
 /** @import { Linter } from 'eslint' */
 
 /**
- * The browser-environment layers: `compat`, the browser globals, and the
- * per-environment neutralization of Node `n` rules and browser-hostile unicorn
- * rules on browser source (Node files — config and build scripts — keep them).
- * Reused by `./react`. (#109 will give the neutralization its own internal owner.)
+ * The browser-environment layers — the single owner of the environment seam
+ * (#109): `compat` scoped off Node files, the browser globals, and the
+ * neutralization of Node `n` rules and browser-hostile unicorn rules on
+ * browser source (Node files — config and build scripts — keep them).
+ * Reused by `./react`.
  * @type {Linter.Config[]}
  */
 export const browserEnvLayers = [
-  compatConfig,
+  {
+    // `compat` belongs to the browser environment, so it is scoped off Node
+    // files (config files, build scripts), where browser-compat checks
+    // false-positive. The inverse half of the seam the neutralize blocks
+    // below complete: Node files keep their Node rules and lose `compat`;
+    // browser source keeps `compat` and loses the Node rules.
+    ...compatConfig,
+    ignores: [...NODE_FILES],
+  },
   {
     name: blockName('browser/globals'),
     languageOptions: {

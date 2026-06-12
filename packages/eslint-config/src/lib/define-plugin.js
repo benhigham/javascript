@@ -19,29 +19,30 @@ import { DEFAULT_FILES } from './file-patterns.js';
  * defaults to `DEFAULT_FILES`; an explicit array is used verbatim; `null`
  * omits the `files` key entirely, for consumer-scoped/global plugins.
  * @property {Linter.Config['settings']} [settings] Optional shared settings.
- * @property {string[]} [ignores] Optional file globs to exclude.
  */
 
 /**
  * Build a single-plugin flat-config block — the registration shape shared by the
  * shallow plugin wrappers: register one plugin under `name`, default `files` to
- * `DEFAULT_FILES`, and carry `rules` (plus optional `settings`/`ignores`). A
+ * `DEFAULT_FILES`, and carry `rules` (plus optional `settings`). A
  * wrapper uses this iff it is a single block registering a single plugin; the
  * deep keepers (`import`, `vitest`, `jsdoc`, `jsdoc-required`, `graphql`,
  * `testing-library`) need structure outside this envelope and stay hand-rolled.
+ * Environment scoping (`ignores`) is not part of the envelope: where a block
+ * applies is an environment assumption owned by the composing layer (ADR-0002;
+ * see the `compat` spread in `browser.js`).
  * The block carries a flat-config `name` (`@benhigham/eslint-config/<slug>`) so
  * it is addressable in `eslint --inspect-config` and error messages. See
  * ADR-0008, ADR-0009, and #122.
  * @param {DefinePluginInput} input The block's varying data.
  * @returns {Linter.Config} The flat-config block.
  */
-export const definePlugin = ({ name, slug, plugin, rules, files, settings, ignores }) => ({
+export const definePlugin = ({ name, slug, plugin, rules, files, settings }) => ({
   name: blockName(slug ?? name),
   ...(files !== null && { files: files ?? [...DEFAULT_FILES] }),
   plugins: {
     [name]: plugin,
   },
-  ...(ignores && { ignores }),
   ...(settings && { settings }),
   rules,
 });

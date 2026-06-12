@@ -1,15 +1,14 @@
 import eslintPluginCompat from 'eslint-plugin-compat';
 
 import { definePlugin } from '../lib/define-plugin.js';
-import { NODE_FILES } from '../lib/file-patterns.js';
 
+// `compat` checks browser API availability against browserslist. This wrapper
+// states only what the plugin is; where it applies — scoped off Node files,
+// the inverse half of the environment seam — is authored by the browser layer
+// that owns the environment (`browser.js`, ADR-0002).
 export default definePlugin({
   name: 'compat',
   plugin: eslintPluginCompat,
-  // `compat` checks browser API availability against browserslist — it belongs
-  // to the browser environment, so skip Node-environment files (config files,
-  // build scripts) where browser-compat checks produce false positives.
-  ignores: [...NODE_FILES],
   settings: {
     lintAllEsApis: true,
   },
