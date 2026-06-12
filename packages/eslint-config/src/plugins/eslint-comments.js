@@ -4,7 +4,7 @@ import { definePlugin } from '../lib/define-plugin.js';
 
 export default definePlugin({
   name: '@eslint-community/eslint-comments',
-  purpose: 'eslint-comments',
+  slug: 'eslint-comments',
   plugin: eslintPluginEslintComments,
   rules: {
     ...eslintPluginEslintComments.configs.recommended.rules,

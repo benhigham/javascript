@@ -41,7 +41,7 @@ The rule set (with parser, globals, and settings) ESLint computes for a single f
 _Avoid_: the config (overloaded — say "config arrays" or "config source" for the ingredients), effective config
 
 **Block**:
-A single flat-config object — the atom a _Layer_ is composed of (a layer is one or more blocks), and the unit a flat-config `name` attaches to. A block's `name` is tooling-visible (`eslint --inspect-config`, ESLint's error messages) but never enters the _resolved config_, so it is not part of the consumer-facing surface _Release coverage_ governs.
+A single flat-config object — the atom a _Layer_ is composed of (a layer is one or more blocks), and the unit a flat-config `name` attaches to. A block's `name` is tooling-visible (`eslint --inspect-config`, ESLint's error messages) but never enters the _resolved config_, so it is not part of the consumer-facing surface _Release coverage_ governs. Blocks this package authors are named `@benhigham/eslint-config/<slug>` through the `blockName` helper; upstream presets keep their own upstream names (ADR-0009).
 _Avoid_: config object, layer (reserve for the one-or-more-blocks composable unit — see _Layer_)
 
 **Layer**:

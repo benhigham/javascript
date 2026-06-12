@@ -3,6 +3,7 @@ import globals from 'globals';
 
 import base from './base.js';
 import { browserEnvLayers } from './browser.js';
+import { blockName } from './lib/block-name.js';
 import { composeConfig } from './lib/compose.js';
 import jsxA11yConfig from './plugins/jsx-a11y.js';
 import { reactConfig as testingLibraryConfig } from './plugins/testing-library.js';
@@ -13,6 +14,9 @@ import { typescriptLayers } from './typescript.js';
 /** @type {Linter.Config} */
 const reactConfig = {
   files: ['**/*.{jsx,tsx}'],
+  // `@eslint-react`'s recommended-type-checked preset. Its upstream `name`
+  // (`@eslint-react/recommended-type-checked`) rides through the spread, so this
+  // block keeps its upstream name rather than taking one of ours (ADR-0009).
   ...eslintReact.configs['recommended-type-checked'],
   settings: {
     ...eslintReact.configs['recommended-type-checked'].settings,
@@ -24,7 +28,7 @@ const reactConfig = {
 
 /** @type {Linter.Config} */
 const serviceworkerConfig = {
-  name: '@benhigham/eslint-config/react/serviceworker',
+  name: blockName('react/serviceworker'),
   languageOptions: {
     globals: {
       ...globals.serviceworker,

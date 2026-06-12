@@ -1,5 +1,6 @@
 import eslintPluginVitest from '@vitest/eslint-plugin';
 
+import { blockName } from '../lib/block-name.js';
 import { TEST_FILES, TS_TEST_FILES, TYPE_TEST_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
@@ -126,7 +127,7 @@ const vitestEnv = {
  */
 const config = {
   ...vitestEnv,
-  name: '@benhigham/eslint-config/vitest/runtime',
+  name: blockName('vitest/runtime'),
   files: [...TEST_FILES],
   ignores: [...TYPE_TEST_FILES],
   rules,
@@ -144,7 +145,7 @@ const config = {
  * @type {Linter.Config}
  */
 export const tsConfig = {
-  name: '@benhigham/eslint-config/vitest/typecheck',
+  name: blockName('vitest/typecheck'),
   files: [...TS_TEST_FILES],
   settings: {
     vitest: {
@@ -172,7 +173,7 @@ export const tsConfig = {
  */
 export const tsTypeTestConfig = {
   ...vitestEnv,
-  name: '@benhigham/eslint-config/vitest/type-test',
+  name: blockName('vitest/type-test'),
   files: [...TYPE_TEST_FILES],
   settings: {
     vitest: {

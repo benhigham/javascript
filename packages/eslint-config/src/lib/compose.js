@@ -1,5 +1,6 @@
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
+import { blockName } from './block-name.js';
 import { TS_FILES } from './file-patterns.js';
 import { rules, tsRules } from './tunings.js';
 
@@ -28,8 +29,8 @@ import { rules, tsRules } from './tunings.js';
 export const composeConfig = (layers) => [
   ...layers,
   // Re-apply the curated rules after the layers so our tunings win.
-  { name: '@benhigham/eslint-config/tunings/core', rules },
-  { name: '@benhigham/eslint-config/tunings/ts', files: [...TS_FILES], rules: tsRules },
+  { name: blockName('tunings/core'), rules },
+  { name: blockName('tunings/ts'), files: [...TS_FILES], rules: tsRules },
   // Apply prettier last to disable formatting rules from the preceding presets.
   eslintConfigPrettier,
 ];

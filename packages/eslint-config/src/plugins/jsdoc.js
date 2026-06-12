@@ -1,5 +1,6 @@
 import eslintPluginJsdoc from 'eslint-plugin-jsdoc';
 
+import { blockName } from '../lib/block-name.js';
 import { JS_FILES, TS_FILES } from '../lib/file-patterns.js';
 
 /** @import { Linter } from 'eslint' */
@@ -26,7 +27,7 @@ const baseConfig = {
 
 /** @type {Linter.Config} */
 export const jsConfig = {
-  name: '@benhigham/eslint-config/jsdoc/js',
+  name: blockName('jsdoc/js'),
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
@@ -53,7 +54,7 @@ export const jsConfig = {
 
 /** @type {Linter.Config} */
 export const tsConfig = {
-  name: '@benhigham/eslint-config/jsdoc/ts',
+  name: blockName('jsdoc/ts'),
   files: [...TS_FILES],
   ...baseConfig,
   rules: {

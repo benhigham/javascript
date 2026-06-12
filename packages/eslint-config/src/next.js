@@ -1,5 +1,6 @@
 import base from './base.js';
 import { browserEnvLayers } from './browser.js';
+import { blockName } from './lib/block-name.js';
 import { composeConfig } from './lib/compose.js';
 import nextConfig from './plugins/next.js';
 import { reactLayers } from './react.js';
@@ -13,7 +14,7 @@ import { typescriptLayers } from './typescript.js';
  * @type {Linter.Config[]}
  */
 const config = composeConfig([
-  { name: '@benhigham/eslint-config/next/ignores', ignores: ['.next', '.vercel'] },
+  { name: blockName('next/ignores'), ignores: ['.next', '.vercel'] },
   ...base,
   ...typescriptLayers,
   ...browserEnvLayers,

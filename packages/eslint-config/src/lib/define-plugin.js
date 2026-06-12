@@ -1,3 +1,4 @@
+import { blockName } from './block-name.js';
 import { DEFAULT_FILES } from './file-patterns.js';
 
 /** @import { ESLint, Linter } from 'eslint' */
@@ -7,9 +8,9 @@ import { DEFAULT_FILES } from './file-patterns.js';
  * @property {string} name The plugin's registration key — the namespace it is
  * registered under in `plugins` and that its rules are prefixed with (e.g.
  * `'@next/next'`, `'better-tailwindcss'`, `'@eslint-community/eslint-comments'`).
- * @property {string} [purpose] The block-name slug placed after the
- * `@benhigham/eslint-config/` prefix. Defaults to `name`; pass it only when the
- * registration key makes a noisy slug (`'@next/next'` → `'next'`,
+ * @property {string} [slug] The block-name slug placed after the
+ * `@benhigham/eslint-config/` namespace. Defaults to `name`; pass it only when
+ * the registration key makes a noisy slug (`'@next/next'` → `'next'`,
  * `'@eslint-community/eslint-comments'` → `'eslint-comments'`,
  * `'better-tailwindcss'` → `'tailwindcss'`).
  * @property {ESLint.Plugin} plugin The imported plugin.
@@ -28,14 +29,14 @@ import { DEFAULT_FILES } from './file-patterns.js';
  * wrapper uses this iff it is a single block registering a single plugin; the
  * deep keepers (`import`, `vitest`, `jsdoc`, `jsdoc-required`, `graphql`,
  * `testing-library`) need structure outside this envelope and stay hand-rolled.
- * The block carries a flat-config `name` (`@benhigham/eslint-config/<purpose>`)
- * so it is addressable in `eslint --inspect-config` and error messages. See
- * ADR-0008 and #122.
+ * The block carries a flat-config `name` (`@benhigham/eslint-config/<slug>`) so
+ * it is addressable in `eslint --inspect-config` and error messages. See
+ * ADR-0008, ADR-0009, and #122.
  * @param {DefinePluginInput} input The block's varying data.
  * @returns {Linter.Config} The flat-config block.
  */
-export const definePlugin = ({ name, purpose, plugin, rules, files, settings, ignores }) => ({
-  name: `@benhigham/eslint-config/${purpose ?? name}`,
+export const definePlugin = ({ name, slug, plugin, rules, files, settings, ignores }) => ({
+  name: blockName(slug ?? name),
   ...(files !== null && { files: files ?? [...DEFAULT_FILES] }),
   plugins: {
     [name]: plugin,

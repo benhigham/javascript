@@ -11,6 +11,7 @@ import {
   STANDALONE_EXPORTS,
   TESTED_EXPORTS,
 } from './helpers.js';
+import { BLOCK_NS } from '../src/lib/block-name.js';
 
 describe('scopeToTs keeps the type-checked global disables off JS files', () => {
   it('disables core no-unused-vars on TS but keeps it on JS, under ./typescript', async () => {
@@ -219,7 +220,7 @@ describe('eslint-config-prettier is applied last to turn formatting rules off', 
   });
 });
 
-const OUR_PREFIX = '@benhigham/eslint-config/';
+const OUR_PREFIX = `${BLOCK_NS}/`;
 
 // Dedupe by identity: a block reused across arrays (graphql's shared
 // `graphql/setup`; a `*Layers` export also spread into its default) is one
