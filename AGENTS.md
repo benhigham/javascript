@@ -80,7 +80,7 @@ The `*TypeCheckedOnly` presets ship "global" blocks that disable corresponding c
 
 Optional plugins exported separately: `plugins/graphql`, `plugins/jsdoc-required`, `plugins/playwright`, `plugins/tailwindcss`, `plugins/turbo`.
 
-Entry points pass raw layers to a single composer (`composeConfig` in `src/lib/compose.js`; ADR-0007), which appends the curated tunings and prettier tail exactly once, last — never spread an already-terminated sibling export into another entry point's layers. Plugin configs live in `src/plugins/` and are built with the `definePlugin` helper (`src/lib/define-plugin.js`; ADR-0008), which applies the block-naming convention (ADR-0009). File globs and extension lists are centralized in `src/lib/file-patterns.js` (browser globals in `src/lib/browser-globals.js`).
+Entry points pass raw layers to a single composer (`composeConfig` in `src/lib/compose.js`; ADR-0007), which appends the curated tunings and prettier tail exactly once, last — never spread an already-terminated sibling export into another entry point's layers. Plugin configs live in `src/plugins/`. Wrappers that are a single flat-config block registering a single plugin are built with the `definePlugin` helper (`src/lib/define-plugin.js`; ADR-0008), which applies the block-naming convention (ADR-0009); the structurally irreducible ones (`import`, `vitest`, `jsdoc`, `jsdoc-required`, `graphql`, `testing-library`) are intentionally hand-rolled. File globs and extension lists are centralized in `src/lib/file-patterns.js` (browser globals in `src/lib/browser-globals.js`).
 
 ### Other Packages
 
