@@ -27,6 +27,10 @@ const config = {
 
     // SCSS-specific rules
     'scss/at-rule-no-unknown': true,
+    // Flags a redundant `&` before a combinator (e.g. `& p`). Kept on alongside
+    // `csstools/use-nesting` even though the two don't converge under `--fix` on
+    // descendant nesting — use-nesting emits `& p`, this rule rejects it, and it
+    // has no fixer. Intentional trade-off; don't drop either rule. See ADR-0010.
     'scss/selector-no-redundant-nesting-selector': true,
     'scss/dollar-variable-pattern': '^[a-z][a-zA-Z0-9]+$',
     'scss/at-extend-no-missing-placeholder': true,
@@ -88,6 +92,9 @@ const config = {
     'length-zero-no-unit': true,
     'shorthand-property-no-redundant-values': true,
     'plugin/declaration-block-no-ignored-properties': true,
+    // Autofixes un-nested sibling rules into nested form. For descendant nesting
+    // it emits an explicit `& p`, which `scss/selector-no-redundant-nesting-selector`
+    // then flags — `--fix` deliberately does not converge here (ADR-0010).
     'csstools/use-nesting': 'always',
     'gamut/color-no-out-gamut-range': true,
   },

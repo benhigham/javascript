@@ -36,7 +36,7 @@ const MODERN_CSS = `
   padding-block: 0.5rem;
   text-wrap: balance;
 
-  & .title {
+  .title {
     color: rebeccapurple;
   }
 
@@ -90,5 +90,60 @@ describe('the browser-support gates agree at the modern floor', () => {
     const flagged = new Set(warnings.map((warning) => warning.rule));
 
     expect(flagged).toStrictEqual(GATES);
+  });
+});
+
+// `csstools/use-nesting` and `scss/selector-no-redundant-nesting-selector` are
+// deliberately both enabled even though they don't converge under `--fix` on
+// descendant nesting: use-nesting always emits `& p`, the redundant-`&` rule (which
+// has no fixer) then flags it. This is the accepted trade-off in ADR-0010; the
+// guards below pin it so neither rule is silently dropped to chase convergence.
+const REDUNDANT_NESTING = 'scss/selector-no-redundant-nesting-selector';
+
+/** Lint (optionally autofix) a snippet as SCSS, so the scss rules and override apply. */
+const lintScss = (code, fix = false) =>
+  stylelint.lint({
+    code,
+    config,
+    fix,
+    configBasedir: PKG_ROOT,
+    codeFilename: path.join(PKG_ROOT, 'fixture.scss'),
+  });
+
+const isFlagged = (results, rule) => results[0].warnings.some((warning) => warning.rule === rule);
+
+describe('the nesting rules deliberately do not converge under --fix (ADR-0010)', () => {
+  it('flags a hand-written redundant `&` before a combinator', async () => {
+    const { results } = await lintScss(`
+.a {
+  & p {
+    margin: 0;
+  }
+}
+`);
+
+    expect(isFlagged(results, REDUNDANT_NESTING)).toBe(true);
+  });
+
+  it('use-nesting --fix produces the `& p` form the redundant rule then rejects', async () => {
+    const { code: fixed } = await lintScss(
+      `
+.a {
+  margin: 1rem;
+}
+.a p {
+  margin: 0;
+}
+`,
+      true,
+    );
+
+    // use-nesting nested the descendant rule with an explicit `&` ...
+    expect(fixed).toContain('& p');
+
+    // ... and re-linting the fixed output still flags that `&` — non-convergence.
+    const { results } = await lintScss(fixed);
+
+    expect(isFlagged(results, REDUNDANT_NESTING)).toBe(true);
   });
 });
