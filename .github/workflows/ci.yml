@@ -52,6 +52,12 @@ jobs:
       - name: Review dependencies
         if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          # GHSA-h67p-54hq-rp68 (js-yaml merge-key DoS): the advisory's "<= 4.1.1" range still
+          # flags js-yaml@3.15.0, which actually backports the fix (see pnpm-workspace.yaml
+          # overrides). 4.x isn't reachable here (read-yaml-file needs the removed safeLoad).
+          # Remove once the advisory records a 3.x patched version, or @manypkg drops read-yaml-file.
+          allow-ghsas: GHSA-h67p-54hq-rp68
 
       - name: Lint pushed commit messages
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
