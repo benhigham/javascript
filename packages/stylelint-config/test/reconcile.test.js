@@ -101,11 +101,11 @@ describe('the browser-support gates agree at the modern floor', () => {
 const REDUNDANT_NESTING = 'scss/selector-no-redundant-nesting-selector';
 
 /** Lint (optionally autofix) a snippet as SCSS, so the scss rules and override apply. */
-const lintScss = (code, fix = false) =>
+const lintScss = (code, shouldFix = false) =>
   stylelint.lint({
     code,
     config,
-    fix,
+    fix: shouldFix,
     configBasedir: PKG_ROOT,
     codeFilename: path.join(PKG_ROOT, 'fixture.scss'),
   });
