@@ -1,5 +1,11 @@
 # @benhigham/stylelint-config
 
+## 2.2.1
+
+### Patch Changes
+
+- [#138](https://github.com/benhigham/javascript/pull/138) [`e76b3c2`](https://github.com/benhigham/javascript/commit/e76b3c27d0c19e52aa27983baf960e87b96e0abc) - Fix `stylelint --fix` not converging for stylesheets that use `currentColor`. The inherited `value-keyword-case: lower` fixer rewrites `currentColor` to `currentcolor`, which the case-sensitive `ignoreValues` of `scale-unlimited/declaration-strict-value` no longer matched, leaving a standing error. Both casings are now listed in `ignoreValues`, so a single `--fix` pass reaches a clean, stable state.
+
 ## 2.2.0
 
 ### Minor Changes
