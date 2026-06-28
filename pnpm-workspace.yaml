@@ -28,7 +28,7 @@ catalog:
   '@commitlint/cli': ^21.0.0
   '@commitlint/types': ^21.0.0
   browserslist: ^4.25.3
-  eslint: ^10.0.0
+  eslint: ^10.4.0
   lefthook: ^2.1.4
   markdownlint-cli2: ^0.22.1
   prettier: ^3.8.1
