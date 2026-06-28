@@ -49,7 +49,7 @@ catalogs:
 overrides:
   markdownlint-cli2>js-yaml: ^4.2.0
   markdownlint-cli2>markdown-it: ^14.2.0
-  read-yaml-file>js-yaml: ^3.15.0
+  read-yaml-file@1>js-yaml: ^3.15.0
 
 importers:
 
