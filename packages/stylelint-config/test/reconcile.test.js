@@ -147,3 +147,32 @@ describe('the nesting rules deliberately do not converge under --fix (ADR-0010)'
     expect(isFlagged(results, REDUNDANT_NESTING)).toBe(true);
   });
 });
+
+describe('declaration-strict-value tolerates currentColor across the casing fixer (#133)', () => {
+  it('converges: a single --fix pass is clean and the fixed output stays clean', async () => {
+    const { results, code: fixed } = await lintScss(
+      `
+.dot {
+  background-color: currentColor;
+}
+`,
+      true,
+    );
+
+    // Both casings are ignored, so `scale-unlimited/declaration-strict-value`
+    // flags neither the authored `currentColor` nor the lowercased form the
+    // inherited `value-keyword-case: lower` fixer produces — the single --fix
+    // pass already reaches a clean state.
+    expect(results[0].warnings).toStrictEqual([]);
+
+    // The casing fixer canonicalized the keyword ...
+    expect(fixed).toContain('currentcolor');
+
+    // ... and the fixed output is stable: re-linting it finds nothing. (Under the
+    // pre-fix config — `currentColor` only — this re-lint flagged the lowercased
+    // `currentcolor`, the #133 non-convergence this guards against.)
+    const { results: reResults } = await lintScss(fixed);
+
+    expect(reResults[0].warnings).toStrictEqual([]);
+  });
+});

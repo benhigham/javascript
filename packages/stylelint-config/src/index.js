@@ -46,7 +46,12 @@ const config = {
     'color-named': 'never',
     'scale-unlimited/declaration-strict-value': [
       ['/color$/', 'font-size', 'z-index'],
-      { ignoreValues: ['currentColor', 'inherit', 'transparent'] },
+      // List both casings of `currentColor`: this rule's `ignoreValues` match is
+      // case-sensitive, and the inherited `value-keyword-case: lower` fixer rewrites
+      // `currentColor` → `currentcolor`. The uppercase entry covers the value as
+      // authored (and as seen pre-fix in the same `--fix` pass); the lowercase entry
+      // covers the canonicalized form. Without both, `--fix` can't converge (#133).
+      { ignoreValues: ['currentColor', 'currentcolor', 'inherit', 'transparent'] },
     ],
     'declaration-property-unit-allowed-list': {
       'font-size': ['em', 'rem', '%'],
