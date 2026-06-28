@@ -5,6 +5,15 @@ allowBuilds:
   lefthook: true
   unrs-resolver: true
 
+overrides:
+  # Security pins for vulnerable transitive deps of markdownlint-cli2@0.22.1 (latest, which
+  # still pins the vulnerable versions). Both are quadratic-complexity DoS, dev-only scope.
+  # js-yaml 4.1.1 -> GHSA-h67p-54hq-rp68; markdown-it 14.1.1 -> GHSA-6v5v-wf23-fmfq.
+  # Scoped to markdownlint-cli2's subtree so changesets' js-yaml@3.x stays untouched.
+  # Remove once markdownlint-cli2 bumps its pins.
+  markdownlint-cli2>js-yaml: ^4.2.0
+  markdownlint-cli2>markdown-it: ^14.2.0
+
 catalog:
   '@changesets/changelog-github': ^0.7.0
   '@changesets/cli': ^2.30.0
