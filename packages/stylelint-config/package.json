@@ -1,6 +1,6 @@
 {
   "name": "@benhigham/stylelint-config",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Shareable Stylelint configuration",
   "type": "module",
   "exports": "./src/index.js",
