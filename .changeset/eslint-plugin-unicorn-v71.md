@@ -2,8 +2,8 @@
 '@benhigham/eslint-config': major
 ---
 
-Update `eslint-plugin-unicorn` to v69. The `recommended` preset gains 141 new
-rules (v66–v69), which may surface new errors in a consumer's CI.
+Update `eslint-plugin-unicorn` to v71. The `recommended` preset gains 151 new
+rules (v66–v71), which may surface new errors in a consumer's CI.
 
 - **Requires ESLint >= 10.4** (raised from `>=10.0.0`) and Node.js >= 22.
 - `unicorn/prevent-abbreviations` was renamed to `unicorn/name-replacements`, and
