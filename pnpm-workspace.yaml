@@ -21,6 +21,15 @@ overrides:
   # subtree. Dependabot keeps the alert open because its range still covers 3.x, so alert #20 is
   # dismissed as inaccurate. Remove once @manypkg/get-packages moves off read-yaml-file@1.x.
   read-yaml-file@1>js-yaml: ^3.15.0
+  #
+  # Several bundled ESLint plugins (@eslint-react/*, eslint-plugin-react-*) declare an unbounded
+  # `typescript` peer, so lock-file maintenance resolves it to the newest major (currently 7.x).
+  # eslint-config has no direct `typescript` dep to anchor the peer, so pnpm reuses that node
+  # across the whole subtree -- including @typescript-eslint/typescript-estree, whose upstream
+  # peer range excludes TS7. It then crashes on the changed TS7 API ("Cannot read properties of
+  # undefined (reading 'Cjs')"), breaking `eslint .` in every package. Cap the dev tree to v6
+  # (matching the catalog) until typescript-eslint supports TS7. Remove once it does.
+  typescript: ^6.0.0
 
 catalog:
   '@changesets/changelog-github': ^0.7.0
