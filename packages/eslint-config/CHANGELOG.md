@@ -1,5 +1,23 @@
 # @benhigham/eslint-config
 
+## 6.0.0
+
+### Major Changes
+
+- [#149](https://github.com/benhigham/javascript/pull/149) [`fd7f95f`](https://github.com/benhigham/javascript/commit/fd7f95f8614fc2d5ace19765999dbb79c0147878) - Update `eslint-plugin-unicorn` to v71. The `recommended` preset gains 151 new
+  rules (v66–v71), which may surface new errors in a consumer's CI.
+
+  - **Requires ESLint >= 10.4** (raised from `>=10.0.0`) and Node.js >= 22.
+  - `unicorn/prevent-abbreviations` was renamed to `unicorn/name-replacements`, and
+    `unicorn/no-array-for-each` to `unicorn/no-for-each` — rename any override of the
+    old keys. The old names linger as deprecated aliases, so a stale override silently
+    stops working and the rule re-activates as errors.
+  - `unicorn/no-hex-escape` was removed (use `unicorn/prefer-unicode-code-point-escapes`).
+
+### Patch Changes
+
+- [#147](https://github.com/benhigham/javascript/pull/147) [`d6e5116`](https://github.com/benhigham/javascript/commit/d6e511639570975a3d7cd66e33535f4e5e94eb00) - Relax `sonarjs/no-floating-point-equality` in test files. The rule flags any float-sensitive operand in an `expect().toBe()/toEqual()` (or a raw `===`), including a correct exact-literal fixture like `toBe(0.6)`, and it has no option to allow exact literals. In test code a genuinely-wrong float assertion fails loudly when the suite runs, so the rule's silent-drift value — the reason it earns its keep in source — is low there. It stays on for source files; suites that want the guard can re-enable it locally and reach for `toBeCloseTo`.
+
 ## 5.0.0
 
 ### Major Changes
