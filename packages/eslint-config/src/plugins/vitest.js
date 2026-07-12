@@ -97,6 +97,16 @@ const rules = {
   // (`toBe(undefined)`, `mockReturnValue(undefined)`). The `unicorn` plugin is
   // already registered for these files by `unicorn.js`.
   'unicorn/no-useless-undefined': 'off',
+
+  // Also not a vitest rule, relaxed here for the same reason:
+  // `sonarjs/no-floating-point-equality` flags any float-sensitive operand in an
+  // `expect().toBe()/toEqual()` (or a raw `===`), including a correct exact-literal
+  // fixture like `toBe(0.6)`. The rule has no option to allow exact literals, and a
+  // genuinely-wrong float assertion fails loudly when the test runs — so its
+  // silent-drift value, the reason it earns its keep in source, is low here.
+  // Numeric or Node-library suites can re-enable it and reach for `toBeCloseTo`.
+  // The `sonarjs` plugin is already registered for these files by `base.js`.
+  'sonarjs/no-floating-point-equality': 'off',
 };
 
 /**

@@ -74,6 +74,24 @@ describe('the shipped vitest layer composes in, scoped to test files', () => {
   });
 });
 
+describe('the vitest layer relaxes sonarjs/no-floating-point-equality on test files', () => {
+  // Not a vitest rule, but the vitest layer turns it off on test files: it flags
+  // correct exact-literal assertions like `expect(x).toBe(0.6)`, has no option to
+  // allow them, and a wrong float assertion fails loudly at runtime anyway. The
+  // rule is AST-only (registered in base for all files), so it fires on JS test
+  // files too — the relaxation must reach both. Source files keep it, where its
+  // silent-drift catch earns its keep.
+  it('turns it off on TS and JS test files but keeps it on source, under base (.)', async () => {
+    const test = await resolveConfig('.', FIXTURES.test);
+    const testJs = await resolveConfig('.', FIXTURES.testJs);
+    const source = await resolveConfig('.', FIXTURES.ts);
+
+    expect(severityOf(test, 'sonarjs/no-floating-point-equality')).toBe('off');
+    expect(severityOf(testJs, 'sonarjs/no-floating-point-equality')).toBe('off');
+    expect(severityOf(source, 'sonarjs/no-floating-point-equality')).toBe('error');
+  });
+});
+
 describe('vitest typecheck rides with projectService — TS test files only', () => {
   // The setting makes type-aware vitest rules (e.g. vitest/valid-title) consult
   // parser type services, which only exist where projectService is set. It must
