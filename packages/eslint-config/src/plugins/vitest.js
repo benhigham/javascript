@@ -107,6 +107,19 @@ const rules = {
   // Numeric or Node-library suites can re-enable it and reach for `toBeCloseTo`.
   // The `sonarjs` plugin is already registered for these files by `base.js`.
   'sonarjs/no-floating-point-equality': 'off',
+
+  // Two more unicorn rules (recommended `error` since v71, no options), relaxed
+  // here for the same "fires in test files" reason. The `unicorn` plugin is
+  // already registered for these files by `unicorn.js`.
+  // - `no-top-level-assignment-in-function`: module-scope capture assigned in a
+  //   `beforeEach` / stubbed-class constructor / `vi.mock` factory is idiomatic
+  //   test setup, not the action-at-a-distance the rule guards against in source.
+  // - `no-global-object-property-assignment`: stubbing a browser global
+  //   (`window.scrollBy = spy`) is a common, deliberate test-setup shortcut.
+  // A genuinely-wrong stub fails loudly when the suite runs; suites wanting the
+  // guard can re-enable it locally.
+  'unicorn/no-top-level-assignment-in-function': 'off',
+  'unicorn/no-global-object-property-assignment': 'off',
 };
 
 /**

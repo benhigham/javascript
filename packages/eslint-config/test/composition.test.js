@@ -92,6 +92,32 @@ describe('the vitest layer relaxes sonarjs/no-floating-point-equality on test fi
   });
 });
 
+describe('the vitest layer relaxes two unicorn v71 test-setup rules on test files', () => {
+  // Not vitest rules, but the vitest layer turns them off on test files. Both are
+  // recommended `error` in unicorn v71 and expose no options, so `off` scoped to
+  // test files is the only lever. `no-top-level-assignment-in-function` flags the
+  // idiomatic module-scope capture assigned in `beforeEach` / a stubbed-class
+  // constructor / a `vi.mock` factory; `no-global-object-property-assignment`
+  // flags stubbing a browser global (`window.scrollBy = spy`). Both are AST-only
+  // and registered in the base layer for all files, so they fire on JS test files
+  // too — the relaxation must reach both. Source files keep them at `error`.
+  it.each([
+    'unicorn/no-top-level-assignment-in-function',
+    'unicorn/no-global-object-property-assignment',
+  ])(
+    'turns %s off on TS and JS test files but keeps it on source, under base (.)',
+    async (rule) => {
+      const test = await resolveConfig('.', FIXTURES.test);
+      const testJs = await resolveConfig('.', FIXTURES.testJs);
+      const source = await resolveConfig('.', FIXTURES.ts);
+
+      expect(severityOf(test, rule)).toBe('off');
+      expect(severityOf(testJs, rule)).toBe('off');
+      expect(severityOf(source, rule)).toBe('error');
+    },
+  );
+});
+
 describe('vitest typecheck rides with projectService — TS test files only', () => {
   // The setting makes type-aware vitest rules (e.g. vitest/valid-title) consult
   // parser type services, which only exist where projectService is set. It must
