@@ -9,6 +9,9 @@ catalogs:
     '@changesets/changelog-github':
       specifier: ^0.7.0
       version: 0.7.0
+    '@changesets/cli':
+      specifier: ^2.30.0
+      version: 2.31.1
     '@commitlint/cli':
       specifier: ^21.0.0
       version: 21.2.1
@@ -24,12 +27,18 @@ catalogs:
     lefthook:
       specifier: ^2.1.4
       version: 2.1.10
+    markdownlint-cli2:
+      specifier: ^0.23.0
+      version: 0.23.1
     prettier:
       specifier: ^3.8.1
       version: 3.9.5
     stylelint:
       specifier: ^17.4.0
       version: 17.14.0
+    turbo:
+      specifier: ^2.8.17
+      version: 2.10.5
     vitest:
       specifier: ^4.1.8
       version: 4.1.10
