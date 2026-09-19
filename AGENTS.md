@@ -92,4 +92,4 @@ Entry points pass raw layers to a single composer (`composeConfig` in `src/lib/c
 
 ## CI
 
-The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint, test, lint markdown, lint GitHub Actions. The **Release** workflow triggers after CI succeeds on `main` and uses a reusable Changesets release workflow.
+The **CI** workflow runs on push to `main`, on PRs, and on manual dispatch: dependency review (PRs only), commitlint on commit range, format check, lint, test, lint markdown, lint GitHub Actions. The **Release** workflow triggers after CI succeeds on `main` and runs the `changesets/action` sub-actions as separate least-privilege jobs (select-mode → version, or pack → publish); only the publish job gets `id-token: write` for npm Trusted Publishing, which is bound to the `release.yml` filename. CI never runs Changesets, so run `pnpm changeset status` locally when touching its dependency tree.
