@@ -235,6 +235,25 @@ describe('curated tunings win over the presets they layer on top of', () => {
       default: 'array-simple',
     });
   });
+
+  it('keeps unicorn rules whose remedy lands above the runtime floor off', async () => {
+    for (const entry of ['.', './browser']) {
+      const config = await resolveConfig(entry, FIXTURES.ts);
+
+      expect(severityOf(config, 'unicorn/prefer-dom-node-html-methods')).toBe('off');
+      expect(severityOf(config, 'unicorn/prefer-iterator-zip')).toBe('off');
+    }
+  });
+
+  it('leaves one-line JSDoc/TSDoc blocks alone on JS and TS files', async () => {
+    for (const entry of ['.', './browser']) {
+      for (const file of [FIXTURES.js, FIXTURES.ts]) {
+        const config = await resolveConfig(entry, file);
+
+        expect(severityOf(config, 'unicorn/single-line-block-comment-style')).toBe('off');
+      }
+    }
+  });
 });
 
 describe('eslint-config-prettier is applied last to turn formatting rules off', () => {

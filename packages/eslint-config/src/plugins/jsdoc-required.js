@@ -1,4 +1,4 @@
-import eslintPluginJsdoc from 'eslint-plugin-jsdoc';
+import eslintPluginJsdoc, { configs } from 'eslint-plugin-jsdoc';
 
 import { blockName } from '../lib/block-name.js';
 import { JS_FILES, TS_FILES } from '../lib/file-patterns.js';
@@ -24,7 +24,7 @@ export const jsConfig = {
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs['flat/requirements-typescript-flavor-error'].rules,
+    ...configs['flat/requirements-typescript-flavor-error'].rules,
   },
 };
 
@@ -34,7 +34,7 @@ export const tsConfig = {
   files: [...TS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs['flat/requirements-typescript-error'].rules,
+    ...configs['flat/requirements-typescript-error'].rules,
   },
 };
 

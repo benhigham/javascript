@@ -4,7 +4,7 @@
 
 Update `eslint-plugin-unicorn` to v72. The `recommended` preset gains six new
 error-level rules, which may surface new errors in a consumer's CI. The ESLint
-(`>=10.4`) and Node.js (`>=22`) floors are unchanged.
+(`>=10.4`) floor is unchanged.
 
 - `unicorn/no-multiple-promise-resolver-calls`
 - `unicorn/no-shorthand-property-overrides`

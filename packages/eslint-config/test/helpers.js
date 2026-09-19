@@ -131,11 +131,7 @@ const SEVERITY = ['off', 'warn', 'error'];
 export const severityOf = (config, ruleId) => {
   const entry = config.rules?.[ruleId];
 
-  if (entry === undefined) {
-    return 'absent';
-  }
-
-  return SEVERITY[entry[0]] ?? String(entry[0]);
+  return entry === undefined ? 'absent' : (SEVERITY[entry[0]] ?? String(entry[0]));
 };
 
 /**

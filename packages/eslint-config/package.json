@@ -19,7 +19,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=22.13.0"
+    "node": "^22.22.2 || >=24.15.0"
   },
   "keywords": [
     "check",
@@ -70,7 +70,7 @@
     "eslint-plugin-compat": "^7.0.1",
     "eslint-plugin-depend": "^1.2.0",
     "eslint-plugin-import-x": "^4.16.1",
-    "eslint-plugin-jsdoc": "^63.0.0",
+    "eslint-plugin-jsdoc": "^64.0.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-n": "^18.0.0",
     "eslint-plugin-no-secrets": "^2.2.1",
@@ -81,7 +81,7 @@
     "eslint-plugin-sonarjs": "^4.0.0",
     "eslint-plugin-testing-library": "^7.6.6",
     "eslint-plugin-turbo": "^2.5.6",
-    "eslint-plugin-unicorn": "^72.0.0",
+    "eslint-plugin-unicorn": "^75.0.0",
     "globals": "^17.4.0",
     "typescript-eslint": "^8.59.4"
   },
