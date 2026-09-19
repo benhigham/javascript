@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", "group:allNonMajor", "schedule:earlyMondays"],
+  "extends": [
+    "config:best-practices",
+    "group:allNonMajor",
+    "group:allDigest",
+    "schedule:earlyMondays"
+  ],
   "major": { "dependencyDashboardApproval": true },
   "timezone": "Australia/Sydney"
 }
