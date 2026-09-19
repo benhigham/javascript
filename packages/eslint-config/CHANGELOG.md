@@ -1,5 +1,69 @@
 # @benhigham/eslint-config
 
+## 7.0.0
+
+### Major Changes
+
+- [#171](https://github.com/benhigham/javascript/pull/171) [`770ef4f`](https://github.com/benhigham/javascript/commit/770ef4f4f277d5a193c1f7eb08ba48e38cbc635f) - Update `eslint-plugin-jsdoc` to v64 and raise the Node.js floor to
+  `^22.22.2 || >=24.15.0` (from `>=22.13.0`), which v64 requires. Upgrade Node.js
+  if you're on an older 22.x or 24.x release. The ESLint (`>=10.4`) floor is
+  unchanged.
+
+  v64 ships as ESM only. The JSDoc rules this config enables are unchanged.
+
+- [#159](https://github.com/benhigham/javascript/pull/159) [`7a4d38a`](https://github.com/benhigham/javascript/commit/7a4d38a258454f47e3b83b84fa191d3b4a9daf24) - Update `eslint-plugin-unicorn` to v72. The `recommended` preset gains six new
+  error-level rules, which may surface new errors in a consumer's CI. The ESLint
+  (`>=10.4`) floor is unchanged.
+
+  - `unicorn/no-multiple-promise-resolver-calls`
+  - `unicorn/no-shorthand-property-overrides`
+  - `unicorn/no-transition-all`
+  - `unicorn/no-unnecessary-string-trim` (autofixable)
+  - `unicorn/no-useless-re-export`
+  - `unicorn/prefer-then-catch` — note that `.then(onFulfilled, onRejected)` and
+    `.then(onFulfilled).catch(onRejected)` are not equivalent; the chained form
+    also catches what `onFulfilled` throws. The rule reports a suggestion rather
+    than an autofix, so review each one.
+
+  A seventh, `unicorn/prefer-dom-node-html-methods`, was promoted into the preset
+  upstream but is disabled here. Its read side is an autofix that matches the
+  `innerHTML` property name alone — no type information — so any non-DOM object
+  carrying an `innerHTML` key is rewritten to `.getHTML()` and throws at runtime.
+  `Element#getHTML()` is also Chrome 125 / Firefox 128 / Safari 18, so the fix can
+  land below a consumer's browser floor. Re-enable it locally if you want it.
+
+  `unicorn/prefer-minimal-ternary` renamed its `checkVaryingCallee` option to
+  `checkVaryingBase` — rename any override of the old key, which now fails schema
+  validation.
+
+- [#171](https://github.com/benhigham/javascript/pull/171) [`770ef4f`](https://github.com/benhigham/javascript/commit/770ef4f4f277d5a193c1f7eb08ba48e38cbc635f) - Update `eslint-plugin-unicorn` to v75. The `recommended` preset gains eight new
+  error-level rules, which may surface new errors in a consumer's CI.
+
+  - `unicorn/no-async-iterator-callback`
+  - `unicorn/no-unsafe-sqlite-interpolation`
+  - `unicorn/no-unused-builtin-method-return` — replaces the deprecated
+    `unicorn/no-unused-array-method-return`, which leaves the preset; move any
+    override of the old rule to the new one
+  - `unicorn/no-unused-iterator-helper`
+  - `unicorn/no-useless-set-construction` (autofixable)
+  - `unicorn/no-using-resource-escape`
+  - `unicorn/prefer-combined-guards` (autofixable)
+  - `unicorn/prefer-temporal-conversion` (autofixable) — fires only on code that
+    already uses Temporal
+
+  `unicorn/prefer-ternary` also now flags an `if` with an early `return` followed
+  by a `return`, and autofixes it into a single ternary `return`.
+
+  Two more rules were promoted into the preset upstream but are disabled here.
+  Re-enable either locally if you want it.
+
+  - `unicorn/prefer-iterator-zip` — its only remedy is `Iterator.zip()`, which is
+    in Chrome 153 / Firefox 148 but not Safari or any Node release, so satisfying
+    it lands code above every consumer's runtime floor.
+  - `unicorn/single-line-block-comment-style` — it expands every standalone
+    one-line block comment, including `/** @type {X} */` and other one-line
+    JSDoc/TSDoc, into a three-line block. That's a style call, not a defect.
+
 ## 6.0.1
 
 ### Patch Changes
