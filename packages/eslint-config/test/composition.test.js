@@ -235,6 +235,15 @@ describe('curated tunings win over the presets they layer on top of', () => {
       default: 'array-simple',
     });
   });
+
+  it('keeps unicorn rules whose remedy lands above the runtime floor off', async () => {
+    for (const entry of ['.', './browser']) {
+      const config = await resolveConfig(entry, FIXTURES.ts);
+
+      expect(severityOf(config, 'unicorn/prefer-dom-node-html-methods')).toBe('off');
+      expect(severityOf(config, 'unicorn/prefer-iterator-zip')).toBe('off');
+    }
+  });
 });
 
 describe('eslint-config-prettier is applied last to turn formatting rules off', () => {

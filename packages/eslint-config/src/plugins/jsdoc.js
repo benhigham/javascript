@@ -1,4 +1,4 @@
-import eslintPluginJsdoc from 'eslint-plugin-jsdoc';
+import eslintPluginJsdoc, { configs } from 'eslint-plugin-jsdoc';
 
 import { blockName } from '../lib/block-name.js';
 import { JS_FILES, TS_FILES } from '../lib/file-patterns.js';
@@ -31,9 +31,9 @@ export const jsConfig = {
   files: [...JS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs['flat/contents-typescript-flavor-error'].rules,
-    ...eslintPluginJsdoc.configs['flat/logical-typescript-flavor-error'].rules,
-    ...eslintPluginJsdoc.configs['flat/stylistic-typescript-flavor-error'].rules,
+    ...configs['flat/contents-typescript-flavor-error'].rules,
+    ...configs['flat/logical-typescript-flavor-error'].rules,
+    ...configs['flat/stylistic-typescript-flavor-error'].rules,
     // JS files use JSDoc as their type source. The `logical` category enables
     // `no-types` and `no-undefined-types`; the `recommended-typescript-flavor`
     // bundle disables both. Restore that: permit inline types (else the split
@@ -58,9 +58,9 @@ export const tsConfig = {
   files: [...TS_FILES],
   ...baseConfig,
   rules: {
-    ...eslintPluginJsdoc.configs['flat/contents-typescript-error'].rules,
-    ...eslintPluginJsdoc.configs['flat/logical-typescript-error'].rules,
-    ...eslintPluginJsdoc.configs['flat/stylistic-typescript-error'].rules,
+    ...configs['flat/contents-typescript-error'].rules,
+    ...configs['flat/logical-typescript-error'].rules,
+    ...configs['flat/stylistic-typescript-error'].rules,
     // Match the `recommended-typescript` bundle's tunings that the `logical`
     // category drops: TS itself validates type references, so the JSDoc
     // `no-undefined-types` check is redundant and false-positive-prone, and
