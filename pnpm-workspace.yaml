@@ -12,16 +12,6 @@ overrides:
   # Remove once markdownlint-cli2 bumps its pin.
   markdownlint-cli2>smol-toml: ^1.7.1
   #
-  # changesets -> read-yaml-file@1.1.0 pulls js-yaml@3.x, covered by GHSA-h67p-54hq-rp68,
-  # GHSA-5p4m-2wfm-xmqj and GHSA-2883-xcg3-v3hh. 3.15.2 backports all three fixes and keeps
-  # safeLoad(), which read-yaml-file@1.x needs -- it was removed in v4, so we can't go to 4.x on
-  # this path.
-  # The @1 scope is deliberate: read-yaml-file v2.0.1+ moves to js-yaml 4.x (non-vulnerable), so
-  # pinning by parent major lets this override self-expire rather than forcing 3.x onto a 4.x
-  # subtree. Dependabot keeps the alert open because its range still covers 3.x, so alert #20 is
-  # dismissed as inaccurate. Remove once @manypkg/get-packages moves off read-yaml-file@1.x.
-  read-yaml-file@1>js-yaml: ^3.15.2
-  #
   # Several bundled ESLint plugins (@eslint-react/*, eslint-plugin-react-*) declare an unbounded
   # `typescript` peer, so lock-file maintenance resolves it to the newest major (currently 7.x).
   # eslint-config has no direct `typescript` dep to anchor the peer, so pnpm reuses that node
@@ -32,8 +22,8 @@ overrides:
   typescript: ^6.0.0
 
 catalog:
-  '@changesets/changelog-github': ^0.7.0
-  '@changesets/cli': ^2.30.0
+  '@changesets/changelog-github': ^1.0.0
+  '@changesets/cli': ^3.0.0
   '@commitlint/cli': ^21.0.0
   '@commitlint/types': ^21.0.0
   browserslist: ^4.25.3
